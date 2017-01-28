@@ -5,7 +5,7 @@ ifdef class
 	# 'make test class=BufferTests' lets you test a specific class
 	ARGS="-only-testing:BitBarTests/$(class)"
 endif
-BUILD_ATTR := xcodebuild -workspace $(APP)/$(PROJECT_NAME).xcworkspace -scheme
+BUILD_ATTR := xcodebuild -workspace $(APP)/$(PROJECT_NAME).xcworkspace DEVELOPMENT_TEAM=8Z44P9V4VF -scheme
 CONFIG := Debug
 BUILD := $(BUILD_ATTR) $(PROJECT_NAME)
 TEST := $(BUILD_ATTR) BitBarTests $(ARGS) test
@@ -32,8 +32,6 @@ kill:
 open:
 	@echo "[Task] Opening $(BUNDLE) build from $(CONFIG)..."
 	@open $(APP)/.build/$(PROJECT_NAME)/Build/Products/$(CONFIG)/$(BUNDLE)
-release: deps clean build kill open
-	@echo "[Task] Completed building $(BUNDLE)"
 test:
 	@echo "[Task] Running test suite..."
 	@$(TEST) | xcpretty -c
