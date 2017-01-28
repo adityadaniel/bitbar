@@ -1,4 +1,5 @@
 APP := App
+DIST := "$(PWD)/Dist/BitBar.xcarchive/Products/Applications"
 PROJECT_NAME ?= BitBar
 ifdef class
 	# 'make test class=BufferTests' lets you test a specific class
@@ -15,13 +16,14 @@ build:
 	@echo "[Task] Building $(PROJECT_NAME), this might take a while..."
 	@$(BUILD) | xcpretty
 archive:
+	@echo "[Task] Building app for deployment..."
 	@mkdir -p Dist
 	@$(BUILD_ATTR) BitBar -archivePath Dist/BitBar archive | xcpretty
 	@echo "[Task] Completed building"
 clean:
 	@echo "[Task] Cleaning up..."
 	@$(BUILD) clean | xcpretty
-deps:
+install:
 	@echo "[Task] Installing dependencies..."
 	@pod install --project-directory=$(APP) --repo-update
 kill:
@@ -40,13 +42,12 @@ ci:
 watch:
 	@echo "[Task] Watching for file changes..."
 	@find . -name "*.swift" | entr -rp make test
-setup:
-	@echo "[Task] Installing deps..."
-	@gem install cocoapods
-	@gem install xcpretty
+init:
+	@echo "[Task] Installing dependencies..."
+	@gem install cocoapods xcpretty --no-ri --no-rdoc
 	@brew install swiftlint
 	@brew install entr
-	@pod install
+setup: init install
 lint:
 	@echo "[Task] Linting swift files..."
 	@swiftlint
@@ -64,3 +65,8 @@ doc:
 		--module BitBar \
 		--output Docs \
 		--min-acl private
+compress:
+	@echo "[Task] Compressing application..."
+	@ditto -c -k --sequesterRsrc --keepParent "$(DIST)/BitBar.app" "BitBar-$(version).zip"
+	@echo "[Task] File has been compressed to BitBar-$(version).zip"
+release: archive compress

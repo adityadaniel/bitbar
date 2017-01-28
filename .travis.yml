@@ -3,17 +3,16 @@ osx_image: xcode7.3
 xcode_workspace: App/BitBar.xcworkspace
 xcode_scheme: BitBar
 xcode_sdk: macosx10.11
-before_install:
-  - gem install cocoapods xcpretty --no-ri --no-rdoc
-install:
-  - make deps
+  - make setup
 script:
   - make ci
+before_deploy:
+  - make release version=$TRAVIS_TAG
 deploy:
   provider: releases
-  api_key: "GITHUB OAUTH TOKEN"
-  file: "FILE TO UPLOAD"
-  skip_cleanup: true
+  api_key:
+    secure: $API_KEY
+  file: "BitBar-$TRAVIS_TAG.zip"
   on:
-    tags: true
-    master: true
+    repo: oleander/bitbar
+
