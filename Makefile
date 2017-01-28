@@ -45,8 +45,8 @@ watch:
 init:
 	@echo "[Task] Installing dependencies..."
 	@gem install cocoapods xcpretty --no-ri --no-rdoc
-	@brew install swiftlint
-	@brew install entr
+	# @brew install swiftlint
+	# @brew install entr
 setup: init install
 lint:
 	@echo "[Task] Linting swift files..."
