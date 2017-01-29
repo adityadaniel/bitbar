@@ -1,6 +1,6 @@
 APP := App
 DIST := "$(PWD)/Dist/BitBar.xcarchive/Products/Applications"
-CERT := key.p12
+CERT := bitbar.p12
 KEYCHAIN := build.chain
 
 PROJECT_NAME ?= BitBar
