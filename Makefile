@@ -46,8 +46,6 @@ watch:
 init:
 	@echo "[Task] Installing dependencies..."
 	@gem install cocoapods xcpretty --no-ri --no-rdoc
-	# @brew install swiftlint
-	# @brew install entr
 setup: init install
 	@security create-keychain -p travis $(KEYCHAIN)
 	@security default-keychain -s $(KEYCHAIN)
@@ -60,17 +58,6 @@ lint:
 fix:
 	@echo "[Task] Fixing linting errors..."
 	@swiftlint autocorrect
-doc:
-	echo "[Task] Generating documentation..."
-	@jazzy \
-		--clean \
-		--author BitBar \
-		--author_url https://getbitbar.com/ \
-		--github_url https://github.com/matryer/bitbar \
-		--xcodebuild-arguments -workspace,App/BitBar.xcworkspace,-scheme,BitBar \
-		--module BitBar \
-		--output Docs \
-		--min-acl private
 compress:
 	@echo "[Task] Compressing application..."
 	@ditto -c -k --sequesterRsrc --keepParent "$(DIST)/BitBar.app" "BitBar-$(version).zip"
