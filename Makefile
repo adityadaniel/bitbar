@@ -21,14 +21,7 @@ build:
 archive:
 	@echo "[Task] Building app for deployment..."
 	@mkdir -p Dist
-	@security delete-keychain $(KEYCHAIN)
-	@security create-keychain -p travis $(KEYCHAIN)
-	@security default-keychain -s $(KEYCHAIN)
-	@security unlock-keychain -p travis $(KEYCHAIN)
-	@security set-keychain-settings -t 3600 -u $(KEYCHAIN)
-	@security import $(CERT) -k $(KEYCHAIN) -P "$(CERTPWD)" -T /usr/bin/codesign
 	@$(BUILD) -archivePath Dist/BitBar clean archive | xcpretty
-	@security delete-keychain $(KEYCHAIN)
 	@echo "[Task] Completed building"
 clean:
 	@echo "[Task] Cleaning up..."
@@ -56,6 +49,12 @@ init:
 	# @brew install swiftlint
 	# @brew install entr
 setup: init install
+	@security delete-keychain $(KEYCHAIN)
+	@security create-keychain -p travis $(KEYCHAIN)
+	@security default-keychain -s $(KEYCHAIN)
+	@security unlock-keychain -p travis $(KEYCHAIN)
+	@security set-keychain-settings -t 3600 -u $(KEYCHAIN)
+	@security import $(CERT) -k $(KEYCHAIN) -P "$(CERTPWD)" -T /usr/bin/codesign
 lint:
 	@echo "[Task] Linting swift files..."
 	@swiftlint
