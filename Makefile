@@ -49,7 +49,6 @@ init:
 	# @brew install swiftlint
 	# @brew install entr
 setup: init install
-	@security delete-keychain $(KEYCHAIN)
 	@security create-keychain -p travis $(KEYCHAIN)
 	@security default-keychain -s $(KEYCHAIN)
 	@security unlock-keychain -p travis $(KEYCHAIN)
