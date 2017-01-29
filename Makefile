@@ -1,5 +1,3 @@
-set -e
-
 APP := App
 DIST := "$(PWD)/Dist/BitBar.xcarchive/Products/Applications"
 CERT := App/BitBar/Resources/bitbar.p12
