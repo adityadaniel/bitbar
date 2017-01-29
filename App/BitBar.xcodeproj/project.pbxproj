@@ -178,10 +178,6 @@
 		20444FEE1E378E5200CB21D2 /* basic.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = basic.sh; path = BitBarTests/scripts/basic.sh; sourceTree = SOURCE_ROOT; };
 		20444FEF1E378E5200CB21D2 /* invalid-syntax.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "invalid-syntax.sh"; path = "BitBarTests/scripts/invalid-syntax.sh"; sourceTree = SOURCE_ROOT; };
 		204A9D741E160B3A0005E44F /* App.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = App.xib; path = BitBar/App.xib; sourceTree = "<group>"; };
-		2054B15C1E3A97F1007B74C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2054B15E1E3A97F1007B74C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2054B1611E3A97F1007B74C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		2054B1631E3A97F1007B74C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2058204E1E35588D0032BEEF /* missing-sh-bin.10m.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "missing-sh-bin.10m.sh"; path = "BitBarTests/scripts/missing-sh-bin.10m.sh"; sourceTree = SOURCE_ROOT; };
 		205820501E355D7B0032BEEF /* Buffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buffer.swift; sourceTree = "<group>"; };
 		205C410F1E1EA32800DAFE22 /* Length.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Length.swift; path = Arbitrary/Length.swift; sourceTree = "<group>"; };
@@ -383,17 +379,6 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
-		2054B15B1E3A97F1007B74C5 /* LauncherApplication */ = {
-			isa = PBXGroup;
-			children = (
-				2054B15C1E3A97F1007B74C5 /* AppDelegate.swift */,
-				2054B15E1E3A97F1007B74C5 /* Assets.xcassets */,
-				2054B1601E3A97F1007B74C5 /* MainMenu.xib */,
-				2054B1631E3A97F1007B74C5 /* Info.plist */,
-			);
-			path = LauncherApplication;
-			sourceTree = "<group>";
-		};
 		2058A75F1E2A391500D09A21 /* Scripts */ = {
 			isa = PBXGroup;
 			children = (
@@ -489,7 +474,6 @@
 			isa = PBXGroup;
 			children = (
 				58ADBBFF60D17429320223FE /* Frameworks */,
-				2054B15B1E3A97F1007B74C5 /* LauncherApplication */,
 				20A115C01E15E43E00A68722 /* Products */,
 				206706511E15F6DB000DAADE /* Info.plist */,
 				204A9D741E160B3A0005E44F /* App.xib */,
@@ -626,8 +610,9 @@
 				TargetAttributes = {
 					20A115BE1E15E43E00A68722 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = K6FNT9HXR3;
 						LastSwiftMigration = 0820;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 0;
@@ -636,7 +621,8 @@
 					};
 					20A115CD1E15E43F00A68722 = {
 						CreatedOnToolsVersion = 8.2.1;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = K6FNT9HXR3;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 20A115BE1E15E43E00A68722;
 					};
 				};
@@ -902,17 +888,6 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		2054B1601E3A97F1007B74C5 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2054B1611E3A97F1007B74C5 /* Base */,
-			);
-			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		20A115E01E15E43F00A68722 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -955,7 +930,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Info.plist;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -1000,7 +975,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Info.plist;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SKIP_INSTALL = NO;
@@ -1014,9 +989,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = K6FNT9HXR3;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = BitBar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -1037,9 +1012,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = K6FNT9HXR3;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = BitBar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -1059,9 +1034,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = K6FNT9HXR3;
 				INFOPLIST_FILE = BitBarTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -1079,9 +1054,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = K6FNT9HXR3;
 				INFOPLIST_FILE = BitBarTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
