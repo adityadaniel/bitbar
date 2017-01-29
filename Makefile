@@ -2,7 +2,7 @@ set -e
 
 APP := App
 DIST := "$(PWD)/Dist/BitBar.xcarchive/Products/Applications"
-CERT := bitbar.p12
+CERT := App/BitBar/Resources/bitbar.p12
 KEYCHAIN := build.chain
 PLIST_BUDDY := /usr/libexec/PlistBuddy
 APP_PLIST := App/BitBar/Info.plist

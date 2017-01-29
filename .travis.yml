@@ -14,4 +14,4 @@ deploy:
     repo: oleander/bitbar
     tags: true
 before_install:
-  openssl aes-256-cbc -K $encrypted_34de277e100a_key -iv $encrypted_34de277e100a_iv -in bitbar.p12.enc -out bitbar.p12 -d
+  openssl aes-256-cbc -K $encrypted_34de277e100a_key -iv $encrypted_34de277e100a_iv -in App/BitBar/Resources/bitbar.p12 -out bitbar.p12 -d
