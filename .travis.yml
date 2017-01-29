@@ -4,16 +4,18 @@ xcode_workspace: App/BitBar.xcworkspace
 xcode_scheme: BitBar
 xcode_sdk: macosx10.11
 install:
-  - make setup
+- make setup
 script:
-  - make ci
+- make ci
 before_deploy:
-  - make release version=$TRAVIS_TAG
+- make release version=$TRAVIS_TAG
 deploy:
   provider: releases
   api_key:
-    secure: $API_KEY
-  file: "BitBar-$TRAVIS_TAG.zip"
+    secure: "$API_KEY"
+  file: BitBar-$TRAVIS_TAG.zip
   on:
     repo: oleander/bitbar
-
+before_install:
+- openssl aes-256-cbc -K $encrypted_34de277e100a_key -iv $encrypted_34de277e100a_iv
+  -in key.p12.enc -out key.p12 -d

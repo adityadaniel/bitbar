@@ -1,11 +1,14 @@
 APP := App
 DIST := "$(PWD)/Dist/BitBar.xcarchive/Products/Applications"
+CERT := key.p12
+KEYCHAIN := build.chain
+
 PROJECT_NAME ?= BitBar
 ifdef class
 	# 'make test class=BufferTests' lets you test a specific class
 	ARGS="-only-testing:BitBarTests/$(class)"
 endif
-BUILD_ATTR := xcodebuild -workspace $(APP)/$(PROJECT_NAME).xcworkspace DEVELOPMENT_TEAM=8Z44P9V4VF -scheme
+BUILD_ATTR := xcodebuild -workspace $(APP)/$(PROJECT_NAME).xcworkspace -scheme
 CONFIG := Debug
 BUILD := $(BUILD_ATTR) $(PROJECT_NAME)
 TEST := $(BUILD_ATTR) BitBarTests $(ARGS) test
@@ -18,7 +21,14 @@ build:
 archive:
 	@echo "[Task] Building app for deployment..."
 	@mkdir -p Dist
-	@$(BUILD_ATTR) BitBar -archivePath Dist/BitBar archive | xcpretty
+	@security delete-keychain $(KEYCHAIN)
+	@security create-keychain -p travis $(KEYCHAIN)
+	@security default-keychain -s $(KEYCHAIN)
+	@security unlock-keychain -p travis $(KEYCHAIN)
+	@security set-keychain-settings -t 3600 -u $(KEYCHAIN)
+	@security import $(CERT) -k $(KEYCHAIN) -P "$(CERTPWD)" -T /usr/bin/codesign
+	@$(BUILD) -archivePath Dist/BitBar clean archive | xcpretty
+	@security delete-keychain $(KEYCHAIN)
 	@echo "[Task] Completed building"
 clean:
 	@echo "[Task] Cleaning up..."

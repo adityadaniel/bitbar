@@ -40,3 +40,5 @@ build
 
 Dist/
 *.zip
+key.p12
+developer/
