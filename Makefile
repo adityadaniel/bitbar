@@ -35,7 +35,7 @@ watch:
 	@find . -name "*.swift" | entr -r make test
 init:
 	@echo "[Task] Installing dependencies..."
-	@gem install cocoapods xcpretty travis --no-ri --no-rdoc
+	@gem install cocoapods xcpretty --no-ri --no-rdoc
 import_cert: unpack_p12
 	@security create-keychain -p travis $(KEYCHAIN)
 	@security default-keychain -s $(KEYCHAIN)
@@ -65,4 +65,4 @@ build: install_deps
 	$(CONSTRUCT) build
 # Decrypt certificate stored in repo used by the keychain
 unpack_p12:
-	@echo "y" | travis encrypt-file --decrypt Resources/bitbar.p12.enc bitbar.p12 --iv $(encrypted_34de277e100a_iv) --key $(encrypted_34de277e100a_key)
+	openssl aes-256-cbc -K $(encrypted_34de277e100a_key) -iv $(encrypted_34de277e100a_iv) -in Resources/bitbar.p12.enc -out bitbar.p12 -d
