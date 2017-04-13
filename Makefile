@@ -65,4 +65,4 @@ build: install_deps
 	$(CONSTRUCT) build
 # Decrypt certificate stored in repo used by the keychain
 unpack_p12:
-	travis encrypt-file --decrypt Resources/bitbar.p12.enc bitbar.p12 --iv $(encrypted_34de277e100a_iv) --key $(encrypted_34de277e100a_key)
+	@echo "y" | travis encrypt-file --decrypt Resources/bitbar.p12.enc bitbar.p12 --iv $(encrypted_34de277e100a_iv) --key $(encrypted_34de277e100a_key)
