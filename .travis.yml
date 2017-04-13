@@ -5,8 +5,10 @@ script: make ci
 before_deploy: make release
 deploy:
   provider: releases
+  skip_cleanup: true
   api_key:
     secure: $API_KEY
   file: BitBar-beta.zip
   on:
     tags: true
+    repo: oleander/bitbar
