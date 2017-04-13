@@ -45,3 +45,4 @@ developer/
 .travis.yml.back
 .build
 BitBar.xcodeproj
+bitbar.p12
