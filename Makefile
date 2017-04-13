@@ -42,6 +42,7 @@ import_cert: unpack_p12
 	@security unlock-keychain -p travis $(KEYCHAIN)
 	@security set-keychain-settings -t 3600 -u $(KEYCHAIN)
 	@security import $(CERT) -k $(KEYCHAIN) -P "$(CERTPWD)" -T /usr/bin/codesign
+	@security delete-keychain $(KEYCHAIN)
 setup: init install import_cert
 lint:
 	@echo "[Task] Linting swift files..."
