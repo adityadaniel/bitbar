@@ -1,5 +1,9 @@
 fastlane_version "2.26.1"
 default_platform :mac
+chain = "travis.keychain"
+key = ENV["encrypted_34de277e100a_key"]
+iv = ENV["encrypted_34de277e100a_iv"]
+pwd = ENV["CERTPWD"]
 
 platform :mac do
   before_all do
@@ -24,11 +28,6 @@ platform :mac do
     # security default-keychain -s $(KEYCHAIN)
     # security unlock-keychain -p travis $(KEYCHAIN)
     # security set-keychain-settings -t 3600 -u $(KEYCHAIN)
-    chain = "travis.keychain"
-    key = ENV["encrypted_34de277e100a_key"]
-    iv = ENV["encrypted_34de277e100a_iv"]
-    pwd = ENV["CERTPWD"]
-
     sh "cd .. && openssl aes-256-cbc -K #{key} -iv #{iv} -in Resources/bitbar.p12.enc -out bitbar.p12 -d"
     sh "cd .. && security create-keychain -p travis #{chain}"
     sh "cd .. && security default-keychain -s #{chain}"
@@ -45,6 +44,16 @@ platform :mac do
     zip path: "BitBar.app", output_path: "BitBar.zip"
     # sh "cd .. && ditto -c -k --sequesterRsrc --keepParent BitBar.app BitBar.zip"
   end
+
+  after_all do |lane|
+    sh "security delete-keychain #{chain}" if is_ci?
+    # This block is called, only if the executed lane was successful
+
+    # slack(
+    #   message: "Successfully deployed new App Update."
+    # )
+  end
+
 
   # TODO
   # increment_build_number / increment_version_number
