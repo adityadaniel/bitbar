@@ -22,9 +22,6 @@ archive: install_deps
 clean:
 	@echo "[Task] Cleaning up..."
 	@$(BUILD) clean | xcpretty
-kill:
-	@echo "[Task] Killing all running instances of $(PROJECT_NAME)..."
-	@killall $(PROJECT_NAME) || :
 watch:
 	@echo "[Task] Watching for file changes..."
 	@find . -name "*.swift" | entr -r make test

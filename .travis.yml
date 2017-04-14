@@ -1,7 +1,9 @@
 language: objective-c
 install: make setup
 osx_image: xcode8.3
-script: make ci
+script:
+  - make ci
+  - fastlane build
 # before_deploy: make release
 # deploy:
 #   provider: releases

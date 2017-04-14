@@ -524,13 +524,13 @@
 					20946B281E9EBF6800F7926D = {
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = 8Z44P9V4VF;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					20946B391E9EBF6800F7926D = {
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = 8Z44P9V4VF;
 						LastSwiftMigration = 0830;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 20946B281E9EBF6800F7926D;
 					};
 				};

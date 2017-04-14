@@ -6,7 +6,7 @@ platform :mac do
     cocoapods repo_update: true
     update_project_codesigning(
       path: "BitBar.xcodeproj",
-      use_automatic_signing: false,
+      use_automatic_signing: true,
       team_id: "8Z44P9V4VF"
     )
   end
@@ -24,8 +24,8 @@ platform :mac do
        unlock: true,
        timeout: 3600
      )
-     import_certificate(certificate_path: "Resources/bitbar.cer")
-     import_certificate(certificate_path: "bitbar.p12")
+     import_certificate(certificate_path: "Resources/bitbar.cer", keychain_name: "travis")
+     import_certificate(certificate_path: "bitbar.p12", keychain_name: "travis")
   end
 
   # desc "Submit a new Beta Build to Apple TestFlight"
