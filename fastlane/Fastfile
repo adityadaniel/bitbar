@@ -3,9 +3,9 @@ default_platform :mac
 
 platform :mac do
   before_all do
-    ensure_git_status_clean
+    # ensure_git_status_clean
     cocoapods repo_update: true
-    enable_automatic_code_signing
+    # enable_automatic_code_signing
     # update_project_codesigning(
     #   path: "BitBar.xcodeproj",
     #   use_automatic_signing: true,

@@ -34,9 +34,9 @@ xcode-select --install
 fastlane mac test
 ```
 Runs all the tests
-### mac key
+### mac import_keys
 ```
-fastlane mac key
+fastlane mac import_keys
 ```
 
 ### mac build
@@ -44,6 +44,16 @@ fastlane mac key
 fastlane mac build
 ```
 Deploy a new version to the App Store
+### mac lint
+```
+fastlane mac lint
+```
+
+### mac fix
+```
+fastlane mac fix
+```
+
 
 ----
 
