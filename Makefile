@@ -32,11 +32,12 @@ init:
 	@echo "[Task] Installing dependencies..."
 	@bundle install
 import_cert: unpack_p12
-	@security create-keychain -p travis $(KEYCHAIN)
-	@security default-keychain -s $(KEYCHAIN)
-	@security unlock-keychain -p travis $(KEYCHAIN)
-	@security set-keychain-settings -t 3600 -u $(KEYCHAIN)
+	security create-keychain -p travis $(KEYCHAIN)
+	security default-keychain -s $(KEYCHAIN)
+	security unlock-keychain -p travis $(KEYCHAIN)
+	security set-keychain-settings -t 3600 -u $(KEYCHAIN)
 	@security import $(CERT) -A -k $(KEYCHAIN) -P "$(CERTPWD)" -T /usr/bin/codesign
+	security -v add-trusted-cert -r trustAsRoot -e hostnameMismatch -k $(KEYCHAIN) $(CERT)
 setup: init import_cert
 lint:
 	@echo "[Task] Linting swift files..."
@@ -54,3 +55,4 @@ test:
 ci: test
 unpack_p12:
 	openssl aes-256-cbc -K $(encrypted_34de277e100a_key) -iv $(encrypted_34de277e100a_iv) -in Resources/bitbar.p12.enc -out bitbar.p12 -d
+
