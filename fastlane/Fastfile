@@ -20,22 +20,26 @@ platform :mac do
     # security import $(CERT) -A -k $(KEYCHAIN) -P "$(CERTPWD)" -T /usr/bin/codesign
     # security import Resources/bitbar.cer -A -k $(KEYCHAIN) -T /usr/bin/codesign
 
-    create_keychain(name: "travis", password: "travis", default_keychain: true, unlock: true, timeout: 3600)
+    create_keychain(name: "travis", password: "travis", default_keychain: true, unlock: true, timeout: 3600, add_to_search_list: true)
      import_certificate(certificate_path: "Resources/bitbar.cer", keychain_name: "travis")
      import_certificate(certificate_path: "bitbar.p12", certificate_password: ENV["CERTPWD"], keychain_name: "travis")
   end
-
-  # desc "Submit a new Beta Build to Apple TestFlight"
-  # desc "This will also make sure the profile is up to date"
-  # lane :beta do
-  #   gym scheme: "BitBar"
-  #   pilot
-  # end
 
   desc "Deploy a new version to the App Store"
   lane :build do
     gym
   end
+
+  lane :lint do
+    swiftlint(
+  mode: :lint,      # SwiftLint mode: :lint (default) or :autocorrect
+)
+  end
+
+  lane :fix do
+    swiftlint mode: :autocorrect
+  end
+
   # lane :release do
   #   gym scheme: "BitBar"
   #   deliver force: true
@@ -62,10 +66,3 @@ platform :mac do
     # )
   end
 end
-
-
-# More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md
-# All available actions: https://docs.fastlane.tools/actions
-
-# fastlane reports which actions are used
-# No personal data is recorded. Learn more at https://github.com/fastlane/enhancer
