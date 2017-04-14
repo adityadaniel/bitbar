@@ -28,6 +28,19 @@ xcode-select --install
 </tr>
 </table>
 # Available Actions
+### lint
+```
+fastlane lint
+```
+
+### fix
+```
+fastlane fix
+```
+
+
+----
+
 ## Mac
 ### mac test
 ```
@@ -44,16 +57,6 @@ Import keys used for signing
 fastlane mac build
 ```
 Build and zip application
-### mac lint
-```
-fastlane mac lint
-```
-
-### mac fix
-```
-fastlane mac fix
-```
-
 
 ----
 

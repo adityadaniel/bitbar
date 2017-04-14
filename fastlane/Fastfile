@@ -5,9 +5,23 @@ key = ENV["encrypted_34de277e100a_key"]
 iv = ENV["encrypted_34de277e100a_iv"]
 pwd = ENV["CERTPWD"]
 codesign = "/usr/bin/codesign"
+env_cert = "Resources/bitbar.p12.enc"
+cert = "Resources/bitbar.cer"
 
 def security(*args)
   sh "security " + args.join(" ")
+end
+
+def openssl(*args)
+  sh "openssl " + args.join(" ")
+end
+
+lane :lint do
+  swiftlint mode: :lint
+end
+
+lane :fix do
+  swiftlint mode: :autocorrect
 end
 
 platform :mac do
@@ -29,13 +43,13 @@ platform :mac do
   desc "Import keys used for signing"
   lane :import_keys do
     Dir.chdir ".." do
-      sh "openssl aes-256-cbc -K #{key} -iv #{iv} -in Resources/bitbar.p12.enc -out bitbar.p12 -d"
+      openssl "aes-256-cbc -K", key, "-iv", iv, "-in", env_cert, "-out bitbar.p12 -d"
       security "create-keychain -p travis", chain
       security "default-keychain -s", chain
       security "unlock-keychain -p travis", chain
       security "set-keychain-settings -t 3600 -u", chain
-      security "import bitbar.p12 -A -k", chain, "-P '", chain, "' -T", codesign
-      security "import Resources/bitbar.cer -A -k", security, "-T", codesign
+      security "import bitbar.p12 -A -k", pwd, "-P '", chain, "' -T", codesign
+      security "import", cert, "-A -k", security, "-T", codesign
       security "set-key-partition-list -S apple-tool:,apple: -s -k travis", chain
     end
   end
@@ -45,14 +59,6 @@ platform :mac do
     gym
     zip path: "BitBar.app", output_path: "BitBar.zip"
     # sh "cd .. && ditto -c -k --sequesterRsrc --keepParent BitBar.app BitBar.zip"
-  end
-
-  lane :lint do
-    swiftlint mode: :lint
-  end
-
-  lane :fix do
-    swiftlint mode: :autocorrect
   end
 
   # TODO
