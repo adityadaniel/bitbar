@@ -14,7 +14,7 @@ platform :mac do
   desc "Runs all the tests"
   lane :test do
     # match
-    scan scheme: "BitBar", clean: true
+    scan scheme: "BitBarTests", clean: true
   end
 
   # desc "Submit a new Beta Build to Apple TestFlight"
