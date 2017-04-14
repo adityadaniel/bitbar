@@ -64,6 +64,10 @@ platform :mac do
     zip path: "BitBar.app", output_path: "BitBar.zip"
   end
 
+  lane :xxx do
+    increment_version_number
+  end
+
   # TODO
   # increment_build_number / increment_version_number
   # add_git_tag
