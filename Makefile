@@ -5,3 +5,5 @@ test:
 	fastlane test
 build:
 	fastlane build
+release:
+	fastlane release
