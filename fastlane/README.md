@@ -38,12 +38,12 @@ Runs all the tests
 ```
 fastlane mac import_keys
 ```
-
+Import keys used for signing
 ### mac build
 ```
 fastlane mac build
 ```
-Deploy a new version to the App Store
+Build and zip application
 ### mac lint
 ```
 fastlane mac lint

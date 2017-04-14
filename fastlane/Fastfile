@@ -4,6 +4,11 @@ chain = "travis.keychain"
 key = ENV["encrypted_34de277e100a_key"]
 iv = ENV["encrypted_34de277e100a_iv"]
 pwd = ENV["CERTPWD"]
+codesign = "/usr/bin/codesign"
+
+def security(*args)
+  sh "security " + args.join(" ")
+end
 
 platform :mac do
   before_all do
@@ -14,7 +19,6 @@ platform :mac do
       use_automatic_signing: true,
       team_id: "8Z44P9V4VF"
     )
-    # enable_automatic_code_signing
   end
 
   desc "Runs all the tests"
@@ -26,13 +30,13 @@ platform :mac do
   lane :import_keys do
     Dir.chdir ".." do
       sh "openssl aes-256-cbc -K #{key} -iv #{iv} -in Resources/bitbar.p12.enc -out bitbar.p12 -d"
-      sh "security create-keychain -p travis #{chain}"
-      sh "security default-keychain -s #{chain}"
-      sh "security unlock-keychain -p travis #{chain}"
-      sh "security set-keychain-settings -t 3600 -u #{chain}"
-      sh "security import bitbar.p12 -A -k #{chain} -P '#{pwd}' -T /usr/bin/codesign"
-      sh "security import Resources/bitbar.cer -A -k #{chain} -T /usr/bin/codesign"
-      sh "security set-key-partition-list -S apple-tool:,apple: -s -k travis #{chain}"
+      security "create-keychain -p travis", chain
+      security "default-keychain -s", chain
+      security "unlock-keychain -p travis", chain
+      security "set-keychain-settings -t 3600 -u", chain
+      security "import bitbar.p12 -A -k", chain, "-P '", chain, "' -T", codesign
+      security "import Resources/bitbar.cer -A -k", security, "-T", codesign
+      security "set-key-partition-list -S apple-tool:,apple: -s -k travis", chain
     end
   end
 
@@ -41,6 +45,14 @@ platform :mac do
     gym
     zip path: "BitBar.app", output_path: "BitBar.zip"
     # sh "cd .. && ditto -c -k --sequesterRsrc --keepParent BitBar.app BitBar.zip"
+  end
+
+  lane :lint do
+    swiftlint mode: :lint
+  end
+
+  lane :fix do
+    swiftlint mode: :autocorrect
   end
 
   # TODO
@@ -58,16 +70,8 @@ platform :mac do
   #   upload_assets: ["example_integration.ipa", "./pkg/built.gem"]
   # )
   # after_all do |lane|
-    # slack(
-    #   message: "Successfully deployed new App Update."
-    # )
+  # slack(
+  #   message: "Successfully deployed new App Update."
+  # )
   # end
-
-  lane :lint do
-    swiftlint(mode: :lint)
-  end
-
-  lane :fix do
-    swiftlint mode: :autocorrect
-  end
 end
