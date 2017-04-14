@@ -1,9 +1,9 @@
 setup:
-	bundle install
-	fastlane import_keys
+	@bundle install
+	@fastlane import_keys
 test:
-	fastlane test
+	@fastlane test
 build:
-	fastlane build
+	@fastlane build
 release:
-	fastlane release
+	@fastlane release

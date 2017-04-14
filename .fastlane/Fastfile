@@ -1,5 +1,6 @@
 fastlane_version "2.26.1"
 default_platform :mac
+clear_derived_data
 skip_docs
 
 chain = "travis.keychain"
