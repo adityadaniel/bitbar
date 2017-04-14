@@ -1,4 +1,0 @@
-scheme "BitBar"
-sdk "macosx"
-output_directory "./"
-clean true
