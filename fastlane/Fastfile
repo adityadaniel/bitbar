@@ -27,16 +27,13 @@ platform :mac do
     key = ENV["encrypted_34de277e100a_key"]
     iv = ENV["encrypted_34de277e100a_iv"]
     sh "cd .. && openssl aes-256-cbc -K #{key} -iv #{iv} -in Resources/bitbar.p12.enc -out bitbar.p12 -d"
-    create_keychain(name: "travis", password: "travis",
-      default_keychain: true, unlock: true, timeout: 3600, add_to_search_list: true)
-    #  import_certificate(certificate_path: "Resources/bitbar.cer",
-    #   keychain_name: "travis")
-    #  import_certificate(certificate_path: "bitbar.p12",
-    #   certificate_password: ENV["CERTPWD"], keychain_name: "travis")
-      sh "cd .. && security set-key-partition-list -S apple-tool:,apple: -s -k travis travis"
-      sh "cd .. && security import bitbar.p12 -A -k travis -P '#{ENV["CERTPWD"]}' -T /usr/bin/codesign"
-      sh "cd .. && security import Resources/bitbar.cer -A -k travis -T /usr/bin/codesign"
-
+    sh "cd .. && security create-keychain -p travis travis"
+    sh "cd .. && security set-key-partition-list -S apple-tool:,apple: -s -k travis travis"
+    sh "security default-keychain -s travis"
+    sh "security unlock-keychain -p travis travis"
+    sh "security set-keychain-settings -t 3600 -u travis"
+    sh "cd .. && security import bitbar.p12 -A -k travis -P '#{ENV["CERTPWD"]}' -T /usr/bin/codesign"
+    sh "cd .. && security import Resources/bitbar.cer -A -k travis -T /usr/bin/codesign"
   end
 
   desc "Deploy a new version to the App Store"
