@@ -11,4 +11,4 @@ deploy:
   file: BitBar.zip
   on:
     repo: oleander/bitbar
-    branch: master
+    tags: true
