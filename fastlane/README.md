@@ -34,18 +34,6 @@ xcode-select --install
 fastlane mac test
 ```
 Runs all the tests
-### mac beta
-```
-fastlane mac beta
-```
-Submit a new Beta Build to Apple TestFlight
-
-This will also make sure the profile is up to date
-### mac release
-```
-fastlane mac release
-```
-Deploy a new version to the App Store
 
 ----
 

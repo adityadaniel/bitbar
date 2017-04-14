@@ -1,9 +1,0 @@
-lane :test do
-  scan scheme: "BitBar"
-end
-
-lane :beta do
-  cert
-  sigh
-  gym
-end
