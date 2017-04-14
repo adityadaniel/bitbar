@@ -9,12 +9,12 @@ platform :mac do
   before_all do
     # ensure_git_status_clean
     cocoapods repo_update: true
-    # update_project_codesigning(
-    #   path: "BitBar.xcodeproj",
-    #   use_automatic_signing: false,
-    #   team_id: "8Z44P9V4VF"
-    # )
-    enable_automatic_code_signing
+    update_project_codesigning(
+      path: "BitBar.xcodeproj",
+      use_automatic_signing: true,
+      team_id: "8Z44P9V4VF"
+    )
+    # enable_automatic_code_signing
   end
 
   desc "Runs all the tests"
@@ -43,16 +43,6 @@ platform :mac do
     # sh "cd .. && ditto -c -k --sequesterRsrc --keepParent BitBar.app BitBar.zip"
   end
 
-  after_all do |lane|
-    # sh "security delete-keychain #{chain}" if is_ci?
-    # This block is called, only if the executed lane was successful
-
-    # slack(
-    #   message: "Successfully deployed new App Update."
-    # )
-  end
-
-
   # TODO
   # increment_build_number / increment_version_number
   # add_git_tag
@@ -67,6 +57,11 @@ platform :mac do
   #   commitish: "master",
   #   upload_assets: ["example_integration.ipa", "./pkg/built.gem"]
   # )
+  # after_all do |lane|
+    # slack(
+    #   message: "Successfully deployed new App Update."
+    # )
+  # end
 
   lane :lint do
     swiftlint(mode: :lint)
