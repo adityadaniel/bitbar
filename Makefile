@@ -66,4 +66,3 @@ build: install_deps
 # Decrypt certificate stored in repo used by the keychain
 unpack_p12:
 	openssl aes-256-cbc -K $(encrypted_34de277e100a_key) -iv $(encrypted_34de277e100a_iv) -in Resources/bitbar.p12.enc -out bitbar.p12 -d
-
