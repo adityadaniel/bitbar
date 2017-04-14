@@ -10,11 +10,11 @@ platform :mac do
     # ensure_git_status_clean
     cocoapods repo_update: true
     # enable_automatic_code_signing
-    # update_project_codesigning(
-    #   path: "BitBar.xcodeproj",
-    #   use_automatic_signing: true,
-    #   team_id: "8Z44P9V4VF"
-    # )
+    update_project_codesigning(
+      path: "BitBar.xcodeproj",
+      use_automatic_signing: true,
+      team_id: "8Z44P9V4VF"
+    )
   end
 
   desc "Runs all the tests"
@@ -23,21 +23,6 @@ platform :mac do
   end
 
   lane :import_keys do
-
-    # security create-keychain -p travis $(KEYCHAIN)
-    # security import $(CERT) -A -k $(KEYCHAIN) -P "$(CERTPWD)" -T /usr/bin/codesign
-    # security import Resources/bitbar.cer -A -k $(KEYCHAIN) -T /usr/bin/codesign
-    # # security set-key-partition-list -S apple-tool:,apple: -s -k travis $(KEYCHAIN)
-    # security default-keychain -s $(KEYCHAIN)
-    # security unlock-keychain -p travis $(KEYCHAIN)
-    # security set-keychain-settings -t 3600 -u $(KEYCHAIN)
-
-
-    # security create-keychain -p travis $(KEYCHAIN)
-    # # security set-key-partition-list -S apple-tool:,apple: -s -k travis $(KEYCHAIN)
-    # security default-keychain -s $(KEYCHAIN)
-    # security unlock-keychain -p travis $(KEYCHAIN)
-    # security set-keychain-settings -t 3600 -u $(KEYCHAIN)
     sh "cd .. && openssl aes-256-cbc -K #{key} -iv #{iv} -in Resources/bitbar.p12.enc -out bitbar.p12 -d"
     sh "cd .. && security create-keychain -p travis #{chain}"
     sh "cd .. && security import bitbar.p12 -A -k #{chain} -P '#{pwd}' -T /usr/bin/codesign"
