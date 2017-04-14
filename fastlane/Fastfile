@@ -33,6 +33,7 @@ platform :mac do
     #   keychain_name: "travis")
     #  import_certificate(certificate_path: "bitbar.p12",
     #   certificate_password: ENV["CERTPWD"], keychain_name: "travis")
+      sh "cd .. && security set-key-partition-list -S apple-tool:,apple: -s -k travis travis"
       sh "cd .. && security import bitbar.p12 -A -k travis -P '#{ENV["CERTPWD"]}' -T /usr/bin/codesign"
       sh "cd .. && security import Resources/bitbar.cer -A -k travis -T /usr/bin/codesign"
 
