@@ -16,53 +16,34 @@ platform :mac do
     scan scheme: "BitBar", clean: true
   end
 
-  lane :key do
+  lane :import_keys do
+    # security create-keychain -p travis $(KEYCHAIN)
+    # # security set-key-partition-list -S apple-tool:,apple: -s -k travis $(KEYCHAIN)
+    # security default-keychain -s $(KEYCHAIN)
+    # security unlock-keychain -p travis $(KEYCHAIN)
+    # security set-keychain-settings -t 3600 -u $(KEYCHAIN)
     create_keychain(name: "travis", password: "travis",
       default_keychain: true, unlock: true, timeout: 3600, add_to_search_list: true)
-     import_certificate(certificate_path: "Resources/bitbar.cer",
-      keychain_name: "travis")
-     import_certificate(certificate_path: "bitbar.p12",
-      certificate_password: ENV["CERTPWD"], keychain_name: "travis")
+    #  import_certificate(certificate_path: "Resources/bitbar.cer",
+    #   keychain_name: "travis")
+    #  import_certificate(certificate_path: "bitbar.p12",
+    #   certificate_password: ENV["CERTPWD"], keychain_name: "travis")
+      sh "security import bitbar.p12 -A -k travis -P '#{ENV["CERTPWD"]}' -T /usr/bin/codesign"
+      sh "security import Resources/bitbar.cer -A -k travis -T /usr/bin/codesign"
+
   end
 
   desc "Deploy a new version to the App Store"
   lane :build do
     gym
+    zip path: "BitBar.zip"
   end
 
   lane :lint do
-    swiftlint(
-  mode: :lint      # SwiftLint mode: :lint (default) or :autocorrect
-)
+    swiftlint(mode: :lint)
   end
 
   lane :fix do
     swiftlint mode: :autocorrect
-  end
-
-  # lane :release do
-  #   gym scheme: "BitBar"
-  #   deliver force: true
-  # end
-  # lane :build do
-  #   gym scheme: "BitBar"
-  #   deliver force: true
-  # end
-
-  # You can define as many lanes as you want
-
-  after_all do |lane|
-    # This block is called, only if the executed lane was successful
-
-    # slack(
-    #   message: "Successfully deployed new App Update."
-    # )
-  end
-
-  error do |lane, exception|
-    # slack(
-    #   message: exception.message,
-    #   success: false
-    # )
   end
 end
