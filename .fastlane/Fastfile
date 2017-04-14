@@ -60,7 +60,7 @@ platform :mac do
   end
 
   desc "Build and zip application"
-  lane :build do
+  lane :package do
     gym
     zip path: "BitBar.app", output_path: "BitBar.zip"
   end

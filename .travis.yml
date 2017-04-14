@@ -2,7 +2,7 @@ language: objective-c
 install: make setup
 osx_image: xcode8.3
 script: make test
-before_deploy: make build
+before_deploy: make package
 deploy:
   provider: releases
   skip_cleanup: true

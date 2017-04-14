@@ -3,7 +3,7 @@ setup:
 	@fastlane import_keys
 test:
 	@fastlane test
-build:
-	@fastlane build
+package:
+	@fastlane package
 release:
 	@fastlane release
