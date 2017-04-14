@@ -24,22 +24,25 @@ platform :mac do
     # security default-keychain -s $(KEYCHAIN)
     # security unlock-keychain -p travis $(KEYCHAIN)
     # security set-keychain-settings -t 3600 -u $(KEYCHAIN)
+    chain = "travis.keychain"
     key = ENV["encrypted_34de277e100a_key"]
     iv = ENV["encrypted_34de277e100a_iv"]
+    pwd = ENV["CERTPWD"]
+
     sh "cd .. && openssl aes-256-cbc -K #{key} -iv #{iv} -in Resources/bitbar.p12.enc -out bitbar.p12 -d"
-    sh "cd .. && security create-keychain -p travis travis"
-    sh "cd .. && security set-key-partition-list -S apple-tool:,apple: -s -k travis travis"
-    sh "security default-keychain -s travis"
-    sh "security unlock-keychain -p travis travis"
-    sh "security set-keychain-settings -t 3600 -u travis"
-    sh "cd .. && security import bitbar.p12 -A -k travis -P '#{ENV["CERTPWD"]}' -T /usr/bin/codesign"
-    sh "cd .. && security import Resources/bitbar.cer -A -k travis -T /usr/bin/codesign"
+    sh "cd .. && security create-keychain -p travis #{chain}"
+    sh "cd .. && security default-keychain -s #{chain}"
+    sh "cd .. && security unlock-keychain -p travis #{chain}"
+    sh "cd .. && security set-key-partition-list -S apple-tool:,apple: -s -k travis #{chain}"
+    sh "cd .. && security set-keychain-settings -t 3600 -u #{chain}"
+    sh "cd .. && security import bitbar.p12 -A -k #{chain} -P '#{pwd}' -T /usr/bin/codesign"
+    sh "cd .. && security import Resources/bitbar.cer -A -k #{chain} -T /usr/bin/codesign"
   end
 
   desc "Deploy a new version to the App Store"
   lane :build do
     gym
-    zip path: "BitBar.app"
+    zip path: "BitBar.app", output_path: "BitBar.zip"
     # sh "cd .. && ditto -c -k --sequesterRsrc --keepParent BitBar.app BitBar.zip"
   end
 
@@ -48,6 +51,15 @@ platform :mac do
   # add_git_tag
   # ensure_git_branch
   # push_git_tags
+  #   github_release = set_github_release(
+  #   repository_name: "fastlane/fastlane",
+  #   api_token: ENV["GITHUB_TOKEN"],
+  #   name: "Super New actions",
+  #   tag_name: "v1.22.0",
+  #   description: (File.read("changelog") rescue "No changelog provided"),
+  #   commitish: "master",
+  #   upload_assets: ["example_integration.ipa", "./pkg/built.gem"]
+  # )
 
   lane :lint do
     swiftlint(mode: :lint)
