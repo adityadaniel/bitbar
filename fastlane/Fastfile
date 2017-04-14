@@ -3,7 +3,7 @@ default_platform :mac
 
 platform :mac do
   before_all do
-    cocoapods
+    cocoapods repo_update: true
   end
 
   desc "Runs all the tests"
