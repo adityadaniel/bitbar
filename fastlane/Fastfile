@@ -17,12 +17,12 @@ platform :mac do
   end
 
   lane :key do
-    # security import $(CERT) -A -k $(KEYCHAIN) -P "$(CERTPWD)" -T /usr/bin/codesign
-    # security import Resources/bitbar.cer -A -k $(KEYCHAIN) -T /usr/bin/codesign
-
-    create_keychain(name: "travis", password: "travis", default_keychain: true, unlock: true, timeout: 3600, add_to_search_list: true)
-     import_certificate(certificate_path: "Resources/bitbar.cer", keychain_name: "travis")
-     import_certificate(certificate_path: "bitbar.p12", certificate_password: ENV["CERTPWD"], keychain_name: "travis")
+    create_keychain(name: "travis", password: "travis",
+      default_keychain: true, unlock: true, timeout: 3600, add_to_search_list: true)
+     import_certificate(certificate_path: "Resources/bitbar.cer",
+      keychain_name: "travis")
+     import_certificate(certificate_path: "bitbar.p12",
+      certificate_password: ENV["CERTPWD"], keychain_name: "travis")
   end
 
   desc "Deploy a new version to the App Store"
@@ -32,7 +32,7 @@ platform :mac do
 
   lane :lint do
     swiftlint(
-  mode: :lint,      # SwiftLint mode: :lint (default) or :autocorrect
+  mode: :lint      # SwiftLint mode: :lint (default) or :autocorrect
 )
   end
 
