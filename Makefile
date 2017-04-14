@@ -35,7 +35,7 @@ watch:
 	@find . -name "*.swift" | entr -r make test
 init:
 	@echo "[Task] Installing dependencies..."
-	@gem install cocoapods xcpretty --no-ri --no-rdoc
+	@gem install
 import_cert: unpack_p12
 	# @security delete-keychain $(KEYCHAIN)
 	@security create-keychain -p travis $(KEYCHAIN)
