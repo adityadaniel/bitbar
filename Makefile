@@ -37,6 +37,7 @@ init:
 	@echo "[Task] Installing dependencies..."
 	@gem install cocoapods xcpretty --no-ri --no-rdoc
 import_cert: unpack_p12
+	@security delete-keychain $(KEYCHAIN)
 	@security create-keychain -p travis $(KEYCHAIN)
 	@security default-keychain -s $(KEYCHAIN)
 	@security unlock-keychain -p travis $(KEYCHAIN)
