@@ -52,7 +52,7 @@ platform :mac do
       security "unlock-keychain -p travis", chain
       security "set-keychain-settings -t 3600 -u", chain
       security "import bitbar.p12 -A -P", pwd, "-k", chain, "-T", codesign
-      security "import", cert, "-A -k", security, "-T", codesign
+      security "import", cert, "-A -k", chain, "-T", codesign
       security "set-key-partition-list -S apple-tool:,apple: -s -k travis", chain
     end
   end
