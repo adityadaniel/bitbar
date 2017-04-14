@@ -9,11 +9,11 @@ platform :mac do
   before_all do
     # ensure_git_status_clean
     cocoapods repo_update: true
-    update_project_codesigning(
-      path: "BitBar.xcodeproj",
-      use_automatic_signing: false,
-      team_id: "8Z44P9V4VF"
-    )
+    # update_project_codesigning(
+    #   path: "BitBar.xcodeproj",
+    #   use_automatic_signing: false,
+    #   team_id: "8Z44P9V4VF"
+    # )
     enable_automatic_code_signing
   end
 
