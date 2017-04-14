@@ -42,7 +42,7 @@ platform :mac do
 
   desc "Import keys used for signing"
   lane :import_keys do
-    next unless is_ci?
+    next unless in_ci?
     Dir.chdir ".." do
       openssl "aes-256-cbc -K", key, "-iv", iv, "-in", env_cert, "-out bitbar.p12 -d"
       security "create-keychain -p travis", chain
