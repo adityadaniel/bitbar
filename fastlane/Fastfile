@@ -17,13 +17,7 @@ platform :mac do
   end
 
   lane :key do
-    create_keychain(
-       name: "travis",
-       password: "travis",
-       default_keychain: true,
-       unlock: true,
-       timeout: 3600
-     )
+    create_keychain(name: "travis", password: "travis", default_keychain: true, unlock: true, timeout: 3600)
      import_certificate(certificate_path: "Resources/bitbar.cer", keychain_name: "travis")
      import_certificate(certificate_path: "bitbar.p12", keychain_name: "travis")
   end
@@ -37,12 +31,7 @@ platform :mac do
 
   desc "Deploy a new version to the App Store"
   lane :build do
-    gym(
-      workspace: "BitBar.xcworkspace",
-      scheme: "BitBar",
-      silent: true,
-      clean: true
-    )
+    gym
   end
   # lane :release do
   #   gym scheme: "BitBar"
