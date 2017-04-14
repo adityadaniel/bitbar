@@ -33,11 +33,10 @@ init:
 	@bundle install
 import_cert: unpack_p12
 	security create-keychain -p travis $(KEYCHAIN)
+	security import $(CERT) -A -k $(KEYCHAIN) -P "$(CERTPWD)" -T /usr/bin/codesign
 	security default-keychain -s $(KEYCHAIN)
 	security unlock-keychain -p travis $(KEYCHAIN)
 	security set-keychain-settings -t 3600 -u $(KEYCHAIN)
-	@security import $(CERT) -A -k $(KEYCHAIN) -P "$(CERTPWD)" -T /usr/bin/codesign
-	security -v add-trusted-cert -r trustAsRoot -e hostnameMismatch -k $(KEYCHAIN) $(CERT)
 setup: init import_cert
 lint:
 	@echo "[Task] Linting swift files..."
