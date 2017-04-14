@@ -10,5 +10,4 @@ deploy:
     secure: $API_KEY
   file: BitBar.zip
   on:
-    repo: oleander/bitbar
     tags: true
