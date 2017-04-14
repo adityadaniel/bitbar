@@ -44,7 +44,6 @@ key.p12
 developer/
 .travis.yml.back
 .build
-BitBar.xcodeproj
 bitbar.p12
 test_output/
 report.xml

@@ -66,6 +66,11 @@ platform :mac do
 
   lane :xxx do
     increment_version_number
+    version = get_version_number()
+    increment_build_number(build_number: version)
+    commit_version_bump(message: 'Bump version to ' + version, force: true)
+    git_tag = "v" + version
+    add_git_tag(tag: git_tag)
   end
 
   # TODO
