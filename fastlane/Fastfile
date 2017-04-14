@@ -4,10 +4,16 @@ default_platform :mac
 platform :mac do
   before_all do
     cocoapods repo_update: true
+    update_project_codesigning(
+      path: "BitBar.xcodeproj",
+      use_automatic_signing: false,
+      team_id: "8Z44P9V4VF"
+    )
   end
 
   desc "Runs all the tests"
   lane :test do
+    # match
     scan scheme: "BitBar", clean: true
   end
 
