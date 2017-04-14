@@ -12,7 +12,7 @@ platform :mac do
     # enable_automatic_code_signing
     update_project_codesigning(
       path: "BitBar.xcodeproj",
-      use_automatic_signing: true,
+      use_automatic_signing: false,
       team_id: "8Z44P9V4VF"
     )
   end
