@@ -30,7 +30,7 @@ watch:
 	@find . -name "*.swift" | entr -r make test
 init:
 	@echo "[Task] Installing dependencies..."
-	@gem install
+	@bundle install
 import_cert: unpack_p12
 	@security create-keychain -p travis $(KEYCHAIN)
 	@security default-keychain -s $(KEYCHAIN)
