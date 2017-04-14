@@ -16,22 +16,17 @@ platform :mac do
     scan scheme: "BitBar", clean: true
   end
 
-  # lane :key do
-  #   create_keychain(
-  #      name: "travis",
-  #      password: ENV["CERTPWD"],
-  #      default_keychain: true,
-  #      unlock: true,
-  #      timeout: 3600,
-  #      add_to_search_list: true
-  #    )
-  #    match(
-  #      type: "adhoc",
-  #      keychain_name: "travis",
-  #      keychain_password: ENV["CERTPWD"],
-  #      readonly: true
-  #    )
-  # end
+  lane :key do
+    create_keychain(
+       name: "travis",
+       password: "travis",
+       default_keychain: true,
+       unlock: true,
+       timeout: 3600
+     )
+     import_certificate(certificate_path: "Resources/bitbar.cer")
+     import_certificate(certificate_path: "bitbar.p12")
+  end
 
   # desc "Submit a new Beta Build to Apple TestFlight"
   # desc "This will also make sure the profile is up to date"

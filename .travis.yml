@@ -2,13 +2,13 @@ language: objective-c
 install: make setup
 osx_image: xcode8.3
 script: make ci
-before_deploy: make release
-deploy:
-  provider: releases
-  skip_cleanup: true
-  api_key:
-    secure: $API_KEY
-  file: BitBar-beta.zip
-  on:
-    repo: oleander/bitbar
-    branch: master
+# before_deploy: make release
+# deploy:
+#   provider: releases
+#   skip_cleanup: true
+#   api_key:
+#     secure: $API_KEY
+#   file: BitBar-beta.zip
+#   on:
+#     repo: oleander/bitbar
+#     branch: master
