@@ -34,6 +34,11 @@ xcode-select --install
 fastlane mac test
 ```
 Runs all the tests
+### mac key
+```
+fastlane mac key
+```
+
 ### mac build
 ```
 fastlane mac build

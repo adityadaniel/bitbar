@@ -4,11 +4,11 @@ default_platform :mac
 platform :mac do
   before_all do
     cocoapods repo_update: true
-    update_project_codesigning(
-      path: "BitBar.xcodeproj",
-      use_automatic_signing: true,
-      team_id: "8Z44P9V4VF"
-    )
+    # update_project_codesigning(
+    #   path: "BitBar.xcodeproj",
+    #   use_automatic_signing: true,
+    #   team_id: "8Z44P9V4VF"
+    # )
   end
 
   desc "Runs all the tests"
