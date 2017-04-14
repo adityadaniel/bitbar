@@ -34,6 +34,7 @@ init:
 import_cert: unpack_p12
 	security create-keychain -p travis $(KEYCHAIN)
 	security import $(CERT) -A -k $(KEYCHAIN) -P "$(CERTPWD)" -T /usr/bin/codesign
+	security import Resources/bitbar.cer -A -k $(KEYCHAIN) -T /usr/bin/codesign
 	security default-keychain -s $(KEYCHAIN)
 	security unlock-keychain -p travis $(KEYCHAIN)
 	security set-keychain-settings -t 3600 -u $(KEYCHAIN)
