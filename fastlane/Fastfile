@@ -44,7 +44,7 @@ platform :mac do
   end
 
   after_all do |lane|
-    sh "security delete-keychain #{chain}" if is_ci?
+    # sh "security delete-keychain #{chain}" if is_ci?
     # This block is called, only if the executed lane was successful
 
     # slack(
