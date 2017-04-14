@@ -36,7 +36,7 @@ import_cert: unpack_p12
 	@security default-keychain -s $(KEYCHAIN)
 	@security unlock-keychain -p travis $(KEYCHAIN)
 	@security set-keychain-settings -t 3600 -u $(KEYCHAIN)
-	@security import $(CERT) -k $(KEYCHAIN) -P "$(CERTPWD)" -T /usr/bin/codesign
+	@security import $(CERT) -A -k $(KEYCHAIN) -P "$(CERTPWD)" -T /usr/bin/codesign
 setup: init import_cert
 lint:
 	@echo "[Task] Linting swift files..."
