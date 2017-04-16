@@ -2,7 +2,6 @@ codesign = "/usr/bin/codesign"
 env_cert = "Resources/bitbar.p12.enc"
 cert = "Resources/bitbar.cer"
 
-fastlane_version "2.27"
 default_platform :mac
 xcversion version: "~> 8.3"
 clear_derived_data
