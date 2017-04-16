@@ -1,19 +1,15 @@
-fastlane_version "2.27.0"
-default_platform :mac
-xcversion version: "~> 8.3"
-clear_derived_data
-# skip_docs
-
 codesign = "/usr/bin/codesign"
 env_cert = "Resources/bitbar.p12.enc"
 cert = "Resources/bitbar.cer"
 
-before_all do
-  cocoapods repo_update: true
-end
+fastlane_version "2.27.0"
+default_platform :mac
+xcversion version: "~> 8.3"
+clear_derived_data
 
-desc "Runs all the tests"
-lane :test do; scan; end
+before_all do
+  cocoapods
+end
 
 desc "Build BitBar.app to the current directory"
 lane :build do;
@@ -26,6 +22,9 @@ lane :lint do; swiftlint mode: :lint; end
 
 desc "Fix lint lint errors in project"
 lane :fix do; swiftlint mode: :autocorrect; end
+
+desc "Runs test suit"
+lane :test do; scan; end
 
 desc "Build and zip application"
 lane :package do
@@ -43,6 +42,13 @@ lane :tag do
   commit_version_bump message: "Bump version to #{version}", force: true
   add_git_tag tag: "v#{version}"
   push_to_git_remote remote: "origin", force: false, tags: true
+end
+
+desc "Task to setup the project"
+lane :setup do
+  bundle_install
+  update_fastlane
+  cocoapods repo_update: true
 end
 
 desc "Import keys used for signing"
@@ -64,6 +70,7 @@ lane :import_keys do
   end
 end
 
+desc "Create a signed .app bundle for Github Releases"
 lane :deploy do
   import_keys
   package

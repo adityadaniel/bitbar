@@ -1,5 +1,7 @@
 language: objective-c
-install: make setup
+install:
+  - brew install fastlane
+  - fastlane setup
 osx_image: xcode8.3
 script: fastlane test
 before_deploy: fastlane deploy
