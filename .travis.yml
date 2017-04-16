@@ -1,7 +1,5 @@
 language: objective-c
-install:
-  - gem install fastlane bundler --pre
-  - fastlane setup
+install: make setup
 osx_image: xcode8.3
 script: fastlane test
 before_deploy: fastlane deploy
