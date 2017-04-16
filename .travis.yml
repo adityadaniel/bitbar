@@ -1,6 +1,6 @@
 language: objective-c
 install:
-  - brew cask install fastlane
+  - gem install fastlane bundler --pre
   - fastlane setup
 osx_image: xcode8.3
 script: fastlane test
