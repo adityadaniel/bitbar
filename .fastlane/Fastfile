@@ -6,9 +6,9 @@ default_platform :mac
 xcversion version: "~> 8.3"
 clear_derived_data
 
-before_all do
-  cocoapods
-end
+# before_all do
+#   cocoapods
+# end
 
 desc "Build BitBar.app to the current directory"
 lane :build do;
