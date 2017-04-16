@@ -216,6 +216,7 @@ PLATFORMS
 
 DEPENDENCIES
   cocoapods
+  fastlane
   travis
   xcode-install
   xcpretty
