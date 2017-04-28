@@ -20,6 +20,20 @@
                ReferencedContainer = "container:BitBar.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "NO"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2080758D1EAE5B7800B6939A"
+               BuildableName = "BitBarParserTests.xctest"
+               BlueprintName = "BitBarParserTests"
+               ReferencedContainer = "container:BitBar.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -80,6 +94,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "20946B281E9EBF6800F7926D"
+            BuildableName = "BitBar.app"
+            BlueprintName = "BitBar"
+            ReferencedContainer = "container:BitBar.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

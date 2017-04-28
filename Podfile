@@ -21,7 +21,20 @@ target 'BitBar' do
     pod 'Nimble'
     pod 'Quick'
     pod 'SwiftCheck'
-    pod 'Attr', git: 'https://github.com/oleander/Attr.git'
+  end
+end
+
+target 'BitBarParser' do
+  use_frameworks!
+  inhibit_all_warnings!
+  platform :osx, '10.10'
+
+  pod 'FootlessParser'
+  target 'BitBarParserTests' do
+    inherit! :search_paths
+    pod 'Nimble'
+    pod 'Quick'
+    pod 'SwiftCheck'
   end
 end
 
