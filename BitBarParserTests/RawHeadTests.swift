@@ -19,7 +19,7 @@ class RawHeadTests: QuickSpec {
       fit("handles generate") {
         property("raw head") <- forAll { (head: Raw.Head) in
           return head ==== head.reduce()
-       }
+       }.verbose
      }
   }
 }

@@ -11,7 +11,7 @@ extension Raw.Head: Arbable {
       return Head(
         title: c.generate(using: string),
         params: c.generate(using: Param.params2.shuffle()),
-        menus: c.generate(using: Raw.Tail.arbitrary.proliferate(withSize: 5))
+        menus: c.generate(using: Raw.Tail.sequence(gen: c))
       )
     }
   }

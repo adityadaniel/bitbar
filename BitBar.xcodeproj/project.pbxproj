@@ -34,6 +34,7 @@
 		2013F2FB1EB107F70002D26C /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2013F2F81EB107F70002D26C /* Array.swift */; };
 		2013F2FC1EB107F70002D26C /* Gen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2013F2F91EB107F70002D26C /* Gen.swift */; };
 		2013F2FD1EB107F70002D26C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2013F2FA1EB107F70002D26C /* String.swift */; };
+		202027061EB34D2D00EA9710 /* RawMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202027051EB34D2D00EA9710 /* RawMenu.swift */; };
 		20219AE21EA7F1FF005B79A4 /* Base64Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20219AE01EA7F1FF005B79A4 /* Base64Image.swift */; };
 		20219AE31EA7F1FF005B79A4 /* URLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20219AE11EA7F1FF005B79A4 /* URLImage.swift */; };
 		202EC6251EA628F8003E1F9B /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202EC6211EA628F8003E1F9B /* Array.swift */; };
@@ -275,6 +276,7 @@
 		2013F2F91EB107F70002D26C /* Gen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Gen.swift; path = Extension/Gen.swift; sourceTree = "<group>"; };
 		2013F2FA1EB107F70002D26C /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = String.swift; path = Extension/String.swift; sourceTree = "<group>"; };
 		201B5EE71EA355EA0059950E /* Pods_Distro.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_Distro.framework; path = Pods/../build/Debug/Pods_Distro.framework; sourceTree = "<group>"; };
+		202027051EB34D2D00EA9710 /* RawMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RawMenu.swift; path = Raw/RawMenu.swift; sourceTree = "<group>"; };
 		20219AE01EA7F1FF005B79A4 /* Base64Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base64Image.swift; sourceTree = "<group>"; };
 		20219AE11EA7F1FF005B79A4 /* URLImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLImage.swift; sourceTree = "<group>"; };
 		202EC6211EA628F8003E1F9B /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
@@ -950,6 +952,7 @@
 		20DDA2221EB0F81F00C16B3C /* Raw */ = {
 			isa = PBXGroup;
 			children = (
+				202027051EB34D2D00EA9710 /* RawMenu.swift */,
 				20082C591EB0F90F004369B6 /* RawParam.swift */,
 				20082C5A1EB0F90F004369B6 /* RawTail.swift */,
 				20DDA2241EB0F85B00C16B3C /* RawHead.swift */,
@@ -1447,6 +1450,7 @@
 				2013F2FD1EB107F70002D26C /* String.swift in Sources */,
 				2052CD8C1EB2DD460024A80E /* ImageTests.swift in Sources */,
 				2052CD8A1EB2DAA90024A80E /* ImageArb.swift in Sources */,
+				202027061EB34D2D00EA9710 /* RawMenu.swift in Sources */,
 				2013F2FC1EB107F70002D26C /* Gen.swift in Sources */,
 				20082C671EB0F9DB004369B6 /* Helper.swift in Sources */,
 			);

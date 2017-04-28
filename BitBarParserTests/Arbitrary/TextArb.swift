@@ -23,16 +23,20 @@ extension Text: Arbitrary {
   }
 
   public static func ==== (lhs: Text, rhs: Raw.Head) -> Property {
-    let state = lhs.params.enumerated().reduce(true <?> "list") { (acc, x) in
-      guard let el2 = rhs.params.get(at: x.0) else {
-        return false <?> "\(x.1) not found at index \(x.0)"
-      }
-
-      return acc ^&&^ (x.1 ==== el2)
+    let state = lhs.params.all { p1 in
+      return rhs.params.some { p2 in p2 ==== p1 }
     }
-
     return state ^&&^ lhs.title ==== rhs.title
   }
+}
+
+func ==== (text: Text, raw: Raw.Tail) -> Property {
+  return text.title ==== raw.title
+    ^&&^ raw.params ==== text.params
+}
+
+func ==== (text: [Raw.Param], raw: [Text.Param]) -> Property {
+  return false <?> "OKOKOK"
 }
 
 func ==== (lhs: Text.Param, rhs: Raw.Param) -> Property {
@@ -54,6 +58,14 @@ func ==== (lhs: Text.Param, rhs: Raw.Param) -> Property {
   default:
     return false <?> "no a match: \(lhs) vs \(rhs)"
   }
+}
+
+func ==== (lhs: Menu.Action, rhs: Raw.Param) -> Property {
+  return false <?> "no"
+}
+
+func ==== (lhs: Image, rhs: Raw.Param) -> Property {
+  return false <?> "no"
 }
 
 func ==== (lhs: Raw.Param, rhs: Text.Param) -> Property {

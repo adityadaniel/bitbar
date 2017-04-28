@@ -56,3 +56,78 @@ extension Text.Param: Arbable {
     }
   }
 }
+
+func ==== (params: [Raw.Param], action: Menu.Action) -> Property {
+  switch action {
+  case .nop:
+    return params.all { param in
+      switch param {
+      case .bash:
+        return false <?> "nop != bash"
+      case .refresh:
+        return false <?> "nop != refresh"
+      case .href:
+        return false <?> "nop != href"
+      default:
+        return true <?> "nop == null"
+      }
+    }
+  case let .href(u1, refresh, terminal):
+    return params.some { param in
+      switch param {
+      case let .href(u2):
+        return u1 ==== u2
+      case .refresh(refresh):
+         return true <?> "href == refresh"
+      case .terminal(terminal):
+         return true <?> "href == terminal"
+      case .bash:
+        return false <?> "href != bash"
+      case .refresh:
+        return false <?> "href != refresh"
+      default:
+        return false <?> "nop == null"
+      }
+    }
+  case .refresh:
+    return params.some { param in
+      switch param {
+      case .href:
+        return false <?> "href != refresh"
+      case .bash:
+        return false <?> "href != bash"
+      case .refresh:
+        return true <?> "href == refresh"
+      default:
+        return false <?>  "ok"
+      }
+    }
+  case let .script(path, args, terminal, refresh):
+    return params.reduce(args + [path, "refresh", "terminal"]) { acc, param in
+      switch param {
+      case .href:
+        return acc
+      case let .bash(path):
+        return acc.filter { $0 != path }
+      case .refresh(refresh):
+        return acc.initial()
+      case .terminal(terminal):
+        return acc.initial()
+      case let .argument(_, value):
+        return acc.filter { $0 != value }
+      default:
+        return acc
+      }
+    }.count ==== (args + [path]).count
+
+  }
+}
+
+func ==== (raw: Raw.Param, image: Image) -> Property {
+  switch raw {
+  case let .image(other):
+    return other ==== image
+  default:
+    return false <?> "\(raw) is not an image)"
+  }
+}

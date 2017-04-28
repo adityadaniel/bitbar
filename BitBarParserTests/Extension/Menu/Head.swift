@@ -18,14 +18,12 @@ extension Menu.Head: CustomStringConvertible {
 
   static func ==== (raw: Raw.Head, lhs: Menu.Head) -> Property {
     switch raw.reduce() {
-    case let .text(title, tails):
-      return raw.title ==== title
+    case let .text(text, tails):
+      return text ==== raw ^&&^ raw.menus ==== tails
     case let .error(messages):
-      dump(messages)
       return messages.count ==== 0
     }
   }
-
 }
 
 
