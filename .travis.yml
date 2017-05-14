@@ -1,6 +1,6 @@
 language: objective-c
 install:
-  - security delete-keychain travis.keychain | :
+  - make rem
   - make setup
 osx_image: xcode8.3
 rvm: ruby-2.3.0
