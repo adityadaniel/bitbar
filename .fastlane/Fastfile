@@ -7,8 +7,9 @@ clear_derived_data
 
 desc "Build BitBar.app to the current directory"
 lane :build do;
-  clean_build_artifacts
-  gym
+  # clean_build_artifacts
+  gym output_name: "BitBar", scheme: "BitBar"
+  gym output_name: "Helper", scheme: "Helper"
 end
 
 desc "Lint swift files in project"
