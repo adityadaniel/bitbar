@@ -1,3 +1,2 @@
 exclude:
-    - Pods
-max-severity: error
+  - Pods
