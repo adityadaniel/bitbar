@@ -6,7 +6,7 @@ osx_image: xcode8.3
 rvm: ruby-2.3.0
 script:
   - fastlane test
-  - tailor --max-severity=error --config .tailor.ym
+  # - tailor --max-severity=error --config .tailor.ym
 before_deploy: fastlane deploy
 cache:
   - bundler
