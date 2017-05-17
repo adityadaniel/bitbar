@@ -6,17 +6,15 @@
     <language>en</language>
 
     <item>
-      <title>v1.9.2</title>
+      <title>v3.0.0</title>
       <description>
         <![CDATA[<ul>
   <li>Added Sparkle updater</li>
 </ul>
 ]]>
       </description>
-      <pubDate>Tue, 30 Aug 2016 09:32:04 +0000</pubDate>
-
-      <enclosure url="https://github.com/oleander/bitbar/releases/download/untagged-ce0f1be8048d19789306/BitBar.zip" sparkle:version="1.9.2" length="15478700" type="application/octet-stream"/>
-
+      <pubDate>Tue, 30 Dec 2016 09:32:04 +0000</pubDate>
+      <enclosure url="https://github.com/oleander/bitbar/releases/download/untagged-ce0f1be8048d19789306/BitBar.zip" length="15478700" type="application/octet-stream"/>
     </item>
   </channel>
 </rss>
