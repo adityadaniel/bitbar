@@ -24,7 +24,7 @@ lane :test do; scan; end
 desc "Build and zip application"
 lane :package do
   build
-  zip path: "BitBar.app", output_path: "BitBar.zip"
+  zip path: "Dist/BitBar.app", output_path: "Dist/BitBar.zip"
 end
 
 desc "Generates a new version tag in git and XCode"
