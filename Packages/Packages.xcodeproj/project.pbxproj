@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F1ED15105A4B00C6D4EBFB27 /* Pods_BitBar_Packages_Vapor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E940EC5ABE4D0F089C9F11 /* Pods_BitBar_Packages_Vapor.framework */; };
 		OBJ_1000 /* HTTP+Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_390 /* HTTP+Client.swift */; };
 		OBJ_1001 /* Client+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_392 /* Client+Foundation.swift */; };
 		OBJ_1002 /* Request+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_393 /* Request+Foundation.swift */; };
@@ -3168,6 +3169,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		033A7D500B48F6C2E179661E /* Pods-BitBar-Packages-Vapor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BitBar-Packages-Vapor.release.xcconfig"; path = "../Pods/Target Support Files/Pods-BitBar-Packages-Vapor/Pods-BitBar-Packages-Vapor.release.xcconfig"; sourceTree = "<group>"; };
+		05E940EC5ABE4D0F089C9F11 /* Pods_BitBar_Packages_Vapor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BitBar_Packages_Vapor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		25AF01EEFB34544FB2B1603A /* Pods-BitBar-Packages-Vapor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BitBar-Packages-Vapor.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-BitBar-Packages-Vapor/Pods-BitBar-Packages-Vapor.debug.xcconfig"; sourceTree = "<group>"; };
 		OBJ_100 /* RequestInitializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestInitializable.swift; sourceTree = "<group>"; };
 		OBJ_102 /* JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		OBJ_103 /* JSONRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONRepresentable.swift; sourceTree = "<group>"; };
@@ -3935,6 +3939,7 @@
 				OBJ_1710 /* Cache.framework in Frameworks */,
 				OBJ_1711 /* Sessions.framework in Frameworks */,
 				OBJ_1712 /* Configs.framework in Frameworks */,
+				F1ED15105A4B00C6D4EBFB27 /* Pods_BitBar_Packages_Vapor.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4199,6 +4204,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3FA19334ECE476660F6264C5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				05E940EC5ABE4D0F089C9F11 /* Pods_BitBar_Packages_Vapor.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E5FB41E2DC5154A15EF27D9F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				25AF01EEFB34544FB2B1603A /* Pods-BitBar-Packages-Vapor.debug.xcconfig */,
+				033A7D500B48F6C2E179661E /* Pods-BitBar-Packages-Vapor.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		OBJ_10 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
@@ -5425,7 +5447,7 @@
 			path = UDP;
 			sourceTree = "<group>";
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -5433,6 +5455,8 @@
 				OBJ_9 /* Tests */,
 				OBJ_10 /* Dependencies */,
 				OBJ_593 /* Products */,
+				E5FB41E2DC5154A15EF27D9F /* Pods */,
+				3FA19334ECE476660F6264C5 /* Frameworks */,
 			);
 			name = "";
 			sourceTree = "<group>";
@@ -6283,8 +6307,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_1585 /* Build configuration list for PBXNativeTarget "Vapor" */;
 			buildPhases = (
+				E75F7CA6CA2E78C79F54DA67 /* [CP] Check Pods Manifest.lock */,
 				OBJ_1588 /* Sources */,
 				OBJ_1685 /* Frameworks */,
+				B086FB6276361A1BCA842F55 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -6687,7 +6713,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_593 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -6727,6 +6753,36 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		B086FB6276361A1BCA842F55 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-BitBar-Packages-Vapor/Pods-BitBar-Packages-Vapor-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E75F7CA6CA2E78C79F54DA67 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		OBJ_847 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 0;
@@ -9809,6 +9865,7 @@
 		};
 		OBJ_1586 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 25AF01EEFB34544FB2B1603A /* Pods-BitBar-Packages-Vapor.debug.xcconfig */;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -9845,6 +9902,7 @@
 		};
 		OBJ_1587 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 033A7D500B48F6C2E179661E /* Pods-BitBar-Packages-Vapor.release.xcconfig */;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
