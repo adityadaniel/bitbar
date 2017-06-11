@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2049D0C71EEC82D8006485B1 /* CTLS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2049D0C61EEC82D8006485B1 /* CTLS.framework */; };
-		2049D0DE1EEC9A8E006485B1 /* CHTTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2049D0CE1EEC8767006485B1 /* CHTTP.framework */; };
+		2049D0E11EED72A5006485B1 /* CHTTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_603 /* CHTTP.framework */; };
 		C16C565FC2498B152913EC4C /* Pods_BitBar_Packages_Vapor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A6A452F202A8A09D8C7021E /* Pods_BitBar_Packages_Vapor.framework */; };
 		OBJ_1000 /* HTTP+Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_390 /* HTTP+Client.swift */; };
 		OBJ_1001 /* Client+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_392 /* Client+Foundation.swift */; };
@@ -3915,7 +3915,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				2049D0DE1EEC9A8E006485B1 /* CHTTP.framework in Frameworks */,
+				2049D0E11EED72A5006485B1 /* CHTTP.framework in Frameworks */,
 				2049D0C71EEC82D8006485B1 /* CTLS.framework in Frameworks */,
 				OBJ_1686 /* Bits.framework in Frameworks */,
 				OBJ_1687 /* Debugging.framework in Frameworks */,
