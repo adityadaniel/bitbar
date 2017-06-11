@@ -60,8 +60,8 @@ pre_install do
   puts `swift package --chdir Packages fetch`
   puts `swift package --chdir Packages generate-xcodeproj`
   puts `mkdir -p .build`
-  puts `ln -rfs Packages/.build/checkouts/ctls.git-* .build/ctls`
-  puts `ln -rfs Packages/*.xcodeproj/GeneratedModuleMap/CHTTP .build/CHTTP`
+  puts `gln -rfs Packages/.build/checkouts/ctls.git-* .build/ctls`
+  puts `gln -rfs Packages/*.xcodeproj/GeneratedModuleMap/CHTTP .build/CHTTP`
   puts `ls .build/CHTTP`
   puts `ls .build/ctls`
 end
