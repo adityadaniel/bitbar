@@ -8,6 +8,7 @@ setup:
 	brew tap vapor/homebrew-tap
 	brew update
 	brew install tailor ctls
+	brew install coreutils --with-default-names
 	bundle install
 	fastlane setup
 test:
