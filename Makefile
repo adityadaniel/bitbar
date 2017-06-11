@@ -4,18 +4,18 @@ ifdef test
 endif
 
 setup:
-	gem install bundler fastlane --pre
+	gem install bundler fastlane pod --pre
 	brew tap vapor/homebrew-tap
 	brew update
 	brew install tailor ctls coreutils
 	bundle install
 	bundle exec fastlane setup
 test:
-	@bundle exec fastlane scan $(_test) || :
+	bundle exec fastlane test
 wait: test
 	@find . -name "*.swift" | entr -p make test
-rem:
-	security delete-keychain travis.keychain | :
+deploy:
+	bundle exec fastlane deploy
 clean:
 	swift package reset
 	swift package clean
