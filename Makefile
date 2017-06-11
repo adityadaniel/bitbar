@@ -7,10 +7,9 @@ setup:
 	gem install bundler fastlane --pre
 	brew tap vapor/homebrew-tap
 	brew update
-	brew install tailor ctls
-	brew install coreutils --with-default-names
+	brew install tailor ctls coreutils
 	bundle install
-	fastlane setup
+	bundle exec fastlane setup
 test:
 	@bundle exec fastlane scan $(_test) || :
 wait: test
@@ -30,8 +29,6 @@ symlink_vapor:
 	mkdir -p .build
 	gln -rfs Packages/.build/checkouts/ctls.git-* .build/ctls
 	gln -rfs Packages/*.xcodeproj/GeneratedModuleMap/CHTTP .build/CHTTP
-	ls .build/CHTTP
-	ls .build/ctls
 prebuild_vapor:
 	swift package --chdir Packages fetch
 	swift package --chdir Packages generate-xcodeproj
