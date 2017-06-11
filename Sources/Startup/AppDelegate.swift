@@ -39,6 +39,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
   func terminate() {
     print("[Log] Terminating Startup application")
-    NSApp.terminate(nil)
+    // NSApp.terminate(nil)
   }
 }

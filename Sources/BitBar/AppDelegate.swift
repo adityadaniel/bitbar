@@ -24,7 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, Parent {
     setOpenUrlHandler()
     loadPluginManager()
     setOnWakeUpHandler()
-    handleStartupApp()
+    // handleStartupApp()
     handleServerStartup()
   }
 
