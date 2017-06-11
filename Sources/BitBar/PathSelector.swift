@@ -1,4 +1,5 @@
 import Cocoa
+import SwiftyBeaver
 import AppKit
 import Files
 
@@ -10,7 +11,7 @@ import Files
 // optional func panel(_ sender: Any,
 //        shouldEnable url: URL) -> Bool
 class PathSelector: NSObject, NSOpenSavePanelDelegate {
-
+  private let log = SwiftyBeaver.self
   private static let title = "Use as Plugins Directory"
   private let panel = NSOpenPanel()
   /**
@@ -31,8 +32,12 @@ class PathSelector: NSObject, NSOpenSavePanelDelegate {
     panel.delegate = self
   }
 
-  func ask(block: Block<URL?>) {
+  func ask(block: Block<URL>) {
     panel.runModal()
-    block(panel.url)
+    if panel.urls.count == 1 {
+      block(panel.urls[0])
+    } else {
+      log.error("Invalid number of urls \(panel.urls)")
+    }
   }
 }

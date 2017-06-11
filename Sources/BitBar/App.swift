@@ -110,8 +110,8 @@ class App {
     The selected folder is stored for the future
   */
   static func askAboutPluginPath(block: @escaping Block<Void>) {
-    PathSelector(withURL: App.pluginURL).ask {
-      App.update(pluginPath: $0?.path)
+    PathSelector(withURL: App.pluginURL).ask { url in
+      App.update(pluginPath: url.path)
       block()
     }
   }
