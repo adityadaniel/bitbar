@@ -56,5 +56,12 @@ target "BitBar" do
 end
 
 pre_install do
-  puts `make prebuild_vapor symlink_vapor`
+  # puts `make prebuild_vapor symlink_vapor`
+  puts `swift package --chdir Packages fetch`
+  puts `swift package --chdir Packages generate-xcodeproj`
+  puts `mkdir -p .build`
+  puts `ln -rfs Packages/.build/checkouts/ctls.git-* .build/ctls`
+  puts `ln -rfs Packages/*.xcodeproj/GeneratedModuleMap/CHTTP .build/CHTTP`
+  puts `ls .build/CHTTP`
+  puts `ls .build/ctls`
 end
