@@ -63,9 +63,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, Parent {
       return manager.set(path: path)
     }
 
-    App.askAboutPluginPath { [weak self] in
-      self?.manager.refresh()
-    }
+    //App.askAboutPluginPath { [weak self] in
+    //  self?.manager.refresh()
+    //}
   }
 
   @objc private func onDidWake() {

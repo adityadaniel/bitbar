@@ -1,5 +1,6 @@
 import Cocoa
 import AppKit
+import Files
 
 /**
   File selector used to ask the user about which plugin folder to use
@@ -19,6 +20,8 @@ class PathSelector: NSObject, NSOpenSavePanelDelegate {
     self.init()
     if let aURL = url {
       panel.directoryURL = aURL
+    } else {
+      panel.directoryURL = URL(string: Folder.home.path)
     }
     panel.prompt = PathSelector.title
     panel.allowsMultipleSelection = false
