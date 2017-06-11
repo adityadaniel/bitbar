@@ -39,7 +39,7 @@ class App {
   */
   static var pluginURL: URL? {
     if let path = pluginPath {
-      return URL(string: path)
+      return URL(fileURLWithPath: path, isDirectory: true)
     }
 
     return nil
