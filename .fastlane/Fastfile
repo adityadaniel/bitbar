@@ -24,7 +24,7 @@ lane :test do; scan; end
 desc "Build and zip application"
 lane :package do
   build
-  sh "codesign --deep --force --sign 'Mac Developer: linus@oleander.nu (8Z44P9V4VF)' ../Dist/BitBar.app"
+  # sh "codesign --deep --force --sign 'Mac Developer: linus@oleander.nu (8Z44P9V4VF)' ../Dist/BitBar.app"
   zip path: "Dist/BitBar.app", output_path: "Dist/BitBar.zip"
 end
 
