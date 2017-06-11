@@ -4,7 +4,7 @@ ifdef test
 endif
 
 setup:
-	gem install bundler fastlane pod --pre
+	gem install bundler fastlane --pre
 	brew tap vapor/homebrew-tap
 	brew update
 	brew install tailor ctls coreutils
