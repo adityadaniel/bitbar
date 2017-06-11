@@ -3,7 +3,9 @@ install: make setup
 osx_image: xcode8.3
 rvm: ruby-2.3.0
 script: make test
-before_deploy: make deploy
+before_deploy:
+  - make deploy
+  - codesign --deep --force --sign "Mac Developer: linus@oleander.nu (8Z44P9V4VF)" Dist/BitBar.app
 cache:
   - bundler
   - cocoapods
