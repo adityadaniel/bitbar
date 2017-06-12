@@ -7,6 +7,7 @@ extension GUI {
   }
 
   internal func perform(block: @escaping () -> Void) {
+    if App.isInTestMode() { return block() }
     Async.custom(queue: queue) { block() }
   }
 }
