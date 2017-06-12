@@ -11,9 +11,9 @@ private func ok(_ msg: String) throws -> JSON {
 func startServer() throws -> Droplet {
   let manager = PluginManager.instance
   let drop = try Droplet()
-  let log = SwiftyBeaver.self
-
-  log.addDestination(ConsoleDestination())
+  // Disable log
+  // let log = SwiftyBeaver.self
+  // log.addDestination(ConsoleDestination())
 
   drop.group("plugins") { group in
     group.patch("refresh") { _ in

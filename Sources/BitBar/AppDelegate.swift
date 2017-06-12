@@ -85,9 +85,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, Parent {
 
   private func setOpenUrlHandler() {
     eventManager.setEventHandler(self,
-                                 andSelector: #selector(AppDelegate.handleEvent(_:withReplyEvent:)),
-                                 forEventClass: AEEventClass(kInternetEventClass),
-                                 andEventID: AEEventID(kAEGetURL)
+       andSelector: #selector(AppDelegate.handleEvent(_:withReplyEvent:)),
+       forEventClass: AEEventClass(kInternetEventClass),
+       andEventID: AEEventID(kAEGetURL)
     )
     LSSetDefaultHandlerForURLScheme("bitbar" as CFString, App.id)
   }

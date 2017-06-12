@@ -89,7 +89,7 @@ class Tray: Parent, GUI {
 
     image = NSImage(
       octiconsID: icon,
-      iconColor: App.inactiveColor,
+      iconColor: NSColor(hex: "#474747"),
       size: size
     )
 

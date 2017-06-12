@@ -25,7 +25,7 @@ class PathSelector: NSObject, NSOpenSavePanelDelegate, GUI {
     panel.canChooseFiles = false
   }
 
-  func ask(block: @escaping Block<URL>) {
+  public func ask(block: @escaping Block<URL>) {
     perform {
       if self.panel.runModal() == NSFileHandlingPanelOKButton {
         if self.panel.urls.count == 1 {
