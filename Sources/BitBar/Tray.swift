@@ -73,12 +73,12 @@ class Tray: Parent, GUI {
     } else { hideErrorIcons() }
   }
 
-  func set(title: Immutable) {
+  public func set(title: Immutable) {
     hideErrorIcons()
     attributedTitle = style(title)
   }
 
-  func set(title: String) {
+  public func set(title: String) {
     set(title: title.immutable)
   }
 
