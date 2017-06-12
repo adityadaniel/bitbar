@@ -63,7 +63,6 @@ class OpenPluginHandler: Parent, GUI {
     alert.addButton(withTitle: "Install")
     alert.addButton(withTitle: "Cancel")
 
-
     perform {
       if alert.runModal() != NSAlertFirstButtonReturn {
         return self.log.info("User aborted openPlugin")
