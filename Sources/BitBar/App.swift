@@ -116,7 +116,7 @@ class App {
     }
   }
 
-  static var inactiveColor: Color {
+  static var inactiveColor: NSColor {
     return NSColor(hex: "#474747")
   }
 
