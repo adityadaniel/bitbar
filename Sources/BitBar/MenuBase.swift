@@ -1,4 +1,5 @@
 import AppKit
+import Async
 
 class MenuBase: NSMenu, NSMenuDelegate {
   init() {
@@ -11,8 +12,10 @@ class MenuBase: NSMenu, NSMenuDelegate {
   }
 
   func menuWillOpen(_ menu: NSMenu) {
-    for item in items {
-      item.onWillBecomeVisible()
+    Async.main {
+      for item in self.items {
+        item.onWillBecomeVisible()
+      }
     }
   }
 }

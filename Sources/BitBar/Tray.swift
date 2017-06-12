@@ -46,14 +46,14 @@ class Tray: Parent {
    Hides item from menu bar
   */
   public func hide() {
-    Async.main { self.item.hide() }
+    item.hide()
   }
 
   /**
     Display item in menu bar
   */
   public func show() {
-    Async.main { self.item.show() }
+    item.show()
   }
 
   public func on(_ event: MenuEvent) {

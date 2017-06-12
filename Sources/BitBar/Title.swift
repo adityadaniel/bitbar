@@ -1,10 +1,26 @@
 import Parser
 import BonMot
 import SwiftyBeaver
+import Async
+protocol GUI {
+  var queue: DispatchQueue { get }
+  func perform(block: @escaping () -> Void)
+}
 
-final class Title: MenuBase, Parent {
+extension GUI {
+  static func newQueue(label: String) -> DispatchQueue {
+    return DispatchQueue(label: label, target: .main)
+  }
+  
+  internal func perform(block: @escaping () -> Void) {
+    Async.custom(queue: queue) { block() }
+  }
+}
+
+final class Title: MenuBase, Parent, GUI {
+  internal let queue = Title.newQueue(label: "Title")
   internal let log = SwiftyBeaver.self
-  weak var root: Parent?
+  internal weak var root: Parent?
   private let ago = Pref.UpdatedTimeAgo()
   private let runInTerminal = Pref.RunInTerminal()
   private var numberOfPrefs = 0
@@ -13,11 +29,13 @@ final class Title: MenuBase, Parent {
   init(prefs: [NSMenuItem], delegate: Parent) {
     super.init()
     root = delegate
-    add(sub: NSMenuItem.separator())
-    add(sub: ago)
-    add(sub: runInTerminal)
-    add(sub: Pref.Preferences(prefs: prefs))
-    numberOfPrefs = numberOfItems
+    perform {
+      self.add(sub: NSMenuItem.separator())
+      self.add(sub: self.ago)
+      self.add(sub: self.runInTerminal)
+      self.add(sub: Pref.Preferences(prefs: prefs))
+      self.numberOfPrefs = self.numberOfItems
+    }
     self.delegate = self
   }
 
@@ -27,16 +45,16 @@ final class Title: MenuBase, Parent {
 
   // Only keep pref menus
   func set(menus: [NSMenuItem]) {
-    for _ in numberOfPrefs..<numberOfItems {
-      removeItem(at: 0)
-    }
+    perform {
+      self.reset()
 
-    for menu in menus {
-      add(sub: menu)
-    }
+      for menu in menus {
+        self.add(sub: menu)
+      }
 
-    ago.reset()
-    hasLoaded = true
+      self.ago.reset()
+      self.hasLoaded = true
+    }
   }
 
   required init(coder decoder: NSCoder) {
@@ -46,5 +64,12 @@ final class Title: MenuBase, Parent {
   private func add(sub: NSMenuItem) {
     sub.root = self
     insertItem(sub, at: numberOfItems - numberOfPrefs)
+  }
+
+  private func reset() {
+    guard numberOfPrefs < numberOfItems else { return }
+    for _ in numberOfPrefs..<numberOfItems {
+      removeItem(at: 0)
+    }
   }
 }
