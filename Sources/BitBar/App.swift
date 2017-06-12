@@ -1,6 +1,6 @@
-import Foundation
 import ServiceManagement
 import Async
+import AppKit
 import SwiftyUserDefaults
 
 // #if DEBUG
@@ -114,6 +114,10 @@ class App {
       App.update(pluginPath: url.path)
       block()
     }
+  }
+
+  static var inactiveColor: Color {
+    return NSColor(hex: "#474747")
   }
 
   /**

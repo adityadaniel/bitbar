@@ -36,6 +36,9 @@
 		202A9C3F1EEA13CC00538035 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202A9C3B1EEA13CC00538035 /* AppDelegate.swift */; };
 		203AA4431EEA061200075DA2 /* BitBarTests.plist in Resources */ = {isa = PBXBuildFile; fileRef = 203AA4421EEA061200075DA2 /* BitBarTests.plist */; };
 		20444A731EEA1B0E0097651A /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20444A721EEA1B0E0097651A /* Errors.swift */; };
+		2049CC241EEE15A9005638E9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2064E20C1EE95E9A0032ADC0 /* Images.xcassets */; };
+		2049CC251EEE15A9005638E9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2064E20C1EE95E9A0032ADC0 /* Images.xcassets */; };
+		2049CC261EEE15B1005638E9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2064E20C1EE95E9A0032ADC0 /* Images.xcassets */; };
 		207F8DF91EE9B4C600CA5D4E /* App.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2064E20E1EE95E9A0032ADC0 /* App.xib */; };
 		20832A111EE974F5006440EC /* octicons.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2064E2171EE95E9A0032ADC0 /* octicons.ttf */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		20832A121EE9751A006440EC /* bitbar-2048.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2064E20F1EE95E9A0032ADC0 /* bitbar-2048.png */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -924,6 +927,7 @@
 				201045691EE9DC5E0020599C /* fail.10m.sh in Resources */,
 				201045661EE9DC5E0020599C /* all.10m.sh in Resources */,
 				2010456A1EE9DC5E0020599C /* image.10m.sh in Resources */,
+				2049CC261EEE15B1005638E9 /* Images.xcassets in Resources */,
 				201045681EE9DC5E0020599C /* example.10m.sh in Resources */,
 				2010456C1EE9DCBF0020599C /* metadata.sh in Resources */,
 			);
@@ -948,6 +952,7 @@
 				20F870D81EE9DE16003C4A5A /* exit1-output.sh in Resources */,
 				20F870D91EE9DE16003C4A5A /* invalid-syntax.sh in Resources */,
 				20F870E01EE9DE16003C4A5A /* stream-nomore.sh in Resources */,
+				2049CC241EEE15A9005638E9 /* Images.xcassets in Resources */,
 				20F870DE1EE9DE16003C4A5A /* space script.sh in Resources */,
 				20F870E31EE9DE16003C4A5A /* sub2.10s.sh in Resources */,
 				20F870DA1EE9DE16003C4A5A /* missing-sh-bin.sh in Resources */,
@@ -958,6 +963,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2049CC251EEE15A9005638E9 /* Images.xcassets in Resources */,
 				202A9C3D1EEA13CC00538035 /* Assets.xcassets in Resources */,
 				202A9C3E1EEA13CC00538035 /* App.xib in Resources */,
 			);
