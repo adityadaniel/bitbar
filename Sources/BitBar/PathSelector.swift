@@ -21,8 +21,8 @@ class PathSelector: NSObject, NSOpenSavePanelDelegate {
     self.init()
     if let aURL = url {
       panel.directoryURL = aURL
-    // } else {
-      // panel.directoryURL = URL(fileURLWithPath: Folder.home.path, isDirectory: true)
+    } else {
+      panel.directoryURL = URL(fileURLWithPath: Folder.home.path, isDirectory: true)
     }
     panel.prompt = PathSelector.title
     panel.allowsMultipleSelection = false
