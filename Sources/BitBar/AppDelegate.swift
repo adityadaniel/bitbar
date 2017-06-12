@@ -2,7 +2,7 @@ import Cocoa
 import Emojize
 import AppKit
 import Async
-import Sparkle
+// import Sparkle
 import Vapor
 import SwiftyBeaver
 
@@ -13,7 +13,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, Parent {
   private var eventManager = NSAppleEventManager.shared()
   private var notificationCenter = NSWorkspace.shared().notificationCenter
   internal let manager = PluginManager.instance
-  private let updater = SUUpdater.shared()
+  // private let updater = SUUpdater.shared()
   private var trays = [Tray]()
   private var server: Droplet?
   var menus = [NSMenu]()
@@ -41,7 +41,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, Parent {
     case .doNotOpenOnLogin: App.startAtLogin(false)
     case let .openUrlInBrowser(url): App.open(url: url)
     case .quitApplication: NSApp.terminate(self)
-    case .checkForUpdates: updater?.checkForUpdates(self)
+    case .checkForUpdates: break // updater?.checkForUpdates(self)
     case .openPluginFolder:
       if let path = App.pluginPath {
         App.open(path: path)
