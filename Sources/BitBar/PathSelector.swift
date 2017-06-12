@@ -38,7 +38,7 @@ class PathSelector: NSObject, NSOpenSavePanelDelegate {
         if self.panel.urls.count == 1 {
           block(self.panel.urls[0])
         } else {
-          self.log.error("Invalid number of urls \(panel.urls)")
+          self.log.error("Invalid number of urls \(self.panel.urls)")
         }
       } else {
         self.log.info("User pressed close in plugin folder dialog")
