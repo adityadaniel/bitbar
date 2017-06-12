@@ -32,12 +32,17 @@ class PathSelector: NSObject, NSOpenSavePanelDelegate {
     panel.delegate = self
   }
 
-  func ask(block: Block<URL>) {
-    panel.runModal()
-    if panel.urls.count == 1 {
-      block(panel.urls[0])
-    } else {
-      log.error("Invalid number of urls \(panel.urls)")
+  func ask(block: @escaping Block<URL>) {
+    panel.begin { response in
+      if response == NSFileHandlingPanelOKButton {
+        if self.panel.urls.count == 1 {
+          block(self.panel.urls[0])
+        } else {
+          self.log.error("Invalid number of urls \(panel.urls)")
+        }
+      } else {
+        self.log.info("User pressed close in plugin folder dialog")
+      }
     }
   }
 }
