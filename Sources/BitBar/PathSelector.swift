@@ -29,7 +29,7 @@ class PathSelector: NSObject, NSOpenSavePanelDelegate {
     panel.canChooseDirectories = true
     panel.canCreateDirectories = true
     panel.canChooseFiles = false
-    panel.delegate = self
+    // panel.delegate = self
   }
 
   func ask(block: @escaping Block<URL>) {
