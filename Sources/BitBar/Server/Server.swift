@@ -21,7 +21,7 @@ func startServer() throws -> Droplet {
       return try ok("Plugin(s) has beeen refreshed")
     }
 
-    group.get("") { _ in
+    group.get { _ in
       return try JSON(node: manager.pluginsNames)
     }
   }
@@ -31,7 +31,7 @@ func startServer() throws -> Droplet {
   }
 
   drop.group("plugin", PluginFile.parameter) { plugin in
-    plugin.get("") { req in
+    plugin.get { req in
       return try req.parameters.next(PluginFile.self).makeJSON()
     }
 
