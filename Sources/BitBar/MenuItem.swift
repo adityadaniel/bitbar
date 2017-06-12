@@ -4,7 +4,8 @@ import Async
 import SwiftyBeaver
 import OcticonsSwift
 
-class MenuItem: NSMenuItem, Parent {
+class MenuItem: NSMenuItem, Parent, GUI {
+  internal let queue = MenuItem.newQueue(label: "MenuItem")
   private var isError = false
   public var isManualClickable: Bool?
   public let log = SwiftyBeaver.self
@@ -43,7 +44,7 @@ class MenuItem: NSMenuItem, Parent {
     self.isManualClickable = isClickable
 
     if isAlternate {
-      Async.main {
+      perform {
         self.isAlternate = true
         self.keyEquivalentModifierMask = .option
       }
@@ -127,7 +128,7 @@ class MenuItem: NSMenuItem, Parent {
   }
 
   @nonobjc public func set(title: Immutable) {
-    Async.main { self.attributedTitle = self.style(title) }
+    perform { self.attributedTitle = self.style(title) }
   }
 
   @nonobjc public func set(error: Bool) {
@@ -141,7 +142,7 @@ class MenuItem: NSMenuItem, Parent {
   public var isChecked: Bool {
     get { return NSOnState == state }
     set {
-      Async.main {
+      perform {
         self.state = newValue ? NSOnState : NSOffState
       }
     }
@@ -212,7 +213,7 @@ class MenuItem: NSMenuItem, Parent {
   }
 
   private var icon: NSImage? {
-    set { Async.main { self.image = newValue } }
+    set { perform { self.image = newValue } }
     get { return image }
   }
 
@@ -225,13 +226,13 @@ class MenuItem: NSMenuItem, Parent {
   }
 
   private func add(submenu item: NSMenuItem) {
-    Async.main {
+    perform {
       item.root = self
       self.submenu?.addItem(item)
     }
   }
 
   private func updateSubmenu() {
-    Async.main { self.submenu?.update() }
+    perform { self.submenu?.update() }
   }
 }

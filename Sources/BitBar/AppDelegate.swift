@@ -66,9 +66,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, Parent {
 
   private func askAboutPluginPath() {
     App.askAboutPluginPath {
-      Async.main {
-        self.loadPluginManager()
-      }
+      self.loadPluginManager()
     }
   }
 

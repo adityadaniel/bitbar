@@ -2,23 +2,8 @@ import Parser
 import BonMot
 import SwiftyBeaver
 import Async
-protocol GUI {
-  var queue: DispatchQueue { get }
-  func perform(block: @escaping () -> Void)
-}
 
-extension GUI {
-  static func newQueue(label: String) -> DispatchQueue {
-    return DispatchQueue(label: label, target: .main)
-  }
-  
-  internal func perform(block: @escaping () -> Void) {
-    Async.custom(queue: queue) { block() }
-  }
-}
-
-final class Title: MenuBase, Parent, GUI {
-  internal let queue = Title.newQueue(label: "Title")
+final class Title: MenuBase, Parent {
   internal let log = SwiftyBeaver.self
   internal weak var root: Parent?
   private let ago = Pref.UpdatedTimeAgo()

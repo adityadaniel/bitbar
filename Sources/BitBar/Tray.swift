@@ -6,7 +6,8 @@ import OcticonsSwift
 import Async
 import SwiftyBeaver
 
-class Tray: Parent {
+class Tray: Parent, GUI {
+  internal let queue = Tray.newQueue(label: "Tray")
   public let log = SwiftyBeaver.self
   public weak var root: Parent?
   private static let center = NSStatusBar.system()
@@ -24,7 +25,7 @@ class Tray: Parent {
     }
 
     if let id = id {
-      item.tag = id
+      tag = id
     }
 
     set(title: title)
@@ -34,11 +35,11 @@ class Tray: Parent {
 
   public var attributedTitle: NSAttributedString? {
     get { return item.attributedTitle }
-    set { Async.main { self.item.attributedTitle = newValue } }
+    set { perform { self.item.attributedTitle = newValue } }
   }
 
   public var menu: NSMenu? {
-    set { Async.main { self.item.menu = newValue } }
+    set { perform { self.item.menu = newValue } }
     get { return item.menu }
   }
 
@@ -46,14 +47,14 @@ class Tray: Parent {
    Hides item from menu bar
   */
   public func hide() {
-    item.hide()
+    perform { self.item.hide() }
   }
 
   /**
     Display item in menu bar
   */
   public func show() {
-    item.show()
+    perform { self.item.show() }
   }
 
   public func on(_ event: MenuEvent) {
@@ -107,12 +108,12 @@ class Tray: Parent {
   }
 
   private var image: NSImage? {
-    set { Async.main { self.button?.image = newValue } }
+    set { perform { self.button?.image = newValue } }
     get { return button?.image }
   }
 
   private var alternateImage: NSImage? {
-    set { Async.main { self.button?.alternateImage = newValue } }
+    set { perform { self.button?.alternateImage = newValue } }
     get { return button?.alternateImage }
   }
 
@@ -123,6 +124,11 @@ class Tray: Parent {
 
     log.error("Could not find button on status item (hide)")
     return nil
+  }
+
+  private var tag: String? {
+    get { return item.tag }
+    set { perform { self.item.tag = newValue } }
   }
 
   private func style(_ immutable: Immutable) -> Immutable {

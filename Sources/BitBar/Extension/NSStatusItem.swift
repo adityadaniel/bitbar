@@ -12,20 +12,20 @@ extension NSStatusItem: MenuBar {
     }
     set {
       if #available(OSX 10.12, *) {
-        Async.main { self.autosaveName = newValue }
+        self.autosaveName = newValue
       }
     }
   }
 
   func show() {
     if #available(OSX 10.12, *) {
-      Async.main { self.isVisible = true }
+      self.isVisible = true
     }
   }
 
   func hide() {
     if #available(OSX 10.12, *) {
-      Async.main { self.isVisible = false }
+      self.isVisible = false
     }
   }
 }

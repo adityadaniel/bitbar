@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20013B291EEF2AE0005AB58B /* GUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20013B281EEF2AE0005AB58B /* GUI.swift */; };
+		20013B2B1EEF2AF5005AB58B /* GUIExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20013B2A1EEF2AF5005AB58B /* GUIExt.swift */; };
 		2010454E1EE9D64D0020599C /* ExecutablePluginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2010453B1EE9D64D0020599C /* ExecutablePluginTests.swift */; };
 		2010454F1EE9D64D0020599C /* FileNameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2010453C1EE9D64D0020599C /* FileNameTests.swift */; };
 		201045501EE9D64D0020599C /* ClickEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2010453E1EE9D64D0020599C /* ClickEvent.swift */; };
@@ -255,6 +257,8 @@
 
 /* Begin PBXFileReference section */
 		1667A6C84B99FF502D706F3B /* Pods-BitBarTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BitBarTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BitBarTests/Pods-BitBarTests.debug.xcconfig"; sourceTree = "<group>"; };
+		20013B281EEF2AE0005AB58B /* GUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GUI.swift; sourceTree = "<group>"; };
+		20013B2A1EEF2AF5005AB58B /* GUIExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GUIExt.swift; sourceTree = "<group>"; };
 		2007B4451EE9CC2F00E68358 /* BitBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BitBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2010453B1EE9D64D0020599C /* ExecutablePluginTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutablePluginTests.swift; sourceTree = "<group>"; };
 		2010453C1EE9D64D0020599C /* FileNameTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileNameTests.swift; sourceTree = "<group>"; };
@@ -709,6 +713,7 @@
 				20E0A6AB1EE9603F00564B1B /* String.LocalizedError.swift */,
 				20E0A6AC1EE9603F00564B1B /* StringExt.swift */,
 				20E0A6AD1EE9603F00564B1B /* WebSockets.swift */,
+				20013B2A1EEF2AF5005AB58B /* GUIExt.swift */,
 			);
 			name = Extension;
 			path = Sources/BitBar/Extension;
@@ -761,6 +766,7 @@
 			children = (
 				20E0A6C41EE9603F00564B1B /* Managable.swift */,
 				20E0A6C51EE9603F00564B1B /* MenuBar.swift */,
+				20013B281EEF2AE0005AB58B /* GUI.swift */,
 			);
 			name = Protocol;
 			path = Sources/BitBar/Protocol;
@@ -1191,6 +1197,7 @@
 				20E0A6E81EE9603F00564B1B /* Parser.Action.swift in Sources */,
 				20E0A6EA1EE9603F00564B1B /* Parser.Image.swift in Sources */,
 				20E0A7031EE9603F00564B1B /* MenuBar.swift in Sources */,
+				20013B291EEF2AE0005AB58B /* GUI.swift in Sources */,
 				20E0A6ED1EE9603F00564B1B /* String.LocalizedError.swift in Sources */,
 				20E0A6E61EE9603F00564B1B /* NSMenuItem.swift in Sources */,
 				20E0A6F11EE9603F00564B1B /* RefreshPluginHandler.swift in Sources */,
@@ -1198,6 +1205,7 @@
 				20E0A6F21EE9603F00564B1B /* ExecutablePlugin.swift in Sources */,
 				20E0A70C1EE9603F00564B1B /* ImageResult.swift in Sources */,
 				20E0A7181EE9603F00564B1B /* Tray.swift in Sources */,
+				20013B2B1EEF2AF5005AB58B /* GUIExt.swift in Sources */,
 				20E0A7111EE9603F00564B1B /* Metadata.swift in Sources */,
 				20E0A7041EE9603F00564B1B /* Server.swift in Sources */,
 			);
