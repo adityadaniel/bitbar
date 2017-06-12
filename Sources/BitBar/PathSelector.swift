@@ -20,7 +20,7 @@ class PathSelector: NSObject, NSOpenSavePanelDelegate {
   convenience init(withURL url: URL? = nil) {
     self.init()
     if let aURL = url {
-      panel.directoryURL = aURL
+//      panel.directoryURL = aURL
     // } else {
     //   panel.directoryURL = URL(fileURLWithPath: Folder.home.path, isDirectory: true)
     }
@@ -33,16 +33,14 @@ class PathSelector: NSObject, NSOpenSavePanelDelegate {
   }
 
   func ask(block: @escaping Block<URL>) {
-    panel.begin { response in
-      if response == NSFileHandlingPanelOKButton {
-        if self.panel.urls.count == 1 {
-          block(self.panel.urls[0])
-        } else {
-          self.log.error("Invalid number of urls \(self.panel.urls)")
-        }
+    if panel.runModal() == NSFileHandlingPanelOKButton {
+      if self.panel.urls.count == 1 {
+        block(self.panel.urls[0])
       } else {
-        self.log.info("User pressed close in plugin folder dialog")
+        self.log.error("Invalid number of urls \(self.panel.urls)")
       }
+    } else {
+      self.log.info("User pressed close in plugin folder dialog")
     }
   }
 }
