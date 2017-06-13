@@ -8,16 +8,13 @@ import SwiftyBeaver
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, Parent {
-  weak var root: Parent?
+  internal weak var root: Parent?
   internal let log = SwiftyBeaver.self
   private var eventManager = NSAppleEventManager.shared()
   private var notificationCenter = NSWorkspace.shared().notificationCenter
   internal let manager = PluginManager.instance
   private let updater = SUUpdater.shared()
-  private var trays = [Tray]()
   private var server: Droplet?
-  var menus = [NSMenu]()
-  var subs = [NSMenuItem]()
 
   func applicationDidFinishLaunching(_: Notification) {
     if App.isInTestMode() { return }
@@ -41,7 +38,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, Parent {
     case .doNotOpenOnLogin: App.startAtLogin(false)
     case let .openUrlInBrowser(url): App.open(url: url)
     case .quitApplication: NSApp.terminate(self)
-    case .checkForUpdates: updater.checkForUpdates(self)
+    case .checkForUpdates: updater?.checkForUpdates(self)
     case .openPluginFolder:
       if let path = App.pluginPath {
         App.open(path: path)
