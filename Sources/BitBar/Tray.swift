@@ -12,7 +12,7 @@ class Tray: Parent, GUI {
   public weak var root: Parent?
   private static let center = NSStatusBar.system()
   private static let length = NSVariableStatusItemLength
-  private var item: MenuBar
+  private var item: MenuBar?
   static internal var item: MenuBar {
     return Tray.center.statusItem(withLength: length)
   }
@@ -21,7 +21,7 @@ class Tray: Parent, GUI {
     if App.isInTestMode() {
       self.item = TestBar()
     } else {
-      self.item = Tray.item
+      perform { self.item = Tray.item }
     }
 
     if let id = id {
@@ -34,27 +34,27 @@ class Tray: Parent, GUI {
   }
 
   public var attributedTitle: NSAttributedString? {
-    get { return item.attributedTitle }
-    set { perform { self.item.attributedTitle = newValue } }
+    get { return item?.attributedTitle }
+    set { perform { self.item?.attributedTitle = newValue } }
   }
 
   public var menu: NSMenu? {
-    set { perform { self.item.menu = newValue } }
-    get { return item.menu }
+    set { perform { self.item?.menu = newValue } }
+    get { return item?.menu }
   }
 
   /**
    Hides item from menu bar
   */
   public func hide() {
-    perform { self.item.hide() }
+    perform { self.item?.hide() }
   }
 
   /**
     Display item in menu bar
   */
   public func show() {
-    perform { self.item.show() }
+    perform { self.item?.show() }
   }
 
   public func on(_ event: MenuEvent) {
@@ -118,7 +118,7 @@ class Tray: Parent, GUI {
   }
 
   private var button: NSButton? {
-    if let button = item.button {
+    if let button = item?.button {
       return button
     }
 
@@ -127,8 +127,8 @@ class Tray: Parent, GUI {
   }
 
   private var tag: String? {
-    get { return item.tag }
-    set { perform { self.item.tag = newValue } }
+    get { return item?.tag }
+    set { perform { self.item?.tag = newValue } }
   }
 
   private func style(_ immutable: Immutable) -> Immutable {
