@@ -19,10 +19,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, Parent {
   func applicationDidFinishLaunching(_: Notification) {
     if App.isInTestMode() { return }
     manager.root = self
-    setOpenUrlHandler()
-    setOnWakeUpHandler()
-    handleStartupApp()
-    handleServerStartup()
+    // setOpenUrlHandler()
+    // setOnWakeUpHandler()
+    // handleStartupApp()
+    // handleServerStartup()
     loadPluginManager()
   }
 
