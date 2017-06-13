@@ -23,10 +23,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, Parent {
     if App.isInTestMode() { return }
     manager.root = self
     setOpenUrlHandler()
-    loadPluginManager()
     setOnWakeUpHandler()
     handleStartupApp()
     handleServerStartup()
+    loadPluginManager()
   }
 
   private func handleStartupApp() {
