@@ -1,11 +1,12 @@
 import Cocoa
 import SwiftyBeaver
+import Async
 import AppKit
 import Files
 
-class PathSelector: NSObject, NSOpenSavePanelDelegate, GUI {
+class PathSelector {
   private let log = SwiftyBeaver.self
-  internal let queue = PathSelector.newQueue(label: "PathSelector")
+  // internal let queue = PathSelector.newQueue(label: "PathSelector")
   private static let title = "Use as Plugins Directory"
   private let panel = NSOpenPanel()
   /**
@@ -15,8 +16,14 @@ class PathSelector: NSObject, NSOpenSavePanelDelegate, GUI {
     self.init()
 
     if let aURL = url {
+      log.info("use other folder")
       panel.directoryURL = aURL
+    } else {
+      log.info("Use home folder")
+      panel.directoryURL = URL(fileURLWithPath: Folder.home.path, isDirectory: true)
     }
+
+    log.info("Use dir \(panel.directoryURL?.absoluteString)")
 
     panel.prompt = PathSelector.title
     panel.allowsMultipleSelection = false
@@ -26,7 +33,7 @@ class PathSelector: NSObject, NSOpenSavePanelDelegate, GUI {
   }
 
   public func ask(block: @escaping Block<URL>) {
-    perform {
+    Async.main {
       if self.panel.runModal() == NSFileHandlingPanelOKButton {
         if self.panel.urls.count == 1 {
           block(self.panel.urls[0])

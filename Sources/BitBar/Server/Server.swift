@@ -12,8 +12,11 @@ func startServer() throws -> Droplet {
   let manager = PluginManager.instance
   let drop = try Droplet()
   // Disable log
-  // let log = SwiftyBeaver.self
+  let log = SwiftyBeaver.self
+  log.addDestination(FileDestination())
   // log.addDestination(ConsoleDestination())
+
+
 
   drop.group("plugins") { group in
     group.patch("refresh") { _ in
