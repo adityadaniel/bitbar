@@ -105,6 +105,10 @@ class Menu: MenuItem, Scriptable {
     set(error: String(describing: failure))
   }
 
+  func scriptDidReceive(piece: Script.Piece) {
+    log.verbose("Menu received piece of output (ignoring)")
+  }
+
   // Download url as image and update self.image
   private func handle(url: URL, type: Parser.Image.Sort) {
     imageRequest = Alamofire.request(url).responseImage { [weak self] response in

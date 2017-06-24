@@ -22,7 +22,6 @@ public class SocketLog: BaseDestination {
       return "[Fatal error] Could not create log message \(error)"
     }
 
-
     guard let bytes = try? json.serialize(prettyPrint: true) else {
       return "[Fatal error] Could not serialize json"
     }

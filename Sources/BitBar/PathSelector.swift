@@ -4,10 +4,10 @@ import Async
 import AppKit
 import Files
 
-class PathSelector {
+class PathSelector: GUI {
   private let log = SwiftyBeaver.self
-  // internal let queue = PathSelector.newQueue(label: "PathSelector")
-  private static let title = "Use as Plugins Directory"
+  internal let queue = PathSelector.newQueue(label: "PathSelector")
+  private let title = "Use as Plugins Directory"
   private let panel = NSOpenPanel()
   /**
     @url First folder being displayed in the file selector
@@ -15,13 +15,8 @@ class PathSelector {
   convenience init(withURL url: URL? = nil) {
     self.init()
 
-    if let aURL = url {
-      panel.directoryURL = aURL
-    } else {
-      panel.directoryURL = URL(fileURLWithPath: Folder.home.path, isDirectory: true)
-    }
-
-    panel.prompt = PathSelector.title
+    panel.directoryURL = url
+    panel.prompt = title
     panel.allowsMultipleSelection = false
     panel.canChooseDirectories = true
     panel.canCreateDirectories = true
@@ -29,16 +24,18 @@ class PathSelector {
   }
 
   public func ask(block: @escaping Block<URL>) {
-    Async.main {
-      if self.panel.runModal() == NSFileHandlingPanelOKButton {
-        if self.panel.urls.count == 1 {
-          block(self.panel.urls[0])
-        } else {
-          self.log.error("Invalid number of urls \(self.panel.urls)")
-        }
-      } else {
-        self.log.info("User pressed close in plugin folder dialog")
+    perform { [weak self] in
+      guard let this = self else { return }
+
+      guard this.panel.runModal() == NSFileHandlingPanelOKButton else {
+        return this.log.info("User pressed close in plugin folder dialog")
       }
+
+      guard this.panel.urls.count == 1 else {
+        return this.log.error("Invalid number of urls \(this.panel.urls)")
+      }
+
+      block(this.panel.urls[0])
     }
   }
 }

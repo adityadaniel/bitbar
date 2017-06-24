@@ -18,43 +18,53 @@ class Tray: Parent, GUI {
   }
 
   init(title: String, isVisible displayed: Bool = false, id: String? = nil, parent: Parent? = nil) {
-    if App.isInTestMode() {
-      self.item = TestBar()
-    } else {
-      perform { self.item = Tray.item }
-    }
-
-    if let id = id {
-      tag = id
-    }
-
-    set(title: title)
-    root = parent
-    if displayed { show() } else { hide() }
+     if App.isInTestMode() {
+       self.item = TestBar()
+     } else {
+       perform {
+         self.item = Tray.item
+         self.set(title: title)
+         self.root = parent
+         self.tag = id
+         if !displayed { self.hide() }
+       }
+     }
   }
 
   public var attributedTitle: NSAttributedString? {
     get { return item?.attributedTitle }
-    set { perform { self.item?.attributedTitle = newValue } }
+    set {
+      perform { [weak self] in
+        self?.item?.attributedTitle = newValue
+      }
+    }
   }
 
   public var menu: NSMenu? {
-    set { perform { self.item?.menu = newValue } }
     get { return item?.menu }
+    set {
+      perform { [weak self] in
+        self?.item?.menu = newValue
+      }
+    }
   }
 
   /**
    Hides item from menu bar
   */
   public func hide() {
-    perform { self.item?.hide() }
+    perform { [weak self] in
+      self?.item?.hide()
+    }
   }
 
   /**
     Display item in menu bar
   */
   public func show() {
-    perform { self.item?.show() }
+    perform { [weak self] in
+      self?.item?.show()
+    }
   }
 
   public func on(_ event: MenuEvent) {
@@ -83,23 +93,26 @@ class Tray: Parent, GUI {
   }
 
   private func showErrorIcons() {
-    let fontSize = Int(FontType.bar.size)
-    let size = CGSize(width: fontSize, height: fontSize)
-    let icon = OcticonsID.bug
+    perform { [weak self] in
+      guard let this = self else { return }
+      let fontSize = Int(FontType.bar.size)
+      let size = CGSize(width: fontSize, height: fontSize)
+      let icon = OcticonsID.bug
 
-    image = NSImage(
-      octiconsID: icon,
-      iconColor: NSColor(hex: "#474747"),
-      size: size
-    )
+      this.image = NSImage(
+        octiconsID: icon,
+        iconColor: NSColor(hex: "#474747"),
+        size: size
+      )
 
-    alternateImage = NSImage(
-      octiconsID: icon,
-      backgroundColor: .white,
-      iconColor: .white,
-      iconScale: 1.0,
-      size: size
-    )
+      this.alternateImage = NSImage(
+        octiconsID: icon,
+        backgroundColor: .white,
+        iconColor: .white,
+        iconScale: 1.0,
+        size: size
+      )
+    }
   }
 
   private func hideErrorIcons() {
@@ -108,12 +121,22 @@ class Tray: Parent, GUI {
   }
 
   private var image: NSImage? {
-    set { perform { self.button?.image = newValue } }
+    set {
+      perform { [weak self] in
+        self?.button?.image = newValue
+      }
+    }
+
     get { return button?.image }
   }
 
   private var alternateImage: NSImage? {
-    set { perform { self.button?.alternateImage = newValue } }
+    set {
+      perform { [weak self] in
+        self?.button?.alternateImage = newValue
+      }
+    }
+
     get { return button?.alternateImage }
   }
 
@@ -122,13 +145,17 @@ class Tray: Parent, GUI {
       return button
     }
 
-    log.error("Could not find button on status item (hide)")
+   
     return nil
   }
 
   private var tag: String? {
     get { return item?.tag }
-    set { perform { self.item?.tag = newValue } }
+    set {
+      perform { [weak self] in
+        self?.item?.tag = newValue
+      }
+    }
   }
 
   private func style(_ immutable: Immutable) -> Immutable {
@@ -137,5 +164,12 @@ class Tray: Parent, GUI {
 
   private func style(_ string: String) -> Immutable {
     return string.styled(with: .font(FontType.bar.font))
+  }
+  
+  
+  deinit {
+    if let bar = item as? NSStatusItem {
+      Tray.center.removeStatusItem(bar)
+    }
   }
 }

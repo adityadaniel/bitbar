@@ -54,26 +54,26 @@ extension ValueError: CustomStringConvertible {
   }
 }
 
-extension Script.Failure: CustomStringConvertible {
-  public var description: String {
-    switch self {
-    case let .crash(message):
-      return "Script crashed" + format(error: message)
-    case let .exit(message, status):
-      return "Script exited with a non-zero exit code \(status)" + format(error: message)
-    case let .misuse(message):
-      return "Invalid syntax used in script" + format(error: message)
-    case .terminated:
-      return "Script was manually terminated"
-    case .notFound:
-      return "Script or subscript not found, verify the file path"
-    case .notExec:
-      return "Script is not executable, did you run 'chmod +x script.sh' on it?"
-    }
-  }
-
-  private func format(error: String) -> String {
-    if error.trimmed().isEmpty { return "" }
-    return ":\n\t" + error.trimmed().replace("\n", "\n\t\t")
-  }
-}
+//extension Script.Failure: CustomStringConvertible {
+//  public var description: String {
+//    switch self {
+//    case let .crash(message):
+//      return "Script crashed" + format(error: message)
+//    case let .exit(message, status):
+//      return "Script exited with a non-zero exit code \(status)" + format(error: message)
+//    case let .misuse(message):
+//      return "Invalid syntax used in script" + format(error: message)
+//    case .terminated:
+//      return "Script was manually terminated"
+//    case .notFound:
+//      return "Script or subscript not found, verify the file path"
+//    case .notExec:
+//      return "Script is not executable, did you run 'chmod +x script.sh' on it?"
+//    }
+//  }
+//
+//  private func format(error: String) -> String {
+//    if error.trimmed().isEmpty { return "" }
+//    return ":\n\t" + error.trimmed().replace("\n", "\n\t\t")
+//  }
+//}

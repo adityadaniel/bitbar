@@ -104,17 +104,6 @@ class App {
   }
 
   /**
-    Invoke @block if user selects a folder
-    The selected folder is stored for the future
-  */
-  static func askAboutPluginPath(block: @escaping Block<Void>) {
-    PathSelector(withURL: App.pluginURL).ask { url in
-      App.update(pluginPath: url.path)
-      block()
-    }
-  }
-
-  /**
     Is this a test? Used by the Tray class to
     prevent the menu bar from flickering during testing
   */

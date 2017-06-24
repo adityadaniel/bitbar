@@ -3,7 +3,8 @@ import Script
 import SwiftyBeaver
 
 class StreamablePlugin: Plugin, Scriptable {
-  let log = SwiftyBeaver.self
+  internal let queue = StreamablePlugin.newQueue(label: "StreamablePlugin")
+  internal let log = SwiftyBeaver.self
   private let scriptName: String
   private var script: Script
   internal let file: Files.File
@@ -22,7 +23,6 @@ class StreamablePlugin: Plugin, Scriptable {
     self.root = manager
     self.script.delegate = self
     self.script.start()
-
   }
 
   func invoke(_ args: [String]) {
@@ -62,10 +62,13 @@ class StreamablePlugin: Plugin, Scriptable {
     Sending data to parent plugin class
   */
   func scriptDidReceive(success result: Script.Success) {
-    if !script.isRunning {
+    switch (result, script.isRunning) {
+    case let (.withZeroExitCode(.some(stdout)), true):
+      manager?.plugin(didReceiveOutput: stdout)
+    case (.withZeroExitCode(.none), true):
+      log.info("No output provided")
+    case (.withZeroExitCode, false):
       manager?.plugin(didReceiveError: "Streaming script is no longer running")
-    } else {
-      manager?.plugin(didReceiveOutput: result.output)
     }
   }
 
@@ -73,12 +76,21 @@ class StreamablePlugin: Plugin, Scriptable {
     Failed running @path
     Sending error to parent plugin class
   */
-  func scriptDidReceive(failure error: Script.Failure) {
-    switch error {
-    case .terminated:
+  func scriptDidReceive(failure: Script.Failure) {
+    switch failure {
+    case .manualTermination:
       manager?.plugin(didReceiveError: "Streaming script is no longer running")
     default:
-      manager?.plugin(didReceiveError: String(describing: error))
+      manager?.plugin(didReceiveError: String(describing: failure))
+    }
+  }
+
+  func scriptDidReceive(piece: Script.Piece) {
+    switch piece {
+    case let .succeeded(stdout):
+      manager?.plugin(didReceiveOutput: stdout)
+    case let .failed(stderr):
+      log.error("Received a piece of failure: \(stderr.inspected)")
     }
   }
 

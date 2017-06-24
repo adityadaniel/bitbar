@@ -1,13 +1,14 @@
 import Foundation
 import Files
-import SwiftyTimer
+import SwiftTimer
 import DateToolsSwift
 import SwiftyBeaver
 import Async
 import Parser
 import Vapor
 
-final class PluginFile: NSObject, Parent, Managable, Parameterizable, JSONRepresentable {
+final class PluginFile: NSObject, Parent, Managable, Parameterizable, JSONRepresentable, GUI {
+  internal let queue = PluginFile.newQueue(label: "PluginFile")
   private let manager = FileManager.default
   private let storage = Storage()
   internal let log = SwiftyBeaver.self
@@ -18,11 +19,11 @@ final class PluginFile: NSObject, Parent, Managable, Parameterizable, JSONRepres
   internal let tray: Tray
   internal var title: Title?
   private var plugin: Plugin?
-  private var timer: Timer?
+  private var timer: SwiftTimer?
   private var currentIndex = -1
   private var text: [Parser.Text] = []
   private var noOfItem = 0
-  private let updateInterval: Double = 10.seconds
+  private let updateInterval = 10.seconds
   internal var hasLoaded = false
   private var storageList = [String]()
 
@@ -45,9 +46,8 @@ final class PluginFile: NSObject, Parent, Managable, Parameterizable, JSONRepres
       log(msg: data.inspected())
     }
 
-    Async.background {
-      return reduce(data)
-    }.main { [weak self] head -> Void in
+    perform { [weak self] in
+      let head = reduce(data)
       switch head {
       case let .text(text, tails):
         self?.load(text: text)
@@ -58,6 +58,20 @@ final class PluginFile: NSObject, Parent, Managable, Parameterizable, JSONRepres
 
       self?.hasLoaded = true
     }
+
+    // Async.background {
+    //   return reduce(data)
+    // }.main { [weak self] head -> Void in
+    //   switch head {
+    //   case let .text(text, tails):
+    //     self?.load(text: text)
+    //     self?.title?.set(menus: tails.map { $0.menuItem })
+    //   case let .error(messages):
+    //     self?.set(errors: messages)
+    //   }
+    //
+    //   self?.hasLoaded = true
+    // }
   }
 
   func hide() {
@@ -245,20 +259,25 @@ final class PluginFile: NSObject, Parent, Managable, Parameterizable, JSONRepres
   }
 
   private func setTimer() {
-    timer = Timer.new(every: updateInterval) { [weak self] in self?.setNext() }
-    timer?.start(modes: .defaultRunLoopMode, .eventTrackingRunLoopMode)
+    timer = SwiftTimer.new(every: updateInterval) { [weak self] in self?.setNext() }
+    perform { [weak self] in
+      self?.timer?.start()
+    }
   }
 
   private func setTitle() {
-    do {
-      plugin = try File.toPlugin(file: file, delegate: self)
-      title = Title(prefs: [pref], delegate: self)
-    } catch let error {
-      title = Title(prefs: [pref], delegate: self)
-      set(errors: [String(describing: error)])
-    }
+    perform { [weak self] in
+      guard let this = self else { return }
 
-    tray.menu = title!
+      do {
+        this.plugin = try File.toPlugin(file: this.file, delegate: this)
+      } catch {
+        this.set(errors: [String(describing: error)])
+      }
+
+      this.title = Title(prefs: [this.pref], delegate: this)
+      this.tray.menu = this.title!
+    }
   }
 
   func invoke(_ args: [String]) {

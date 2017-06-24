@@ -1,5 +1,5 @@
 import Vapor
-import SwiftyTimer
+import SwiftTimer
 import Foundation
 import SwiftyBeaver
 import Async

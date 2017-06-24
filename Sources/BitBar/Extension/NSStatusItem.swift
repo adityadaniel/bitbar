@@ -1,5 +1,4 @@
 import AppKit
-import Async
 
 extension NSStatusItem: MenuBar {
   var tag: String? {

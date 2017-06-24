@@ -4,10 +4,12 @@ import Async
 import Parser
 import SwiftyBeaver
 
-class PluginManager: Parent {
+class PluginManager: Parent, GUI {
+  internal let queue = PluginManager.newQueue(label: "PluginManager")
   internal static let instance = PluginManager()
   internal weak var root: Parent?
   internal let log = SwiftyBeaver.self
+  // TODO: Add default pref pane to tray
   private let tray = Tray(title: "BitBar", isVisible: true)
   private var path: String?
   internal var pluginFiles = [PluginFile]() {
@@ -43,8 +45,10 @@ class PluginManager: Parent {
   }
 
   func refresh() {
-    pluginFiles = []
-    loadPlugins()
+    perform { [weak self] in
+      self?.pluginFiles = []
+      self?.loadPlugins()
+    }
   }
 
   func findPlugin(byName name: String) -> PluginFile? {
@@ -74,7 +78,7 @@ class PluginManager: Parent {
 
     for file in folder.files {
       if !file.name.hasPrefix(".") {
-        self.addPlugin(file: file)
+        addPlugin(file: file)
       }
     }
   }

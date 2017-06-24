@@ -13,10 +13,9 @@ class OpenPluginHandler: Parent, GUI {
   init(_ queries: [String: String], parent: Parent) {
     self.queries = queries
     self.root = parent
-    handle()
   }
 
-  private func handle() {
+  public func execute() {
     guard let src = queries["src"] else {
       return log.error("Invalid plugin url, src=... not found")
     }
@@ -63,12 +62,12 @@ class OpenPluginHandler: Parent, GUI {
     alert.addButton(withTitle: "Install")
     alert.addButton(withTitle: "Cancel")
 
-    perform {
-      if alert.runModal() != NSAlertFirstButtonReturn {
-        return self.log.info("User aborted openPlugin")
+    perform { [weak self] in
+      if alert.runModal() == NSAlertFirstButtonReturn {
+        self?.rest(file: destFile, src: src)
+      } else {
+        self?.log.info("User aborted openPlugin")
       }
-
-      self.rest(file: destFile, src: src)
     }
   }
 

@@ -9,6 +9,7 @@ import SwiftyBeaver
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, Parent {
+  internal let queue = AppDelegate.newQueue(label: "AppDelegate")
   internal weak var root: Parent?
   internal let log = SwiftyBeaver.self
   private var notificationCenter = NSWorkspace.shared().notificationCenter
@@ -18,6 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, Parent {
   private var openPluginHandler: OpenPluginHandler?
   private var refreshPluginHandler: RefreshPluginHandler?
   private let installCLI = MoveExecuteable()
+  private var pathSelector: PathSelector?
 
   func applicationDidFinishLaunching(_: Notification) {
     if App.isInTestMode() { return }
@@ -67,8 +69,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, Parent {
   }
 
   private func askAboutPluginPath() {
-    App.askAboutPluginPath {
-      self.loadPluginManager()
+    pathSelector = PathSelector(withURL: App.pluginURL)
+    pathSelector?.ask { [weak self] url in
+      guard let this = self else { return }
+      App.update(pluginPath: url.path)
+      this.loadPluginManager()
     }
   }
 
@@ -119,17 +124,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, Parent {
     switch components.host {
     case .some("openPlugin"):
       openPluginHandler = OpenPluginHandler(queries, parent: self)
+      openPluginHandler?.execute()
     case .some("refreshPlugin"):
       refreshPluginHandler = RefreshPluginHandler(queries, manager: manager)
+      refreshPluginHandler?.execute()
     case let other:
       log.error("\(String(describing: other)) is not a supported protocol")
     }
   }
 
   private func open(script path: String, args: [String] = []) {
-    App.openScript(inTerminal: path, args: args) { maybe in
+    App.openScript(inTerminal: path, args: args) { [weak self] maybe in
       if let error = maybe {
-        self.log.error("open in app delegate: \(error)")
+        self?.log.error("Could not open \(path) in terminal: \(error)")
       }
     }
   }

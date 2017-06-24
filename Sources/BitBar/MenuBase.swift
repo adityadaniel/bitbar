@@ -16,21 +16,23 @@ class MenuBase: NSMenu, NSMenuDelegate, GUI, Parent {
   }
 
   public func menuWillOpen(_ menu: NSMenu) {
-    perform {
-      for item in self.items {
+    perform { [weak self] in
+      for item in (self?.items ?? []) {
         item.onWillBecomeVisible()
       }
     }
   }
 
   public func add(submenu: NSMenuItem, at index: Int) {
-    perform {
+    perform { [weak self] in
       submenu.root = self
-      self.insertItem(submenu, at: index)
+      self?.insertItem(submenu, at: index)
     }
   }
 
   public func remove(at index: Int) {
-    perform { self.removeItem(at: index) }
+    perform { [weak self] in
+      self?.removeItem(at: index)
+    }
   }
 }

@@ -108,7 +108,7 @@
 		20C3E1421EE9E07F00ABA14D /* stream-nothing.sh in Resources */ = {isa = PBXBuildFile; fileRef = 20F870CC1EE9DE16003C4A5A /* stream-nothing.sh */; };
 		20C3E1431EE9E08600ABA14D /* args.sh in Resources */ = {isa = PBXBuildFile; fileRef = 20F870BD1EE9DE16003C4A5A /* args.sh */; };
 		20C3E1441EE9E08A00ABA14D /* basic.sh in Resources */ = {isa = PBXBuildFile; fileRef = 20F870BE1EE9DE16003C4A5A /* basic.sh */; };
-		20CC20251EF6C2FA00AFA867 /* BitBar.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2064E2121EE95E9A0032ADC0 /* BitBar.plist */; };
+		20CC20251EF6C2FA00AFA867 /* BitBar.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2064E2121EE95E9A0032ADC0 /* BitBar.plist */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		20CC20271EF6CAB300AFA867 /* Pref.CLIPort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CC20261EF6CAB300AFA867 /* Pref.CLIPort.swift */; };
 		20CC20291EF6CC2900AFA867 /* Pref.AppVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CC20281EF6CC2900AFA867 /* Pref.AppVersion.swift */; };
 		20E0A6DC1EE9603F00564B1B /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A69A1EE9603F00564B1B /* Array.swift */; };
@@ -982,7 +982,7 @@
 				TargetAttributes = {
 					2007B4441EE9CC2F00E68358 = {
 						CreatedOnToolsVersion = 8.3.3;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						TestTargetID = 2025F7411EE95D250028B75A;
 					};
 					2025F7411EE95D250028B75A = {
@@ -1418,8 +1418,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = K6FNT9HXR3;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/BitBar/Build/Products/Debug",
@@ -1456,7 +1457,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = K6FNT9HXR3;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/BitBar/Build/Products/Debug",
@@ -1489,8 +1490,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = K6FNT9HXR3;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Startup.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
@@ -1511,7 +1513,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = K6FNT9HXR3;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Startup.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;

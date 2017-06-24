@@ -44,9 +44,9 @@ class MenuItem: NSMenuItem, Parent, GUI {
     self.isManualClickable = isClickable
 
     if isAlternate {
-      perform {
-        self.isAlternate = true
-        self.keyEquivalentModifierMask = .option
+      perform { [weak self] in
+        self?.isAlternate = true
+        self?.keyEquivalentModifierMask = .option
       }
     }
   }
@@ -128,7 +128,9 @@ class MenuItem: NSMenuItem, Parent, GUI {
   }
 
   @nonobjc public func set(title: Immutable) {
-    perform { self.attributedTitle = self.style(title) }
+    perform { [weak self] in
+      self?.attributedTitle = self?.style(title)
+    }
   }
 
   @nonobjc public func set(error: Bool) {
@@ -142,15 +144,15 @@ class MenuItem: NSMenuItem, Parent, GUI {
   public var isChecked: Bool {
     get { return NSOnState == state }
     set {
-      perform {
-        self.state = newValue ? NSOnState : NSOffState
+      perform { [weak self] in
+        self?.state = newValue ? NSOnState : NSOffState
       }
     }
   }
 
   @objc public func __onDidClick() {
     log.verbose("Clicked dropdown menu")
-    onDidClick()
+    perform { [weak self] in self?.onDidClick() }
   }
 
   override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
@@ -213,7 +215,11 @@ class MenuItem: NSMenuItem, Parent, GUI {
   }
 
   private var icon: NSImage? {
-    set { perform { self.image = newValue } }
+    set {
+      perform { [weak self] in
+        self?.image = newValue
+      }
+    }
     get { return image }
   }
 
@@ -226,13 +232,15 @@ class MenuItem: NSMenuItem, Parent, GUI {
   }
 
   private func add(submenu item: NSMenuItem) {
-    perform {
+    perform { [weak self] in
       item.root = self
-      self.submenu?.addItem(item)
+      self?.submenu?.addItem(item)
     }
   }
 
   private func updateSubmenu() {
-    perform { self.submenu?.update() }
+    perform { [weak self] in
+      self?.submenu?.update()
+    }
   }
 }

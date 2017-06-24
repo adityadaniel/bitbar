@@ -24,9 +24,25 @@ lane :test do; scan; end
 
 desc "Build and zip application"
 lane :package do
+  enable_manual_provisioning
   build
   sh "hdiutil create -volname BitBar -srcfolder ../Dist/BitBar.app -ov -format UDZO ../Dist/BitBar.dmg"
-  # tag
+end
+
+lane :enable_manual_provisioning do
+  Dir.glob("../**/*.xcodeproj").each do |proj|
+    enable_manual_provisioning(proj)
+  end
+end
+
+# Switch ProvisioningStyle to Manual for all targets in the given project
+def enable_manual_provisioning(project_file)
+  UI.important "Switching ProvisioningStyle to Manual for #{project_file}"
+  fastlane_require 'xcodeproj'
+  project = Xcodeproj::Project.open(project_file)
+  target_attributes = project.root_object.attributes["TargetAttributes"] || []
+  target_attributes.each { |id, attrs| attrs["ProvisioningStyle"] = 'Manual' }
+  project.save
 end
 
 desc "Generates a new version tag in git and XCode"

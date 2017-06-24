@@ -1,6 +1,6 @@
 import SwiftyBeaver
 
-protocol Parent: class {
+protocol Parent: class, GUI {
   var log: SwiftyBeaver.Type { get }
   weak var root: Parent? { get set }
   func on(_ event: MenuEvent)
@@ -8,21 +8,17 @@ protocol Parent: class {
 }
 
 extension Parent {
-  var owner: String {
-    return String(describing: type(of: self))
-  }
-
   func broadcast(_ event: MenuEvent) {
-    if let aRoot = root {
-      log.verbose("[\(owner)] Broadcasting event \(event)")
-      aRoot.on(event)
-      aRoot.broadcast(event)
-    } else {
-      log.warning("[\(owner)] No root found")
+    guard let root = root else {
+      return log.warning("No root found")
     }
+
+    log.verbose("Broadcasting event: \(event)")
+    root.broadcast(event)
+    perform { root.on(event) }
   }
 
   func on(_ event: MenuEvent) {
-    log.verbose("[\(owner)] Unhandled event \(event)")
+    log.verbose(" Unhandled event: \(event)")
   }
 }
