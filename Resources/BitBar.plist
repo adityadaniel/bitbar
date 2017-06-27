@@ -33,6 +33,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>3.0.0</string>
+	<key>DevPort</key>
+	<integer>9112</integer>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSMinimumSystemVersion</key>
@@ -45,21 +47,19 @@
 	<string>App</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>ProdPort</key>
+	<integer>9112</integer>
 	<key>SUAllowsAutomaticUpdates</key>
 	<false/>
 	<key>SUEnableAutomaticChecks</key>
 	<false/>
 	<key>SUFeedURL</key>
 	<string>https://bitbarapp.com/feeds/bitbar</string>
+	<key>TestPort</key>
+	<integer>9110</integer>
 	<key>UIAppFonts</key>
 	<array>
 		<string>octicons.ttf</string>
 	</array>
-	<key>TestPort</key>
-	<integer>9110</integer>
-	<key>DevPort</key>
-	<integer>9111</integer>
-	<key>ProdPort</key>
-	<integer>9112</integer>
 </dict>
 </plist>

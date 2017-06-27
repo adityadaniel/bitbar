@@ -8,12 +8,12 @@ extension Droplet {
   }
 
   func start() -> Droplet {
-    Async.background {
+    Async.utility { [weak self] in
       return {
         do {
-          try self.run()
+          try self?.run()
         } catch {
-          self.log.error("Could not start server: \(error)")
+          self?.log.error("Could not start server: \(error)")
         }
       }()
     }

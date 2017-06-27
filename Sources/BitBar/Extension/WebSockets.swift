@@ -1,29 +1,10 @@
 import WebSockets
 import SwiftyBeaver
-import SwiftTimer
+import AppKit
+import SwiftyTimer
 import Foundation
 import Async
 import JSON
-
-extension Int {
-  var seconds: Int {
-    return self
-  }
-}
-
-extension SwiftTimer {
-  static func every(_ seconds: Int, block: @escaping () -> Void) -> SwiftTimer {
-    let timer = repeaticTimer(interval: .seconds(seconds)) { _ in block() }
-    timer.start()
-    return timer
-  }
-
-  static func new(every seconds: Int, block: @escaping () -> Void) -> SwiftTimer {
-    return repeaticTimer(interval: .seconds(seconds)) { _ in block() }
-  }
-
-  func invalidate() { }
-}
 
 extension WebSocket {
   private var log: SwiftyBeaver.Type {
@@ -45,19 +26,19 @@ extension WebSocket {
   }
 
   func setup() {
-    self.handle(dest: SocketLog(self, self.log))
+    Async.main {
+      self.handle(dest: SocketLog(self, self.log))
+    }
   }
 
   private func handle(dest: SocketLog) {
-    let timer = SwiftTimer.every(10.seconds) { [weak self] in
-      if self?.state == .open {
-        try? self?.ping()
+    _ = Timer.new(every: 10.seconds) { (timer: Timer) in
+      if self.state == .open {
+        try? self.ping()
+      } else {
+        timer.invalidate()
+        self.log.removeDestination(dest)
       }
-    }
-
-    onClose = { [weak self] _, _, _, _ in
-      self?.log.removeDestination(dest)
-      timer.invalidate()
     }
 
     log.addDestination(dest)

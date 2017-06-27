@@ -5,11 +5,11 @@ import SwiftyBeaver
 import OcticonsSwift
 
 class MenuItem: NSMenuItem, Parent, GUI {
+  weak var root: Parent?
   internal let queue = MenuItem.newQueue(label: "MenuItem")
   private var isError = false
   public var isManualClickable: Bool?
   public let log = SwiftyBeaver.self
-  public weak var _root: Parent?
 
   convenience init() {
     self.init(title: "…")
@@ -33,7 +33,7 @@ class MenuItem: NSMenuItem, Parent, GUI {
     set(title: immutable)
 
     if !submenus.isEmpty {
-      submenu = MenuBase()
+      submenu = MenuBase(root: self)
     }
 
     for sub in submenus {
@@ -151,8 +151,11 @@ class MenuItem: NSMenuItem, Parent, GUI {
   }
 
   @objc public func __onDidClick() {
-    log.verbose("Clicked dropdown menu")
-    perform { [weak self] in self?.onDidClick() }
+    log.verbose("Clicked on item in dropdown menu")
+    perform { [weak self] in
+      self?.broadcast(.didClickMenuItem)
+      self?.onDidClick()
+    }
   }
 
   override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
@@ -165,9 +168,9 @@ class MenuItem: NSMenuItem, Parent, GUI {
       return true
     }
 
-    if isSeparator {
-      return false
-    }
+   if isSeparator {
+     return false
+   }
 
     return !keyEquivalent.isEmpty
   }
@@ -194,18 +197,19 @@ class MenuItem: NSMenuItem, Parent, GUI {
   }
 
   private func showErrorIcons() {
-    isError = true
+    perform { [weak self] in
+      self?.isError = true
+      let fontSize = Int(FontType.item.size)
+      let size = CGSize(width: fontSize, height: fontSize)
 
-    let fontSize = Int(FontType.item.size)
-    let size = CGSize(width: fontSize, height: fontSize)
+      self?.icon = NSImage(
+        octiconsID: OcticonsID.bug,
+        iconColor: .black,
+        size: size
+      )
 
-    icon = NSImage(
-      octiconsID: OcticonsID.bug,
-      iconColor: .black,
-      size: size
-    )
-
-    updateSubmenu()
+      self?.updateSubmenu()
+    }
   }
 
   private func hideErrorIcons() {
@@ -232,8 +236,11 @@ class MenuItem: NSMenuItem, Parent, GUI {
   }
 
   private func add(submenu item: NSMenuItem) {
+    if let menu = item as? MenuItem {
+      menu.root = self
+    }
+
     perform { [weak self] in
-      item.root = self
       self?.submenu?.addItem(item)
     }
   }

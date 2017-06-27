@@ -11,7 +11,7 @@ import Async
 var noShortcut: TestValue { return .noShortcut }
 var noSubMenus: TestValue { return .noSubMenus }
 
-func item (block: @escaping (Menuable) -> Void) {
+func item(block: @escaping (Menuable) -> Void) {
   let mock = MockParent()
   let plugin = PluginFile(
     file: try! Files.File(path: aFile),
@@ -31,11 +31,15 @@ func item (block: @escaping (Menuable) -> Void) {
 }
 
 func a(_ aMenu: Menuable, at indexes: [Int] = [], block: @escaping (Menuable) -> Void) {
-  block(menu(aMenu, at: indexes))
+  do {
+    block(try menu(aMenu, at: indexes))
+  } catch {
+    fail("Failed to load item \(aMenu) at index \(indexes): \(error)")
+  }
 }
 
-func menu(_ menu: Menuable, at indexes: [Int] = []) -> Menuable {
-  return try! menu.get(at: indexes)
+func menu(_ menu: Menuable, at indexes: [Int] = []) throws -> Menuable {
+  return try menu.get(at: indexes)
 }
 
 func have(args: [String]) -> Predicate<Menuable> {
@@ -244,7 +248,7 @@ func receive(_ events: [MenuEvent], from indexes: [Int]) -> Predicate<Menuable> 
       return .fail("an unclickable menu")
     }
 
-    let child = menu(parent, at: indexes)
+    let child = try menu(parent, at: indexes)
     if !clicked {
       parent.set(parent: mock)
       child.onDidClick()
@@ -254,7 +258,7 @@ func receive(_ events: [MenuEvent], from indexes: [Int]) -> Predicate<Menuable> 
   }
 }
 
-func verify<T>(_ message: String, block: @escaping (T) -> State) -> Predicate<T> {
+func verify<T>(_ message: String, block: @escaping (T) throws -> State) -> Predicate<T> {
   return Predicate.define { actualExpression in
     guard let result = try actualExpression.evaluate() else {
       return PredicateResult(
@@ -263,7 +267,7 @@ func verify<T>(_ message: String, block: @escaping (T) -> State) -> Predicate<T>
       )
     }
 
-    switch block(result) {
+    switch try block(result) {
     case let .bool(status, actual):
       return PredicateResult(
         bool: status,

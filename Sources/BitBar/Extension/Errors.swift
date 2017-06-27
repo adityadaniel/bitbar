@@ -38,42 +38,75 @@ extension MenuError: CustomStringConvertible {
 extension ValueError: CustomStringConvertible {
   public var description: String {
     switch self {
-      case let .int(value):
-        return "Expected a number but got \(value.inspected())"
-      case let .float(value):
-        return "Expected a float but got \(value.inspected())"
-      case let .image(value):
-        return "Expected an image but got \(value.inspected())"
-      case let .base64OrHref(value):
-        return "Expected base 64 or an href but got \(value.inspected())"
-      case let .font(value):
-        return "Expected a font but got \(value.inspected())"
-      case let .color(value):
-        return "Expected a color but got \(value.inspected())"
+    case let .int(value):
+      return "Expected a number but got \(value.inspected())"
+    case let .float(value):
+      return "Expected a float but got \(value.inspected())"
+    case let .image(value):
+      return "Expected an image but got \(value.inspected())"
+    case let .base64OrHref(value):
+      return "Expected base 64 or an href but got \(value.inspected())"
+    case let .font(value):
+      return "Expected a font but got \(value.inspected())"
+    case let .color(value):
+      return "Expected a color but got \(value.inspected())"
     }
   }
 }
 
-//extension Script.Failure: CustomStringConvertible {
-//  public var description: String {
-//    switch self {
-//    case let .crash(message):
-//      return "Script crashed" + format(error: message)
-//    case let .exit(message, status):
-//      return "Script exited with a non-zero exit code \(status)" + format(error: message)
-//    case let .misuse(message):
-//      return "Invalid syntax used in script" + format(error: message)
-//    case .terminated:
-//      return "Script was manually terminated"
-//    case .notFound:
-//      return "Script or subscript not found, verify the file path"
-//    case .notExec:
-//      return "Script is not executable, did you run 'chmod +x script.sh' on it?"
-//    }
-//  }
-//
-//  private func format(error: String) -> String {
-//    if error.trimmed().isEmpty { return "" }
-//    return ":\n\t" + error.trimmed().replace("\n", "\n\t\t")
-//  }
-//}
+extension Script.Failure: CustomStringConvertible {
+  public var description: String {
+    switch self {
+    case let .syntaxError(message, code):
+      return pre(code) + "Invalid syntax used in script" + format(error: message)
+    case let .uncaughtSignal(message, code):
+      return pre(code) + "Uncaught signal" + format(error: message)
+    case let .genericMixed(stdout, stderr, code):
+      return pre(code)
+        + "Both stderr and stdout set"
+        + format(error: stdout)
+        + format(error: stderr)
+    case let .generic(message, code):
+      return pre(code) + "Failed running script" + format(error: message)
+    case let .pathNotFound(message, code):
+      return pre(code) +
+        "Script or subscript not found, verify the file path" +
+        format(error: message)
+    case let .notExecutable(message, code):
+      return pre(code) +
+        "Script is not executable, did you run 'chmod +x script.sh' on it?" +
+        format(error: message)
+    case let .manualTermination(message, code):
+      return pre(code) + "The script was manually terminated" + format(error: message)
+    case let .withZeroExitCode(message):
+      // TODO: Remove this
+      return pre(0) + "Successfull request" + format(error: message)
+    case let .withStdout(message, code):
+      return pre(code) + "Got stdout and stderr" + format(error: message)
+    case let .withFallback(.exit, code, stdout, stderr):
+      return pre(code) +
+        "Fallback error message on normal termination"
+        + format(error: stdout)
+        + format(error: stderr)
+    case let .withFallback(.uncaughtSignal, code, stdout, stderr):
+      return pre(code) +
+        "Fallback error message on uncaught signal"
+        + format(error: stdout)
+        + format(error: stderr)
+    }
+  }
+
+  private func format(error: String) -> String {
+    if error.trimmed().isEmpty { return "" }
+    return ":\n\t" + error.trimmed().replace("\n", "\n\t\t")
+  }
+
+  private func format(error: String?) -> String {
+    guard let anError = error else { return "" }
+    return format(error: anError)
+  }
+
+  private func pre(_ exitCode: Int) -> String {
+    return "(\(exitCode)) "
+  }
+}

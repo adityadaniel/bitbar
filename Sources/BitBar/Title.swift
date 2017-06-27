@@ -8,10 +8,8 @@ final class Title: MenuBase {
   private var numberOfPrefs = 0
   internal var hasLoaded: Bool = false
 
-  init(prefs: [NSMenuItem], delegate root: Parent) {
-    super.init()
-
-    self.root = root
+  init(prefs: [NSMenuItem], delegate root: Parent? = nil) {
+    super.init(root: root)
     self.numberOfPrefs = 4
     self.delegate = self
 

@@ -14,24 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "20B933DA1EFC302600D8A01D"
-               BuildableName = "CLI"
-               BlueprintName = "CLI"
+               BlueprintIdentifier = "20B7B5ED1F013AD800A8EA85"
+               BuildableName = "Config.framework"
+               BlueprintName = "Config"
                ReferencedContainer = "container:BitBar.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1965"
-               BuildableName = "Starscream.framework"
-               BlueprintName = "Starscream"
-               ReferencedContainer = "container:Packages/Packages.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -43,15 +29,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "20B933DA1EFC302600D8A01D"
-            BuildableName = "CLI"
-            BlueprintName = "CLI"
-            ReferencedContainer = "container:BitBar.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -65,16 +42,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "20B933DA1EFC302600D8A01D"
-            BuildableName = "CLI"
-            BlueprintName = "CLI"
+            BlueprintIdentifier = "20B7B5ED1F013AD800A8EA85"
+            BuildableName = "Config.framework"
+            BlueprintName = "Config"
             ReferencedContainer = "container:BitBar.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -84,16 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "20B933DA1EFC302600D8A01D"
-            BuildableName = "CLI"
-            BlueprintName = "CLI"
+            BlueprintIdentifier = "20B7B5ED1F013AD800A8EA85"
+            BuildableName = "Config.framework"
+            BlueprintName = "Config"
             ReferencedContainer = "container:BitBar.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

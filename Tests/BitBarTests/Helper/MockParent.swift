@@ -1,7 +1,9 @@
 @testable import BitBar
 import SwiftyBeaver
+import Foundation
 
-class MockParent: Parent, Hashable {
+class MockParent: Parent, Hashable, GUI {
+  let queue: DispatchQueue = MockParent.newQueue(label: "MockParent")
   var root: Parent?
   var hashValue: Int {
     return Int(bitPattern: ObjectIdentifier(self))

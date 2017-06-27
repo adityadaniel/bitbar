@@ -6,9 +6,11 @@ class MenuBase: NSMenu, NSMenuDelegate, GUI, Parent {
   internal let log = SwiftyBeaver.self
   internal weak var root: Parent?
   internal let queue = MenuBase.newQueue(label: "MenuBase")
-  init() {
+
+  init(root: Parent? = nil) {
     super.init(title: "")
     self.delegate = self
+    self.root = root
   }
 
   required init(coder decoder: NSCoder) {
@@ -18,14 +20,19 @@ class MenuBase: NSMenu, NSMenuDelegate, GUI, Parent {
   public func menuWillOpen(_ menu: NSMenu) {
     perform { [weak self] in
       for item in (self?.items ?? []) {
-        item.onWillBecomeVisible()
+        if let menu = item as? MenuItem {
+          menu.onWillBecomeVisible()
+        }
       }
     }
   }
 
   public func add(submenu: NSMenuItem, at index: Int) {
+    if let menu = submenu as? MenuItem {
+      menu.root = self
+    }
+
     perform { [weak self] in
-      submenu.root = self
       self?.insertItem(submenu, at: index)
     }
   }

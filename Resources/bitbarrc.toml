@@ -1,0 +1,26 @@
+[global]
+# Refresh all menu bar items when waking up from sleep
+refresh-on-wakeup = true
+
+# Start BitBar on boot
+start-on-boot = true
+
+cycle-interval = "10s"
+font-size = 10
+font-family = "Mono"
+ignore-files = [".*", ".git"]
+terminal-app = "iTerm"
+
+cli-port = 9111
+cli-enabled = true
+
+[[plugin]]
+
+name = "uptime.plugin.sh"
+enabled = true
+args = ["arg1", "arg2", "arg3"]
+env = { env1 = "value1", env2 = "value2" }
+
+[[plugin]]
+
+# ...

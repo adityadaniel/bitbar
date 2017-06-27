@@ -1,41 +1,39 @@
 import AppKit
 import Files
+import Config
 import Async
 import Parser
 import SwiftyBeaver
 
 class PluginManager: Parent, GUI {
-  internal let queue = PluginManager.newQueue(label: "PluginManager")
   internal static let instance = PluginManager()
+  internal let queue = PluginManager.newQueue(label: "PluginManager")
   internal weak var root: Parent?
   internal let log = SwiftyBeaver.self
   // TODO: Add default pref pane to tray
-  private let tray = Tray(title: "BitBar", isVisible: true)
+  private var tray: Tray?
+  private var config: ConfigFile?
   private var path: String?
-  internal var pluginFiles = [PluginFile]() {
-    didSet { verifyBar() }
-  }
+  internal var pluginFiles = [PluginFile]()
 
   /**
     Read plugins from @path
   */
   init() {
-    self.tray.root = self
+    tray = Tray(title: "BitBar", isVisible: true)
+    tray?.root = self
+
+    // do {
+    //   config = try ConfigFile()
+    // } catch {
+    //   log.error("Could not load config file")
+    // }
   }
 
   // Add plugin @name with @path to the list of plugins
   // Will fail with an error message if @name can't be parsed
   private func addPlugin(file: Files.File) {
     pluginFiles.append(PluginFile(file: file, delegate: self))
-  }
-
-  // Ensure atleast one icon is vissble in the menu bar
-  private func verifyBar() {
-    if pluginFiles.isEmpty {
-      tray.show()
-    } else {
-      tray.hide()
-    }
   }
 
   func plugins(byName name: String) -> [PluginFile] {
@@ -45,10 +43,8 @@ class PluginManager: Parent, GUI {
   }
 
   func refresh() {
-    perform { [weak self] in
-      self?.pluginFiles = []
-      self?.loadPlugins()
-    }
+    loadPlugins()
+    if pluginFiles.isEmpty { tray?.show() } else { tray?.hide() }
   }
 
   func findPlugin(byName name: String) -> PluginFile? {
@@ -61,12 +57,9 @@ class PluginManager: Parent, GUI {
 
   func set(path: String) {
     self.path = path
-    pluginFiles = []
-    loadPlugins()
+    self.refresh()
   }
 
-  // Find all potential plugin files in {path}
-  // and load them into BitBar
   private func loadPlugins() {
     guard let folder = pluginFolder else {
       return set(error: "Could not load plugin folder")
@@ -75,6 +68,8 @@ class PluginManager: Parent, GUI {
     if folder.files.count == 0 {
       return set(error: "No files found in plugin folder \(path ?? "<?>")")
     }
+
+    pluginFiles = []
 
     for file in folder.files {
       if !file.name.hasPrefix(".") {
@@ -91,18 +86,16 @@ class PluginManager: Parent, GUI {
     do {
       return try Folder(path: pluginPath)
     } catch {
-      return nil
+      log.error("Could not load plugins from \(pluginPath): \(error)")
     }
-  }
 
-  private func err(_ msg: String) {
-    log.error(msg)
+    return nil
   }
 
   private func set(error message: String) {
     /* TODO: Display error message to user */
-    tray.set(error: true)
-    tray.show()
-    err(message)
+    tray?.set(error: true)
+    tray?.show()
+    log.error(message)
   }
 }

@@ -26,7 +26,7 @@ target "Packages" do
     pod "Dollar"
     pod "Files"
     pod "Emojize"
-    pod "SwiftTimer", git: "https://github.com/oleander/SwiftTimer.git"
+    pod "SwiftyTimer"
     pod "FootlessParser", git: "https://github.com/oleander/FootlessParser.git"
     pod "DateToolsSwift", git: "https://github.com/MatthewYork/DateTools.git"
     pod "Parser", git: "https://github.com/oleander/BitBarParser.git"
@@ -38,6 +38,12 @@ target "Packages" do
       pod "Quick"
     end
   end
+end
+
+target "Config" do
+  use_frameworks!
+  pod "Toml", git: "https://github.com/oleander/swift-toml.git"
+  pod "Files"
 end
 
 pre_install do

@@ -51,9 +51,10 @@ extension Menuable {
     guard let index = indexes.first() else {
       return self
     }
+
     if menus.isEmpty { throw NoMatch.stop(rem) }
     if index >= menus.count {
-      preconditionFailure("Index: \(index) not found in \(menus.count)")
+      throw NoMatch.message("Index: \(index) not found in \(menus.count), menus=\(menus)")
     }
     return try menus[index].get(at: indexes.rest(), rem: rem + [index])
   }

@@ -1,5 +1,4 @@
 import Vapor
-import SwiftTimer
 import Foundation
 import SwiftyBeaver
 import Async
@@ -12,11 +11,9 @@ func startServer() throws -> Droplet {
   let manager = PluginManager.instance
   var config = try Config()
   try config.set("server.port", App.port)
-  try config.set("server.hostname", "127.0.0.1")
-
   let drop = try Droplet(config)
   let log = SwiftyBeaver.self
-  log.addDestination(FileDestination())
+  // log.addDestination(FileDestination())
   log.addDestination(ConsoleDestination())
 
   drop.group("plugins") { group in

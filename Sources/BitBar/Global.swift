@@ -6,5 +6,6 @@ func notify(text: String, subtext: String? = nil) {
   if let sub = subtext {
     alert.informativeText = sub
   }
+
   alert.display()
 }

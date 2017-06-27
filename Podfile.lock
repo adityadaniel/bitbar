@@ -24,11 +24,13 @@ PODS:
   - Parser (0.1.0):
     - FootlessParser
   - Quick (1.1.0)
-  - Script (3.0.0)
+  - Script (3.0.1):
+    - AsyncSwift
   - Sparkle (1.17.0)
-  - SwiftTimer (1.0)
   - SwiftyBeaver (1.2.2)
+  - SwiftyTimer (2.0.0)
   - SwiftyUserDefaults (3.0.0)
+  - Toml (0.4.1)
 
 DEPENDENCIES:
   - Alamofire
@@ -47,11 +49,12 @@ DEPENDENCIES:
   - OcticonsSwift
   - Parser (from `https://github.com/oleander/BitBarParser.git`)
   - Quick
-  - Script (from `https://github.com/oleander/Script.git`)
+  - Script (from `/Users/oleander/Documents/Projekt/Script`)
   - Sparkle
-  - SwiftTimer (from `https://github.com/oleander/SwiftTimer.git`)
   - SwiftyBeaver
+  - SwiftyTimer
   - SwiftyUserDefaults
+  - Toml (from `https://github.com/oleander/swift-toml.git`)
 
 EXTERNAL SOURCES:
   DateToolsSwift:
@@ -61,9 +64,9 @@ EXTERNAL SOURCES:
   Parser:
     :git: https://github.com/oleander/BitBarParser.git
   Script:
-    :git: https://github.com/oleander/Script.git
-  SwiftTimer:
-    :git: https://github.com/oleander/SwiftTimer.git
+    :path: "/Users/oleander/Documents/Projekt/Script"
+  Toml:
+    :git: https://github.com/oleander/swift-toml.git
 
 CHECKOUT OPTIONS:
   DateToolsSwift:
@@ -75,12 +78,9 @@ CHECKOUT OPTIONS:
   Parser:
     :commit: 6d0d9bc8be11e1ff6d5b903564333f74ee93ef49
     :git: https://github.com/oleander/BitBarParser.git
-  Script:
-    :commit: fb1eca5482769ac76cf4c609ee81ab05d2145e08
-    :git: https://github.com/oleander/Script.git
-  SwiftTimer:
-    :commit: 0f4df51decbf0a45d86f7e7519e81e347d823cc2
-    :git: https://github.com/oleander/SwiftTimer.git
+  Toml:
+    :commit: 62f7835982d76077c71e916993bc6c26753a7fea
+    :git: https://github.com/oleander/swift-toml.git
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
@@ -100,12 +100,13 @@ SPEC CHECKSUMS:
   OcticonsSwift: 64ad8ec6ddd09009c33b64c113bf6ab7b45ce2db
   Parser: 72fa8183309b6bc9c50bb335eab977b40a18565c
   Quick: dafc587e21eed9f4cab3249b9f9015b0b7a7f71d
-  Script: 14bfc273862abb2d51228f214f63bc9427d34d2e
+  Script: f749680a67ef10bfa6b0183197c63240f25bec1e
   Sparkle: ccfb47699feea7b40b51cf3176f69404e5b1da6c
-  SwiftTimer: f9ef0a3b1705690fa795f4b2a56dfc467c7b25ef
   SwiftyBeaver: 90a39e3dc5136b7285f2e4c870b107e3933b8b84
+  SwiftyTimer: 2efd74b060d69ad4f1496baf5bbedbe132125fcf
   SwiftyUserDefaults: 0f1d45fc3aafb9064dac661e367f8f83fe21a4b4
+  Toml: a761dfbea43294d96e14b51c32368d0e010c3a7b
 
-PODFILE CHECKSUM: fa316fdcbcd3d929c6db80c54b5bfddeabf28ec9
+PODFILE CHECKSUM: d67bf8ae160d20d37c51cbba65d0783ecfb7b238
 
 COCOAPODS: 1.3.0.beta.1

@@ -1,6 +1,7 @@
 import Foundation
 import Files
-import SwiftTimer
+import AppKit
+import SwiftyTimer
 import DateToolsSwift
 import SwiftyBeaver
 import Async
@@ -16,22 +17,23 @@ final class PluginFile: NSObject, Parent, Managable, Parameterizable, JSONRepres
   private var path: String { return file.path }
   private let file: Files.File
   internal var name: String { return file.name }
-  internal let tray: Tray
-  internal var title: Title?
+  internal var tray: Tray?
   private var plugin: Plugin?
-  private var timer: SwiftTimer?
+  private var timer: Timer?
   private var currentIndex = -1
   private var text: [Parser.Text] = []
   private var noOfItem = 0
-  private let updateInterval = 10.seconds
+  private let updateInterval: Double = 10.seconds
   internal var hasLoaded = false
   private var storageList = [String]()
+  private var group: AsyncBlock<Parser.Menu.Head, Void>?
 
   init(file: Files.File, delegate: Parent) {
     self.file = file
-    self.root = delegate
-    self.tray = Tray(title: "…", isVisible: true, id: file.path)
     super.init()
+    self.tray = Tray(title: "…", isVisible: true, id: file.path)
+    tray?.root = self
+    root = delegate
     setTimer()
     setTitle()
   }
@@ -46,42 +48,31 @@ final class PluginFile: NSObject, Parent, Managable, Parameterizable, JSONRepres
       log(msg: data.inspected())
     }
 
-    perform { [weak self] in
-      let head = reduce(data)
+    group?.cancel()
+
+    group = Async.background {
+      return reduce(data)
+    }.main { [weak self] head in
       switch head {
       case let .text(text, tails):
         self?.load(text: text)
-        self?.title?.set(menus: tails.map { $0.menuItem })
+        self?.tray?.set(menus: tails.map { $0.menuItem })
       case let .error(messages):
         self?.set(errors: messages)
       }
 
       self?.hasLoaded = true
     }
-
-    // Async.background {
-    //   return reduce(data)
-    // }.main { [weak self] head -> Void in
-    //   switch head {
-    //   case let .text(text, tails):
-    //     self?.load(text: text)
-    //     self?.title?.set(menus: tails.map { $0.menuItem })
-    //   case let .error(messages):
-    //     self?.set(errors: messages)
-    //   }
-    //
-    //   self?.hasLoaded = true
-    // }
   }
 
   func hide() {
-    tray.hide()
+    tray?.hide()
     plugin?.stop()
     log(msg: "Set to hidden")
   }
 
   func show() {
-    tray.show()
+    tray?.show()
     plugin?.start()
     log(msg: "Set to visible")
   }
@@ -120,7 +111,7 @@ final class PluginFile: NSObject, Parent, Managable, Parameterizable, JSONRepres
   func on(_ event: MenuEvent) {
     switch event {
     case .didSetError:
-      tray.set(error: true)
+      tray?.set(error: true)
     case .refreshPlugin:
       refresh()
     case .runInTerminal:
@@ -143,13 +134,13 @@ final class PluginFile: NSObject, Parent, Managable, Parameterizable, JSONRepres
   private func set(text: Parser.Text) {
     let string = String(describing: text).inspected()
     log(ver: "Set title to \(string)")
-    tray.set(title: text.colorize(as: .bar))
+    tray?.set(title: text.colorize(as: .bar))
   }
 
   // Set menu bar title to {title}
   private func set(title: String) {
     log(msg: "Set title to \(title.inspected())")
-    tray.set(title: title)
+    tray?.set(title: title)
   }
 
   private func set(errors: [MenuError]) {
@@ -158,8 +149,8 @@ final class PluginFile: NSObject, Parent, Managable, Parameterizable, JSONRepres
   }
 
   private func set(errors: [String]) {
-    tray.set(error: true)
-    title?.set(menus: errors.map { Menu(error: $0) })
+    tray?.set(error: true)
+    tray?.set(menus: errors.map { Menu(error: $0) })
   }
 
   // Set title to {index} in {text}
@@ -259,25 +250,20 @@ final class PluginFile: NSObject, Parent, Managable, Parameterizable, JSONRepres
   }
 
   private func setTimer() {
-    timer = SwiftTimer.new(every: updateInterval) { [weak self] in self?.setNext() }
-    perform { [weak self] in
-      self?.timer?.start()
+    timer?.invalidate()
+    timer = Timer.every(updateInterval) { [weak self] in
+      self?.setNext()
     }
   }
 
   private func setTitle() {
-    perform { [weak self] in
-      guard let this = self else { return }
-
-      do {
-        this.plugin = try File.toPlugin(file: this.file, delegate: this)
-      } catch {
-        this.set(errors: [String(describing: error)])
-      }
-
-      this.title = Title(prefs: [this.pref], delegate: this)
-      this.tray.menu = this.title!
+    do {
+      plugin = try File.toPlugin(file: file, delegate: self)
+    } catch {
+      set(errors: [String(describing: error)])
     }
+
+    tray?.menu = Title(prefs: [pref], delegate: self)
   }
 
   func invoke(_ args: [String]) {
@@ -299,5 +285,11 @@ final class PluginFile: NSObject, Parent, Managable, Parameterizable, JSONRepres
     }
 
     throw Abort.notFound
+  }
+
+  deinit {
+    timer?.invalidate()
+    group?.cancel()
+    plugin?.stop()
   }
 }

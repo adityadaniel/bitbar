@@ -10,8 +10,8 @@ extension NSAlert: GUI {
   }
 
   func display() {
-    perform { [weak self] in
-      self?.runModal()
+    queue.async {
+      self.runModal()
     }
   }
 }

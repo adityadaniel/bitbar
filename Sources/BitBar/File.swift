@@ -33,9 +33,9 @@ class File {
   static func toPlugin(file: Files.File, delegate: Managable) throws -> Plugin {
     switch File.parse(File.parser, file.name) {
     case let .success(.stream(name)):
-      return StreamablePlugin(name: name, file: file, manager: delegate)
+      return StreamablePlugin(name: name, file: try! Files.File(path: file.path), manager: delegate)
     case let .success(.timer(name, interval)):
-      return ExecutablePlugin(name: name, interval: interval, file: file, manager: delegate)
+      return ExecutablePlugin(name: name, interval: interval, file: try! Files.File(path: file.path), manager: delegate)
     case .failure:
       throw FileError(file: file.name)
     }

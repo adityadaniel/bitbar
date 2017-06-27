@@ -28,13 +28,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, Parent {
     setOpenUrlHandler()
     setOnWakeUpHandler()
     handleStartupApp()
-    handleServerStartup()
     loadPluginManager()
-  }
-
-  private func handleStartupApp() {
-    App.terminateHelperApp()
-  }
+    handleServerStartup()
+}
 
   func on(_ event: MenuEvent) {
     switch event {
@@ -163,5 +159,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, Parent {
       text: "CLI has been installed",
       subtext: "Access it using 'bitbar' in your terminal"
     )
+  }
+
+  private func handleStartupApp() {
+    App.terminateHelperApp()
   }
 }

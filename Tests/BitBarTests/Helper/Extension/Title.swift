@@ -26,11 +26,19 @@ extension Title: Menuable {
 extension PluginFile: Menuable {
   func onWillBecomeVisible() {}
   var isClickable: Bool {
-    return title?.isClickable ?? false
+    if let title = tray?.menu as? Title {
+      return title.isClickable
+    }
+
+    return false
   }
 
   var items: [NSMenuItem] {
-    return title?.items ?? []
+    if let title = tray?.menu as? Title {
+      return title.items
+    }
+
+    return []
   }
 
   var isEnabled: Bool {
@@ -38,7 +46,7 @@ extension PluginFile: Menuable {
   }
 
   var banner: Mutable {
-    if let title = tray.attributedTitle {
+    if let title = tray?.attributedTitle {
       return title.mutable
     } else {
       return Mutable(string: "")

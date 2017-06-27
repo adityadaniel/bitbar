@@ -17,6 +17,7 @@ enum MenuEvent: Comparable {
   case openUrlInBrowser(String)
   case openScriptInTerminal(Action.Script)
   case openPathInTerminal(String)
+  case didClickMenuItem
 
   public static func < (lhs: MenuEvent, rhs: MenuEvent) -> Bool {
     return String(describing: lhs).characters.count < String(describing: rhs).characters.count

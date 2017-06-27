@@ -1,4 +1,4 @@
-import SwiftTimer
+import SwiftyTimer
 import SwiftyBeaver
 import DateToolsSwift
 import Script
@@ -10,8 +10,8 @@ class ExecutablePlugin: Plugin, Scriptable, GUI {
   private let scriptName: String
   private var script: Script
   internal let file: Files.File
-  private var timer: SwiftTimer?
-  private var interval: Int
+  private var timer: Timer?
+  private var interval: Double
   internal weak var manager: Managable?
   internal weak var root: Parent?
 
@@ -21,17 +21,13 @@ class ExecutablePlugin: Plugin, Scriptable, GUI {
 
   init(name: String, interval: Double, file: Files.File, manager: Managable) {
     self.scriptName = name
-    self.interval = Int(interval)
+    self.interval = interval
     self.manager = manager
     self.file = file
     self.script = Script(path: file.path)
     self.root = manager
-    self.newTimer()
     self.script.delegate = self
-
-    perform { [weak self] in
-      self?.script.start()
-    }
+    start()
   }
 
   /**
@@ -40,7 +36,7 @@ class ExecutablePlugin: Plugin, Scriptable, GUI {
   func start() {
     perform { [weak self] in
       self?.script.start()
-      self?.timer?.start()
+      self?.newTimer()
     }
   }
 
@@ -117,19 +113,14 @@ class ExecutablePlugin: Plugin, Scriptable, GUI {
   */
   private func scheduleDidTick() {
     perform { [weak self] in
-      self?.script.restart()
+      self?.script.start()
     }
   }
 
   private func newTimer() {
-    self.timer?.invalidate()
-    self.timer = SwiftTimer.new(every: interval.seconds) { [weak self] in
+    timer?.invalidate()
+    timer = Timer.every(interval.seconds) { [weak self] in
       self?.scheduleDidTick()
-    }
-
-    perform { [weak self] in
-      // self?.timer?.start(modes: .defaultRunLoopMode, .eventTrackingRunLoopMode)
-      self?.timer?.start()
     }
   }
 
@@ -144,4 +135,6 @@ class ExecutablePlugin: Plugin, Scriptable, GUI {
       "Run": "Every " + date.shortTimeAgo(since: date - Int(interval))
     ]
   }
+
+  deinit { timer?.invalidate() }
 }

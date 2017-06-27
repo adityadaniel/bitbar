@@ -3,32 +3,27 @@ import Cocoa
 import BonMot
 import Hue
 import OcticonsSwift
-import Async
 import SwiftyBeaver
 
 class Tray: Parent, GUI {
   internal let queue = Tray.newQueue(label: "Tray")
   public let log = SwiftyBeaver.self
   public weak var root: Parent?
-  private static let center = NSStatusBar.system()
-  private static let length = NSVariableStatusItemLength
   private var item: MenuBar?
-  static internal var item: MenuBar {
-    return Tray.center.statusItem(withLength: length)
-  }
 
   init(title: String, isVisible displayed: Bool = false, id: String? = nil, parent: Parent? = nil) {
-     if App.isInTestMode() {
-       self.item = TestBar()
-     } else {
-       perform {
-         self.item = Tray.item
-         self.set(title: title)
-         self.root = parent
-         self.tag = id
-         if !displayed { self.hide() }
-       }
-     }
+    if App.isInTestMode() {
+      item = TestBar()
+      root = parent
+    } else {
+      perform {
+        self.item = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
+        self.item?.attributedTitle = self.style(title)
+        self.item?.tag = id
+        self.root = parent
+        if !displayed { self.hide() }
+      }
+    }
   }
 
   public var attributedTitle: NSAttributedString? {
@@ -71,6 +66,8 @@ class Tray: Parent, GUI {
     switch event {
     case .didSetError:
       set(error: true)
+    case .didClickMenuItem:
+      isHighlightMode = false
     default:
       break
     }
@@ -120,6 +117,12 @@ class Tray: Parent, GUI {
     alternateImage = nil
   }
 
+  func set(menus: [NSMenuItem]) {
+    guard let menu = menu else { return }
+    guard let aMenu = menu as? Title else { return }
+    aMenu.set(menus: menus)
+  }
+
   private var image: NSImage? {
     set {
       perform { [weak self] in
@@ -128,6 +131,16 @@ class Tray: Parent, GUI {
     }
 
     get { return button?.image }
+  }
+
+  private var isHighlightMode: Bool {
+    set {
+      perform { [weak self] in
+        self?.button?.highlight(newValue)
+      }
+    }
+
+    get { return false }
   }
 
   private var alternateImage: NSImage? {
@@ -145,7 +158,6 @@ class Tray: Parent, GUI {
       return button
     }
 
-   
     return nil
   }
 
@@ -165,11 +177,10 @@ class Tray: Parent, GUI {
   private func style(_ string: String) -> Immutable {
     return string.styled(with: .font(FontType.bar.font))
   }
-  
-  
+
   deinit {
     if let bar = item as? NSStatusItem {
-      Tray.center.removeStatusItem(bar)
+      NSStatusBar.system().removeStatusItem(bar)
     }
   }
 }
