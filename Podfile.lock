@@ -23,6 +23,7 @@ PODS:
   - OcticonsSwift (0.1.2)
   - Parser (0.1.0):
     - FootlessParser
+  - PathKit (0.8.0)
   - Quick (1.1.0)
   - Script (3.0.1):
     - AsyncSwift
@@ -48,8 +49,9 @@ DEPENDENCIES:
   - Nimble
   - OcticonsSwift
   - Parser (from `https://github.com/oleander/BitBarParser.git`)
+  - PathKit
   - Quick
-  - Script (from `/Users/oleander/Documents/Projekt/Script`)
+  - Script (from `https://github.com/oleander/Script.git`)
   - Sparkle
   - SwiftyBeaver
   - SwiftyTimer
@@ -64,7 +66,7 @@ EXTERNAL SOURCES:
   Parser:
     :git: https://github.com/oleander/BitBarParser.git
   Script:
-    :path: "/Users/oleander/Documents/Projekt/Script"
+    :git: https://github.com/oleander/Script.git
   Toml:
     :git: https://github.com/oleander/swift-toml.git
 
@@ -78,6 +80,9 @@ CHECKOUT OPTIONS:
   Parser:
     :commit: 6d0d9bc8be11e1ff6d5b903564333f74ee93ef49
     :git: https://github.com/oleander/BitBarParser.git
+  Script:
+    :commit: 549e9d3d5ef26cf4ae619fb2c318ac81ae2acbf3
+    :git: https://github.com/oleander/Script.git
   Toml:
     :commit: 62f7835982d76077c71e916993bc6c26753a7fea
     :git: https://github.com/oleander/swift-toml.git
@@ -99,6 +104,7 @@ SPEC CHECKSUMS:
   Nimble: 874982b605d4d752fcac6be695d13c502de84b1b
   OcticonsSwift: 64ad8ec6ddd09009c33b64c113bf6ab7b45ce2db
   Parser: 72fa8183309b6bc9c50bb335eab977b40a18565c
+  PathKit: dcab05d701474011aae0e40cf892298a831f63d6
   Quick: dafc587e21eed9f4cab3249b9f9015b0b7a7f71d
   Script: f749680a67ef10bfa6b0183197c63240f25bec1e
   Sparkle: ccfb47699feea7b40b51cf3176f69404e5b1da6c
@@ -107,6 +113,6 @@ SPEC CHECKSUMS:
   SwiftyUserDefaults: 0f1d45fc3aafb9064dac661e367f8f83fe21a4b4
   Toml: a761dfbea43294d96e14b51c32368d0e010c3a7b
 
-PODFILE CHECKSUM: d67bf8ae160d20d37c51cbba65d0783ecfb7b238
+PODFILE CHECKSUM: fc455d93b523c6acf3040f45758ea79a22fddd8c
 
-COCOAPODS: 1.3.0.beta.1
+COCOAPODS: 1.3.0.beta.2

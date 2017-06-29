@@ -2,6 +2,7 @@ import ServiceManagement
 import Async
 import AppKit
 import SwiftyUserDefaults
+import Config
 
 #if DEBUG
   var Defaults = UserDefaults(suiteName: "\(App.id).Debug")!
@@ -125,24 +126,25 @@ class App {
   }
 
   static var port: Int {
-    let defaultPort = 9120
-    let dict = plist
-
-    if isInTestMode(), let port = dict["TestPort"] as? Int {
-      return port
-    }
-
-    #if DEBUG
-      if let port = dict["DevPort"] as? Int {
-        return port
-      }
-    #else
-      if let port = dict["ProdPort"] as? Int {
-        return port
-      }
-    #endif
-
-    return defaultPort
+    return config.cliPort
+    // let defaultPort = 9120
+    // let dict = plist
+    //
+    // if isInTestMode(), let port = dict["TestPort"] as? Int {
+    //   return port
+    // }
+    //
+    // #if DEBUG
+    //   if let port = dict["DevPort"] as? Int {
+    //     return port
+    //   }
+    // #else
+    //   if let port = dict["ProdPort"] as? Int {
+    //     return port
+    //   }
+    // #endif
+    // 
+    // return defaultPort
   }
 
   static var version: String {
@@ -191,4 +193,5 @@ class App {
 
   private static let currentBundle = Bundle.main
   private static let helperId = "com.getbitbar.Startup"
+  static let config = ConfigFile()
 }

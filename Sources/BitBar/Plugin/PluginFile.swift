@@ -1,14 +1,14 @@
 import Foundation
 import Files
+import Config
 import AppKit
 import SwiftyTimer
 import DateToolsSwift
 import SwiftyBeaver
 import Async
 import Parser
-import Vapor
 
-final class PluginFile: NSObject, Parent, Managable, Parameterizable, JSONRepresentable, GUI {
+final class PluginFile: NSObject, Parent, Managable, GUI {
   internal let queue = PluginFile.newQueue(label: "PluginFile")
   private let manager = FileManager.default
   private let storage = Storage()
@@ -16,20 +16,25 @@ final class PluginFile: NSObject, Parent, Managable, Parameterizable, JSONRepres
   internal weak var root: Parent?
   private var path: String { return file.path }
   private let file: Files.File
-  internal var name: String { return file.name }
   internal var tray: Tray?
   private var plugin: Plugin?
   private var timer: Timer?
   private var currentIndex = -1
   private var text: [Parser.Text] = []
   private var noOfItem = 0
-  private let updateInterval: Double = 10.seconds
   internal var hasLoaded = false
   private var storageList = [String]()
+  private var config: Config.Plugin
   private var group: AsyncBlock<Parser.Menu.Head, Void>?
 
-  init(file: Files.File, delegate: Parent) {
+  internal var name: String { return config.name ?? "unknown" }
+  private var updateInterval: Double { return config.cycleInterval }
+  private var args: [String] { return config.args }
+  private var env: [String: String] { return config.env }
+
+  init(file: Files.File, config: Config.Plugin, delegate: Parent) {
     self.file = file
+    self.config = config
     super.init()
     self.tray = Tray(title: "…", isVisible: true, id: file.path)
     tray?.root = self
@@ -258,7 +263,7 @@ final class PluginFile: NSObject, Parent, Managable, Parameterizable, JSONRepres
 
   private func setTitle() {
     do {
-      plugin = try File.toPlugin(file: file, delegate: self)
+      plugin = try File.toPlugin(file: file, args: args, env: env, delegate: self)
     } catch {
       set(errors: [String(describing: error)])
     }
@@ -269,22 +274,6 @@ final class PluginFile: NSObject, Parent, Managable, Parameterizable, JSONRepres
   func invoke(_ args: [String]) {
     plugin?.invoke(args)
     log(msg: "Invoked plugin with \(args.join(", "))")
-  }
-
-  func makeJSON() throws -> JSON {
-    return try JSON(node: info)
-  }
-
-  static var uniqueSlug: String {
-    return "plugin"
-  }
-
-  static func make(for name: String) throws -> PluginFile {
-    if let plugin = PluginManager.instance.findPlugin(byName: name) {
-      return plugin
-    }
-
-    throw Abort.notFound
   }
 
   deinit {

@@ -25,14 +25,14 @@ deploy:
 build:
 	bundle exec fastlane build
 clean:
-	swift package -C Packages reset
-	swift package -C Packages clean
+	# swift package -C Packages reset
+	# swift package -C Packages clean
 	pod cache clean --all
 	rm -rf .build
-	rm -rf BitBar.xcworkspace
-	rm -rf Packages/*.xcodeproj
-	rm -rf Packages/Package.pins
-	rm -rf /usr/local/bin/bitbar
+	# rm -rf BitBar.xcworkspace
+	# rm -rf Packages/*.xcodeproj
+	# rm -rf Packages/Package.pins
+	# rm -rf /usr/local/bin/bitbar
 pod_install:
 	pod install --verbose
 setup: create_build_dir prebuild_vapor symlink_vapor pod_install

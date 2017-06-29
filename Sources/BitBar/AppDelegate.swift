@@ -24,6 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, Parent {
   func applicationDidFinishLaunching(_: Notification) {
     if App.isInTestMode() { return }
     manager.root = self
+    handleConfigFile()
     setEnvs()
     setOpenUrlHandler()
     setOnWakeUpHandler()
@@ -163,5 +164,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, Parent {
 
   private func handleStartupApp() {
     App.terminateHelperApp()
+  }
+
+  private func handleConfigFile() {
+    do {
+      try App.config.distribute()
+    } catch {
+      log.error("Could not distribute config file: \(error)")
+    }
   }
 }

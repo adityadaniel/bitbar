@@ -8,3 +8,4 @@ typealias Block<T> = (T) -> Void
 typealias Mutable = NSMutableAttributedString
 typealias Immutable = NSAttributedString
 typealias P<T> = Parser<Character, T>
+typealias Env = [String: String]

@@ -7,6 +7,24 @@ private func ok(_ msg: String) throws -> JSON {
   return try JSON(node: ["message": msg])
 }
 
+extension PluginFile: Parameterizable, JSONRepresentable {
+  func makeJSON() throws -> JSON {
+    return try JSON(node: info)
+  }
+
+  static var uniqueSlug: String {
+    return "plugin"
+  }
+
+  static func make(for name: String) throws -> PluginFile {
+    if let plugin = PluginManager.instance.findPlugin(byName: name) {
+      return plugin
+    }
+
+    throw Abort.notFound
+  }
+}
+
 func startServer() throws -> Droplet {
   let manager = PluginManager.instance
   var config = try Config()

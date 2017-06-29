@@ -9,3 +9,7 @@ func notify(text: String, subtext: String? = nil) {
 
   alert.display()
 }
+
+func bug(_ msg: String) -> Never {
+  preconditionFailure("[Bug] " + msg)
+}

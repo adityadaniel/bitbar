@@ -1,3 +1,9 @@
+import PathKit
+
+enum DistConfigError: Error {
+  case destExist(Path)
+}
+
 enum ConfigError: Error {
   case noBaseConfigFound
   case unreadableBaseConfig(Error)
@@ -7,4 +13,9 @@ enum ConfigError: Error {
   case unreadableUserConfig(Error, String)
   case notConvertable
   case globalSectionNotFound
+  case dirAsConfig
+}
+
+enum ParamError: Error {
+  case invalidTransform
 }

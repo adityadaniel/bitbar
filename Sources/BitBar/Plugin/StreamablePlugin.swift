@@ -15,11 +15,11 @@ class StreamablePlugin: Plugin, Scriptable {
     return "Streamable(name: \(scriptName), file: \(file.name))"
   }
 
-  init(name: String, file: Files.File, manager: Managable) {
+  init(name: String, file: Files.File, args: [String], env: Env, manager: Managable) {
     self.scriptName = name
     self.manager = manager
     self.file = file
-    self.script = Script(path: file.path)
+    self.script = Script(path: file.path, args: args)
     self.root = manager
     self.script.delegate = self
     self.script.start()

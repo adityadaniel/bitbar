@@ -6,34 +6,42 @@ import Parser
 import SwiftyBeaver
 
 class PluginManager: Parent, GUI {
-  internal static let instance = PluginManager()
+  internal static let instance = PluginManager(config: App.config)
   internal let queue = PluginManager.newQueue(label: "PluginManager")
   internal weak var root: Parent?
   internal let log = SwiftyBeaver.self
   // TODO: Add default pref pane to tray
   private var tray: Tray?
-  private var config: ConfigFile?
+  private let config: ConfigFile
   private var path: String?
   internal var pluginFiles = [PluginFile]()
 
   /**
     Read plugins from @path
   */
-  init() {
+  init(config: ConfigFile) {
+    self.config = config
     tray = Tray(title: "BitBar", isVisible: true)
     tray?.root = self
-
-    // do {
-    //   config = try ConfigFile()
-    // } catch {
-    //   log.error("Could not load config file")
-    // }
   }
 
   // Add plugin @name with @path to the list of plugins
   // Will fail with an error message if @name can't be parsed
   private func addPlugin(file: Files.File) {
-    pluginFiles.append(PluginFile(file: file, delegate: self))
+    let name = file.path.split("/").last ?? "??"
+    let config = self.config.findPlugin(byName: name)
+
+    guard config.isEnabled else {
+      return log.info("Ignoring plugin at \(file.path) as specified in the config")
+    }
+
+    pluginFiles.append(
+      PluginFile(
+        file: file,
+        config: config,
+        delegate: self
+      )
+    )
   }
 
   func plugins(byName name: String) -> [PluginFile] {
