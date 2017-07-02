@@ -3,9 +3,9 @@ import BonMot
 import Async
 import SwiftyBeaver
 import OcticonsSwift
+import ReSwift
 
-class MenuItem: NSMenuItem, Parent, GUI {
-  weak var root: Parent?
+class MenuItem: NSMenuItem, GUI, StoreSubscriber {
   internal let queue = MenuItem.newQueue(label: "MenuItem")
   private var isError = false
   public var isManualClickable: Bool?
@@ -33,7 +33,7 @@ class MenuItem: NSMenuItem, Parent, GUI {
     set(title: immutable)
 
     if !submenus.isEmpty {
-      submenu = MenuBase(root: self)
+      submenu = MenuBase()
     }
 
     for sub in submenus {
@@ -49,13 +49,14 @@ class MenuItem: NSMenuItem, Parent, GUI {
         self?.keyEquivalentModifierMask = .option
       }
     }
+
+    mainStore.subscribe(self)
   }
 
-  convenience init(errors: [String], submenus: [NSMenuItem] = []) {
-    self.init(
-      error: "\(errors.count) errors",
-      submenus: errors.map { Menu(title: $0, submenus: []) }
-    )
+  func onWillBecomeVisible() {
+  }
+
+  func onWillBecomeInvisible() {
   }
 
   convenience init(error: String, submenus: [NSMenuItem] = []) {
@@ -123,7 +124,7 @@ class MenuItem: NSMenuItem, Parent, GUI {
     showErrorIcons()
 
     if cascade {
-      broadcast(.didSetError)
+//      broadcast(.didSetError)
     }
   }
 
@@ -141,6 +142,10 @@ class MenuItem: NSMenuItem, Parent, GUI {
     /* NOP */
   }
 
+  func newState(state: AppState) {
+    /* NOP */
+  }
+
   public var isChecked: Bool {
     get { return NSOnState == state }
     set {
@@ -153,7 +158,6 @@ class MenuItem: NSMenuItem, Parent, GUI {
   @objc public func __onDidClick() {
     log.verbose("Clicked on item in dropdown menu")
     perform { [weak self] in
-      self?.broadcast(.didClickMenuItem)
       self?.onDidClick()
     }
   }
@@ -184,16 +188,6 @@ class MenuItem: NSMenuItem, Parent, GUI {
       "hasSubmenu": hasSubmenu,
       "keyEquivalent": keyEquivalent
     ])
-  }
-
-  public func on(_ event: MenuEvent) {
-    switch event {
-    /* set(error: ...) was used */
-    case .didSetError:
-      set(error: true)
-    default:
-      break
-    }
   }
 
   private func showErrorIcons() {
@@ -236,18 +230,16 @@ class MenuItem: NSMenuItem, Parent, GUI {
   }
 
   private func add(submenu item: NSMenuItem) {
-    if let menu = item as? MenuItem {
-      menu.root = self
-    }
-
-    perform { [weak self] in
-      self?.submenu?.addItem(item)
-    }
+    submenu?.addItem(item)
   }
 
   private func updateSubmenu() {
     perform { [weak self] in
       self?.submenu?.update()
     }
+  }
+
+  deinit {
+    mainStore.unsubscribe(self)
   }
 }

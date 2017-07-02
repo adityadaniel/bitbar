@@ -1,6 +1,6 @@
 import SwiftyBeaver
 
-class Base {
+public class Base {
   internal let log = SwiftyBeaver.self
   init() {}
 }

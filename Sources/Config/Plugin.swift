@@ -1,6 +1,7 @@
 import Toml
 import FootlessParser
 
+public typealias PluginConfig = Plugin
 public struct Plugin {
   private let global: Toml
   private let plugin: Toml?

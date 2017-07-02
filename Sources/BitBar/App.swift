@@ -193,5 +193,5 @@ class App {
 
   private static let currentBundle = Bundle.main
   private static let helperId = "com.getbitbar.Startup"
-  static let config = ConfigFile()
+  static let config = Config()
 }

@@ -1,5 +1,11 @@
 import Parser
 import Script
+import PathKit
+import Plugin
+
+enum MetadataError: Error {
+  case unreadableFile(String)
+}
 
 extension MenuError: CustomStringConvertible {
   public var description: String {
@@ -32,6 +38,12 @@ extension MenuError: CustomStringConvertible {
       let eventsList = events.map(String.init(describing:))
       return "Events \(eventsList.join(",")) and args \(args.join(",")) has been set, but not bash='...'"
     }
+  }
+
+  // TODO: Remove
+  func format(error: String) -> String {
+    if error.trimmed().isEmpty { return "" }
+    return ":\n\t" + error.trimmed().replace("\n", "\n\t\t")
   }
 }
 
@@ -96,17 +108,64 @@ extension Script.Failure: CustomStringConvertible {
     }
   }
 
-  private func format(error: String) -> String {
-    if error.trimmed().isEmpty { return "" }
-    return ":\n\t" + error.trimmed().replace("\n", "\n\t\t")
-  }
-
   private func format(error: String?) -> String {
     guard let anError = error else { return "" }
     return format(error: anError)
+  }
+
+  func format(error: String) -> String {
+    if error.trimmed().isEmpty { return "" }
+    return ":\n\t" + error.trimmed().replace("\n", "\n\t\t")
   }
 
   private func pre(_ exitCode: Int) -> String {
     return "(\(exitCode)) "
   }
 }
+
+ extension PluginError: CustomStringConvertible {
+   public var description: String {
+     switch self {
+     case .noOutput:
+       return pre(-1) + format(error: "No output provided by plugin")
+     case let .output(stderr):
+       return String(describing: stderr)
+     }
+   }
+
+   func format(error: String) -> String {
+     if error.trimmed().isEmpty { return "" }
+     return ":\n\t" + error.trimmed().replace("\n", "\n\t\t")
+   }
+
+   private func pre(_ exitCode: Int) -> String {
+     return "(\(exitCode)) "
+   }
+ }
+
+ extension ManagerError: CustomStringConvertible {
+   public var description: String {
+     switch self {
+     case let .pathDoesNotExist(path):
+       return "Plugin path \(path) does not exist"
+     }
+   }
+ }
+
+ extension PathError: CustomStringConvertible {
+   public var description: String {
+     switch self {
+     case let .notAFile(path):
+       return "\(path) is not a path"
+     }
+   }
+ }
+
+ extension ClassifierError: CustomStringConvertible {
+   public var description: String {
+     switch self {
+     case let .invalidParts(path):
+       return "File \(path.name ?? "") has an invalid name"
+     }
+   }
+ }

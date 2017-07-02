@@ -6,25 +6,30 @@ import PathKit
 import Parser
 
 internal typealias PluginFile = Plugin
-internal final class Plugin: Base, Rotatable, Manageable {
+public final class Plugin: Base, Rotatable, Manageable {
   typealias Head = Parser.Menu.Head
   typealias Text = Parser.Text
+  typealias Tail = Parser.Menu.Tail
 
   internal var rot: Rotator!
-  private let tray: Tray = Tray(title: "…")
+  internal let tray: Trayable
   private let path: Path
-  private var config: Config.Plugin
+  private var config: PluginConfig
   private var worker: AsyncBlock<Void, Void>?
   private let plug: Pluginable
+  private var stdout: String?
+  private var stderr: String?
+  private var tails: [Tail] = []
 
   public var name: String { return (try? path.fileName()) ?? "===" }
 
-  public init(path: Path, config: Config.Plugin, handler: Pluginable) {
+  public init(path: Path, config: PluginConfig, handler: Pluginable, trayer: Trayable.Type) {
     self.path = path
     self.config = config
     self.plug = handler
+    self.tray = trayer.init(title: "…", isVisible: true)
     super.init()
-    self.rot = Rotator(every: Int(config.cycleInterval), delegate: self)
+    self.rot = Rotator(every: 1, delegate: self)
     self.plug.delegate = self
   }
 
@@ -49,22 +54,32 @@ internal final class Plugin: Base, Rotatable, Manageable {
   }
 
   public func refresh() {
-    plug.refresh()
+    plug.restart()
     log.verbose("Refresh")
   }
 
-  internal func plugin(didReceiveError error: String) {
-    set(error: .output(error))
+  public func plugin(didReceiveError stderr: String) {
+    guard stderr != self.stderr else {
+      return log.info("Error has not changed")
+    }
+
+    self.stderr = stderr
+    set(error: .output(stderr))
   }
 
-  internal func plugin(didReceiveOutput data: String) {
-    guard data.isPresent else {
+  public func plugin(didReceiveOutput stdout: String) {
+    guard stdout.isPresent else {
       return set(error: .noOutput)
     }
 
+    guard stdout != self.stdout else {
+      return log.info("Input has not changed")
+    }
+
+    self.stdout = stdout
     worker?.cancel()
-    worker = Async.background {
-      self.set(head: reduce(data))
+    worker = Async.background { [weak self] in
+      self?.set(head: reduce(stdout))
     }
   }
 
@@ -91,19 +106,28 @@ internal final class Plugin: Base, Rotatable, Manageable {
     tray.set(error: error)
   }
 
+  private func set(errors: [MenuError]) {
+    for error in errors {
+      log.error("Got menu error: \(error)")
+    }
+
+    tray.set(errors: errors)
+  }
+
   private func set(head: Head) {
-    Async.main {
-      switch head {
-      case let .text(text, tails):
-        do {
-          try self.rot.set(text: text)
-          self.tray.set(tails)
-        } catch {
-          self.log.error("Rotator failed: \(error)")
+    switch head {
+    case let .text(text, tails):
+      do {
+        try rot.set(text: text)
+        if tails != self.tails {
+          tray.set(tails)
         }
-      case let .error(messages):
-        self.set(errors: messages.map(String.init(describing:)))
+        self.tails = tails
+      } catch {
+        log.error("Rotator failed: \(error)")
       }
+    case let .error(errors):
+      set(errors: errors)
     }
   }
 

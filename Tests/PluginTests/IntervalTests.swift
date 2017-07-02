@@ -5,8 +5,8 @@ import PathKit
 
 @testable import Plugin
 
-class SteamHost: Manageable {
-  var plugin: StreamPlugin!
+class IntervalHost: Manageable {
+  var plugin: IntervalPlugin!
   var events = [Event]()
 
   enum Event: Equatable {
@@ -25,8 +25,8 @@ class SteamHost: Manageable {
     case stderr(String)
   }
 
-  public init(path: Path = .stream, args: [String] = [], env: Env = Env()) {
-    plugin = Stream(path: path, args: args, env: env, delegate: self)
+  public init(path: Path = .interval, frequency: Int = 10, args: [String] = [], env: Env = Env()) {
+    plugin = Interval(path: path, frequency: frequency, args: args, env: env, delegate: self)
   }
 
   func plugin(didReceiveOutput: String) {
@@ -58,10 +58,10 @@ class SteamHost: Manageable {
   }
 }
 
-class StreamTests: QuickSpec {
+class IntervalTests: QuickSpec {
   override func spec() {
-    var plugin: SteamHost!
-    var output: [SteamHost.Event]!
+    var plugin: IntervalHost!
+    var output: [IntervalHost.Event]!
 
     let after = { (time: Double, block: @escaping () -> Void) in
       waitUntil(timeout: time + 20) { done in
@@ -74,8 +74,8 @@ class StreamTests: QuickSpec {
 
     describe("no arguments") {
       beforeEach {
-        output = [.stdout("A\n"), .stdout("B\n")]
-        plugin = SteamHost()
+        output = [.stdout("A\nB\n")]
+        plugin = IntervalHost()
       }
 
       describe("start") {
@@ -87,15 +87,12 @@ class StreamTests: QuickSpec {
         }
 
         it("only reports once on multiply starts") {
-          plugin.start()
-
-          after(0.5) {
-            plugin.start()
+          after(2) {
             plugin.start()
           }
 
           after(3) {
-            expect(plugin.events).to(equal(output))
+            expect(plugin.events).to(equal(output + output))
           }
         }
 
@@ -104,13 +101,9 @@ class StreamTests: QuickSpec {
         }
 
         it("aborts when deallocated") {
-          plugin.start()
+          plugin.deallocate()
 
-          after(0.5) {
-            plugin.deallocate()
-          }
-
-          after(3) {
+          after(2) {
             expect(plugin.events).to(beEmpty())
           }
         }
@@ -119,30 +112,26 @@ class StreamTests: QuickSpec {
       describe("stop") {
         it("stops") {
           plugin.stop()
+
           after(3) {
             expect(plugin.events).to(beEmpty())
           }
         }
 
         it("does nothing on multiply stops") {
-          after(0.5) {
-            plugin.stop()
-            plugin.stop()
-          }
+          plugin.stop()
+          plugin.stop()
 
-          after(3) {
+          after(2) {
             expect(plugin.events).to(beEmpty())
           }
         }
 
         it("aborts when deallocated") {
           plugin.stop()
+          plugin.deallocate()
 
-          after(0.5) {
-            plugin.deallocate()
-          }
-
-          after(3) {
+          after(2) {
             expect(plugin.events).to(beEmpty())
           }
         }
@@ -150,47 +139,73 @@ class StreamTests: QuickSpec {
 
       describe("invoke") {
         it("invokes") {
-          plugin.invoke(["1", "2"])
-          after(3) {
-            expect(plugin.events).to(equal([.stdout("1\n"), .stdout("2\n")]))
+          after(2) {
+            plugin.invoke(["1", "2"])
+          }
+
+          after(4) {
+            expect(plugin.events).to(equal([
+              .stdout("A\nB\n"),
+              .stdout("1\n2\n")
+              ]))
           }
         }
 
         describe("restart") {
-          it("does not persit arguments on restart") {
-            plugin.invoke(["1", "2"])
-            after(0.5) {
-              plugin.restart()
+          it("does persit arguments on restart") {
+            after(1) {
+              plugin.invoke(["1", "2"])
             }
 
             after(3) {
-              expect(plugin.events).to(equal([.stdout("A\n"), .stdout("B\n")]))
+              plugin.restart()
+            }
+
+            after(4) {
+              expect(plugin.events).to(equal([
+                .stdout("A\nB\n"),
+                .stdout("1\n2\n"),
+                .stdout("1\n2\n")
+                ]))
             }
           }
         }
 
         describe("stop") {
           it("aborts on stop") {
-            plugin.invoke(["1", "2"])
-            after(0.5) {
-              plugin.stop()
+            after(1) {
+              plugin.invoke(["1", "2"])
             }
 
             after(3) {
-              expect(plugin.events).to(beEmpty())
+              plugin.stop()
+            }
+
+            after(4) {
+              expect(plugin.events).to(equal([
+                .stdout("A\nB\n"),
+                .stdout("1\n2\n")
+                ]))
             }
           }
         }
 
         describe("start") {
           it("aborts on start") {
-            plugin.invoke(["1", "2"])
-            after(0.5) {
+            after(1) {
+              plugin.invoke(["1", "2"])
+            }
+
+            after(2) {
               plugin.start()
             }
 
-            after(3) {
-              expect(plugin.events).to(equal([.stdout("A\n"), .stdout("B\n")]))
+            after(4) {
+              expect(plugin.events).to(equal([
+                .stdout("A\nB\n"),
+                .stdout("1\n2\n"),
+                .stdout("1\n2\n")
+                ]))
             }
           }
         }
@@ -200,33 +215,29 @@ class StreamTests: QuickSpec {
         it("restart") {
           plugin.restart()
           after(3) {
-            expect(plugin.events).to(equal([.stdout("A\n"), .stdout("B\n")]))
+            expect(plugin.events).to(equal([.stdout("A\nB\n")]))
           }
         }
 
         it("only reports once on multiply restarts") {
-          plugin.restart()
-
-          after(0.5) {
+          after(1) {
             plugin.restart()
             plugin.restart()
           }
 
           after(3) {
-            expect(plugin.events).to(equal([.stdout("A\n"), .stdout("B\n")]))
+            expect(plugin.events).to(equal([.stdout("A\nB\n"), .stdout("A\nB\n")]))
           }
         }
 
         it("aborts when deallocated") {
-          plugin.restart()
-
-          after(0.5) {
+          after(1) {
             plugin.restart()
             plugin.deallocate()
           }
 
           after(3) {
-            expect(plugin.events).to(beEmpty())
+            expect(plugin.events).to(equal([.stdout("A\nB\n")]))
           }
         }
       }
@@ -234,8 +245,8 @@ class StreamTests: QuickSpec {
 
     describe("arguments") {
       beforeEach {
-        output = [.stdout("X\n"), .stdout("Y\n")]
-        plugin = SteamHost(args: ["X", "Y"])
+        output = [.stdout("X\nY\n")]
+        plugin = IntervalHost(args: ["X", "Y"])
       }
 
       describe("start") {
@@ -247,15 +258,13 @@ class StreamTests: QuickSpec {
         }
 
         it("only reports once on multiply starts") {
-          plugin.start()
-
-          after(0.5) {
+          after(2) {
             plugin.start()
             plugin.start()
           }
 
-          after(3) {
-            expect(plugin.events).to(equal(output))
+          after(4) {
+            expect(plugin.events).to(equal(output + output))
           }
         }
 
@@ -264,14 +273,13 @@ class StreamTests: QuickSpec {
         }
 
         it("aborts when deallocated") {
-          plugin.start()
-
-          after(0.5) {
+          after(1) {
+            plugin.start()
             plugin.deallocate()
           }
 
           after(3) {
-            expect(plugin.events).to(beEmpty())
+            expect(plugin.events).to(equal(output))
           }
         }
       }
@@ -285,13 +293,13 @@ class StreamTests: QuickSpec {
         }
 
         it("does nothing on multiply stops") {
-          after(0.5) {
+          after(1) {
             plugin.stop()
             plugin.stop()
           }
 
           after(3) {
-            expect(plugin.events).to(beEmpty())
+            expect(plugin.events).to(equal(output))
           }
         }
 
@@ -312,45 +320,48 @@ class StreamTests: QuickSpec {
         it("invokes") {
           plugin.invoke(["1", "2"])
           after(3) {
-            expect(plugin.events).to(equal([.stdout("1\n"), .stdout("2\n")]))
+            expect(plugin.events).to(equal([.stdout("1\n2\n")]))
           }
         }
 
         describe("restart") {
           it("does not persit arguments on restart") {
-            plugin.invoke(["1", "2"])
-            after(0.5) {
+            after(1) {
+              plugin.invoke(["1", "2"])
+            }
+
+            after(2) {
               plugin.restart()
             }
 
-            after(3) {
-              expect(plugin.events).to(equal(output))
+            after(4) {
+              expect(plugin.events).to(equal(output + [.stdout("1\n2\n"), .stdout("1\n2\n")]))
             }
           }
         }
 
         describe("stop") {
           it("aborts on stop") {
-            plugin.invoke(["1", "2"])
-            after(0.5) {
+            after(1) {
+              plugin.invoke(["1", "2"])
               plugin.stop()
             }
 
             after(3) {
-              expect(plugin.events).to(beEmpty())
+              expect(plugin.events).to(equal(output))
             }
           }
         }
 
         describe("start") {
           it("aborts on start") {
-            plugin.invoke(["1", "2"])
-            after(0.5) {
+            after(1) {
+              plugin.invoke(["1", "2"])
               plugin.start()
             }
 
             after(3) {
-              expect(plugin.events).to(equal(output))
+              expect(plugin.events).to(equal(output + [.stdout("1\n2\n")]))
             }
           }
         }
@@ -365,28 +376,24 @@ class StreamTests: QuickSpec {
         }
 
         it("only reports once on multiply restarts") {
-          plugin.restart()
-
-          after(0.5) {
+          after(1) {
             plugin.restart()
             plugin.restart()
           }
 
           after(3) {
-            expect(plugin.events).to(equal(output))
+            expect(plugin.events).to(equal(output + output))
           }
         }
 
         it("aborts when deallocated") {
-          plugin.restart()
-
-          after(0.5) {
+          after(1) {
             plugin.restart()
             plugin.deallocate()
           }
 
           after(3) {
-            expect(plugin.events).to(beEmpty())
+            expect(plugin.events).to(equal(output))
           }
         }
       }
@@ -394,28 +401,29 @@ class StreamTests: QuickSpec {
 
     describe("env") {
       beforeEach {
-        output = [.stdout("P\n"), .stdout("Q\n")]
-        plugin = SteamHost(env: ["ENV1": "P", "ENV2": "Q"])
+        output = [.stdout("P\nQ\n")]
+        plugin = IntervalHost(env: ["ENV1": "P", "ENV2": "Q"])
       }
 
       describe("start") {
         it("starts") {
-          plugin.start()
+          after(1) {
+            plugin.start()
+          }
+
           after(3) {
-            expect(plugin.events).to(equal(output))
+            expect(plugin.events).to(equal(output + output))
           }
         }
 
         it("only reports once on multiply starts") {
-          plugin.start()
-
-          after(0.5) {
+          after(1) {
             plugin.start()
             plugin.start()
           }
 
           after(3) {
-            expect(plugin.events).to(equal(output))
+            expect(plugin.events).to(equal(output + output))
           }
         }
 
@@ -424,14 +432,13 @@ class StreamTests: QuickSpec {
         }
 
         it("aborts when deallocated") {
-          plugin.start()
-
-          after(0.5) {
+          after(1) {
+            plugin.start()
             plugin.deallocate()
           }
 
           after(3) {
-            expect(plugin.events).to(beEmpty())
+            expect(plugin.events).to(equal(output))
           }
         }
       }
@@ -445,13 +452,13 @@ class StreamTests: QuickSpec {
         }
 
         it("does nothing on multiply stops") {
-          after(0.5) {
+          after(1) {
             plugin.stop()
             plugin.stop()
           }
 
           after(3) {
-            expect(plugin.events).to(beEmpty())
+            expect(plugin.events).to(equal(output))
           }
         }
 
@@ -470,47 +477,50 @@ class StreamTests: QuickSpec {
 
       describe("invoke") {
         it("invokes") {
-          plugin.invoke(["1", "2"])
+          after(1) {
+            plugin.invoke(["1", "2"])
+          }
+
           after(3) {
-            expect(plugin.events).to(equal([.stdout("1\n"), .stdout("2\n")]))
+            expect(plugin.events).to(equal(output + [.stdout("1\n2\n")]))
           }
         }
 
         describe("restart") {
           it("does not persit arguments on restart") {
-            plugin.invoke(["1", "2"])
-            after(0.5) {
+            after(1) {
+              plugin.invoke(["1", "2"])
               plugin.restart()
             }
 
             after(3) {
-              expect(plugin.events).to(equal(output))
+              expect(plugin.events).to(equal(output + [.stdout("1\n2\n")]))
             }
           }
         }
 
         describe("stop") {
           it("aborts on stop") {
-            plugin.invoke(["1", "2"])
             after(0.5) {
+              plugin.invoke(["1", "2"])
               plugin.stop()
             }
 
             after(3) {
-              expect(plugin.events).to(beEmpty())
+              expect(plugin.events).to(equal(output))
             }
           }
         }
 
         describe("start") {
           it("aborts on start") {
-            plugin.invoke(["1", "2"])
-            after(0.5) {
+            after(1) {
+              plugin.invoke(["1", "2"])
               plugin.start()
             }
 
             after(3) {
-              expect(plugin.events).to(equal(output))
+              expect(plugin.events).to(equal(output + [.stdout("1\n2\n")]))
             }
           }
         }
@@ -518,35 +528,34 @@ class StreamTests: QuickSpec {
 
       describe("restart") {
         it("restart") {
-          plugin.restart()
+          after(1) {
+            plugin.restart()
+          }
+
           after(3) {
-            expect(plugin.events).to(equal(output))
+            expect(plugin.events).to(equal(output + output))
           }
         }
 
         it("only reports once on multiply restarts") {
-          plugin.restart()
-
-          after(0.5) {
+          after(1) {
             plugin.restart()
             plugin.restart()
           }
 
           after(3) {
-            expect(plugin.events).to(equal(output))
+            expect(plugin.events).to(equal(output + output))
           }
         }
 
         it("aborts when deallocated") {
-          plugin.restart()
-
-          after(0.5) {
+          after(1) {
             plugin.restart()
             plugin.deallocate()
           }
 
           after(3) {
-            expect(plugin.events).to(beEmpty())
+            expect(plugin.events).to(equal(output))
           }
         }
       }
@@ -554,16 +563,13 @@ class StreamTests: QuickSpec {
 
     describe("error") {
       beforeEach {
-        output = [.stdout("A\n"), .stdout("ERROR\n"), .stdout("B\n")]
-        plugin = SteamHost(path: .streamError)
+        plugin = IntervalHost(path: .streamError)
       }
 
       it("should output stderr and stdout") {
-        after(3) {
-          expect(plugin.events).to(contain(.stderr("ERROR")))
-          expect(plugin.events).to(contain(.stdout("A\n")))
-          expect(plugin.events).to(contain(.stdout("B\n")))
-        }
+        expect(plugin.events).toEventually(contain(.stderr("ERROR")))
+        expect(plugin.events).toEventually(contain(.stdout("A\n")))
+        expect(plugin.events).toEventually(contain(.stdout("B\n")))
       }
     }
   }

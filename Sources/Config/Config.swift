@@ -2,7 +2,7 @@ import Toml
 import PathKit
 import Foundation
 
-public class ConfigFile {
+public class Config {
   public typealias Path = PathKit.Path
   private let dist: DistConfig
   private var plugins = [Plugin]()

@@ -1,6 +1,6 @@
-protocol Pluginable: class {
+public protocol Pluginable: class {
   weak var delegate: Manageable? { get set }
-  func refresh()
+  func restart()
   func start()
   func stop()
   func invoke(_: [String])

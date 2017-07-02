@@ -9,13 +9,12 @@ protocol Parent: class, GUI {
 
 extension Parent {
   func broadcast(_ event: MenuEvent) {
-    guard let root = root else {
-      return log.warning("No root found")
-    }
+    // guard let root = root else { return log.warning("No root found")
+    // }
 
-    log.verbose("Broadcasting event: \(event)")
-    root.broadcast(event)
-    perform { root.on(event) }
+    // log.verbose("Broadcasting event: \(event)")
+    // root.broadcast(event)
+    // perform { [weak root] in root.on(event) }
   }
 
   func on(_ event: MenuEvent) {

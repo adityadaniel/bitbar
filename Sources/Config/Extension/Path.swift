@@ -14,6 +14,7 @@ extension Path {
       return Path(path)
     }
 
+    puts("[Error] Could not find \(file) in resources")
     return nil
   }
 }

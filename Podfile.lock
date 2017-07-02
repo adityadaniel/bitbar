@@ -15,7 +15,6 @@ PODS:
   - Emojize (6.0.10):
     - FootlessParser
     - JASON
-  - Files (1.8.0)
   - FootlessParser (2.0.6)
   - Hue (2.0.1)
   - JASON (3.1)
@@ -25,6 +24,7 @@ PODS:
     - FootlessParser
   - PathKit (0.8.0)
   - Quick (1.1.0)
+  - ReSwift (4.0.0)
   - Script (3.0.1):
     - AsyncSwift
   - Sparkle (1.17.0)
@@ -43,7 +43,6 @@ DEPENDENCIES:
   - DateToolsSwift (from `https://github.com/MatthewYork/DateTools.git`)
   - Dollar
   - Emojize
-  - Files
   - FootlessParser (from `https://github.com/oleander/FootlessParser.git`)
   - Hue
   - Nimble
@@ -51,6 +50,7 @@ DEPENDENCIES:
   - Parser (from `https://github.com/oleander/BitBarParser.git`)
   - PathKit
   - Quick
+  - ReSwift
   - Script (from `https://github.com/oleander/Script.git`)
   - Sparkle
   - SwiftyBeaver
@@ -78,10 +78,10 @@ CHECKOUT OPTIONS:
     :commit: c6fb4cf0c61efa31a11c62557aabfd8f2c4d7116
     :git: https://github.com/oleander/FootlessParser.git
   Parser:
-    :commit: 6d0d9bc8be11e1ff6d5b903564333f74ee93ef49
+    :commit: d5c85ca431b84efc26e99cdfb5461a37fbfdf6ce
     :git: https://github.com/oleander/BitBarParser.git
   Script:
-    :commit: 549e9d3d5ef26cf4ae619fb2c318ac81ae2acbf3
+    :commit: dc2ff5e8c432ac5806b97fcf45a29367acfc1ada
     :git: https://github.com/oleander/Script.git
   Toml:
     :commit: 62f7835982d76077c71e916993bc6c26753a7fea
@@ -97,7 +97,6 @@ SPEC CHECKSUMS:
   DateToolsSwift: 303a194ec50a5f212abeb8924542c8cc16b04a35
   Dollar: 0a9883680f2c1104adf0d19b827c3be71d3e3121
   Emojize: be7d74e7b0b56372144a2faefddf538a3687a892
-  Files: b7734dc3136d4f75e3a98c0b6140bc671ec863ae
   FootlessParser: aef8884544c638401bddaa5a4c61c09198c12d33
   Hue: 354caec055fdc9d38b5ef33ca2e7224721843baf
   JASON: c1204b01c9979eef35b6948ca939aac5e7bef081
@@ -106,6 +105,7 @@ SPEC CHECKSUMS:
   Parser: 72fa8183309b6bc9c50bb335eab977b40a18565c
   PathKit: dcab05d701474011aae0e40cf892298a831f63d6
   Quick: dafc587e21eed9f4cab3249b9f9015b0b7a7f71d
+  ReSwift: f058ef13b46ae5f463f10605ccbbb7fb04424d8d
   Script: f749680a67ef10bfa6b0183197c63240f25bec1e
   Sparkle: ccfb47699feea7b40b51cf3176f69404e5b1da6c
   SwiftyBeaver: 90a39e3dc5136b7285f2e4c870b107e3933b8b84
@@ -113,6 +113,6 @@ SPEC CHECKSUMS:
   SwiftyUserDefaults: 0f1d45fc3aafb9064dac661e367f8f83fe21a4b4
   Toml: a761dfbea43294d96e14b51c32368d0e010c3a7b
 
-PODFILE CHECKSUM: fc455d93b523c6acf3040f45758ea79a22fddd8c
+PODFILE CHECKSUM: f903cf9704d817a68a44a35b8b1adf9a36e8f213
 
 COCOAPODS: 1.3.0.beta.2

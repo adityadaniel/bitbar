@@ -1,5 +1,5 @@
 import Config
 
 struct App {
-  static let config = ConfigFile()
+  static let config = Config()
 }

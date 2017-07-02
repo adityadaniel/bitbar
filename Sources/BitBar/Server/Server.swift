@@ -1,37 +1,38 @@
 import Vapor
 import Foundation
 import SwiftyBeaver
+import Plugin
 import Async
+import Plugin
 
 private func ok(_ msg: String) throws -> JSON {
   return try JSON(node: ["message": msg])
 }
 
-extension PluginFile: Parameterizable, JSONRepresentable {
-  func makeJSON() throws -> JSON {
-    return try JSON(node: info)
-  }
+// TODO: Move
+extension Plugin: Parameterizable, JSONRepresentable {
+ public func makeJSON() throws -> JSON {
+   return try JSON(node: []) /* TODO <- */
+ }
 
-  static var uniqueSlug: String {
-    return "plugin"
-  }
+ public static var uniqueSlug: String {
+   return "plugin"
+ }
 
-  static func make(for name: String) throws -> PluginFile {
-    if let plugin = PluginManager.instance.findPlugin(byName: name) {
-      return plugin
-    }
+ public static func make(for name: String) throws -> Plugin {
+   if let plugin = manager.findPlugin(byName: name) {
+     return plugin
+   }
 
-    throw Abort.notFound
-  }
+   throw Abort.notFound
+ }
 }
 
 func startServer() throws -> Droplet {
-  let manager = PluginManager.instance
   var config = try Config()
   try config.set("server.port", App.port)
   let drop = try Droplet(config)
   let log = SwiftyBeaver.self
-  // log.addDestination(FileDestination())
   log.addDestination(ConsoleDestination())
 
   drop.group("plugins") { group in
@@ -43,7 +44,7 @@ func startServer() throws -> Droplet {
 
     // GET /plugins
     group.get { _ in
-      return try JSON(node: manager.pluginsNames)
+      return try JSON(node: manager.names)
     }
   }
 
@@ -52,38 +53,38 @@ func startServer() throws -> Droplet {
     ws.setup()
   }
 
-  drop.group("plugin", PluginFile.parameter) { plugin in
-    // GET /plugin/:plugin
-    plugin.get { req in
-      return try req.parameters.next(PluginFile.self).makeJSON()
-    }
+ drop.group("plugin", Plugin.parameter) { plugin in
+   // GET /plugin/:plugin
+   plugin.get { req in
+     return try req.parameters.next(Plugin.self).makeJSON()
+   }
 
-    // PATCH /plugin/:plugin/hide
-    plugin.patch("hide") { req in
-      try req.parameters.next(PluginFile.self).hide()
-      return try ok("Plugin is now hidden")
-    }
+   // PATCH /plugin/:plugin/hide
+   plugin.patch("hide") { req in
+     try req.parameters.next(Plugin.self).hide()
+     return try ok("Plugin is now hidden")
+   }
 
-    // PATCH /plugin/:plugin/show
-    plugin.patch("show") { req in
-      try req.parameters.next(PluginFile.self).show()
-      return try ok("Plugin is now visible")
-    }
+   // PATCH /plugin/:plugin/show
+   plugin.patch("show") { req in
+     try req.parameters.next(Plugin.self).show()
+     return try ok("Plugin is now visible")
+   }
 
-    // PATCH /plugin/:plugin/refresh
-    plugin.patch("refresh") { req in
-      try req.parameters.next(PluginFile.self).refresh()
-      return try ok("Plugin is now refreshed")
-    }
+   // PATCH /plugin/:plugin/refresh
+   plugin.patch("refresh") { req in
+     try req.parameters.next(Plugin.self).refresh()
+     return try ok("Plugin is now refreshed")
+   }
 
-    // PATCH /plugin/:plugin/invoke/arg1/arg2
-    plugin.patch("invoke", "*") { req in
-      let plugin = try req.parameters.next(PluginFile.self)
-      let args = req.uri.path.split("invoke/").last!.split("/")
-      plugin.invoke(args)
-      return try ok("Plugin has been invoked with passed args")
-    }
-  }
+   // PATCH /plugin/:plugin/invoke/arg1/arg2
+   plugin.patch("invoke", "*") { req in
+     let plugin = try req.parameters.next(Plugin.self)
+     let args = req.uri.path.split("invoke/").last!.split("/")
+     plugin.invoke(args)
+     return try ok("Plugin has been invoked with passed args")
+   }
+ }
 
   return drop.start()
 }

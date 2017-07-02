@@ -1,10 +1,10 @@
 import PathKit
 @testable import Config
 
-extension ConfigFile {
-  static func using(template: Path) throws -> ConfigFile {
+extension Config {
+  static func using(template: Path) throws -> Config {
     let temp = try Path.uniqueTemporary()
-    let config = ConfigFile(home: temp)
+    let config = Config(home: temp)
     try config.distribute(template)
     return config
   }

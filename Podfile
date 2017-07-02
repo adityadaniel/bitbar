@@ -13,6 +13,7 @@ target "Packages" do
     project "BitBar.xcodeproj"
 
     pod "Hue"
+    pod "ReSwift"
     pod "SwiftyBeaver"
     pod "SwiftyUserDefaults"
     pod "Alamofire"
@@ -24,7 +25,6 @@ target "Packages" do
     pod "OcticonsSwift"
     pod "Ansi"
     pod "Dollar"
-    pod "Files"
     pod "Emojize"
     pod "PathKit"
     pod "FootlessParser", git: "https://github.com/oleander/FootlessParser.git"

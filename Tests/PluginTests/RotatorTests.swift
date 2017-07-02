@@ -27,17 +27,10 @@ public func cyclicSubset<T: Equatable>(of cycle: [T]) -> Predicate<[T]> {
   }
 }
 
-extension Text: Equatable {
+extension Text {
   static let text1: Text = .normal("A", [])
   static let text2: Text = .normal("B", [])
   static let text3: Text = .normal("C", [])
-
-  public static func == (lhs: Text, rhs: Text) -> Bool {
-    switch (lhs, rhs) {
-    case let (.normal(a1, b1), .normal(a2, b2)):
-      return a1 == a2 && b1 == b2
-    }
-  }
 }
 
 class RotHost: Rotatable {

@@ -1,22 +1,22 @@
 import PathKit
 
-enum PluginError: Error {
+public enum PluginError: Error {
   case noOutput
   case output(String)
 }
 
-enum ManagerError: Error {
+public enum ManagerError: Error {
   case pathDoesNotExist(String)
 }
 
-enum RotatorError: Error {
+public enum RotatorError: Error {
   case noOwner, emptySet
 }
 
-enum PathError: Error {
+public enum PathError: Error {
   case notAFile(Path)
 }
 
-enum ClassifierError: Error {
+public enum ClassifierError: Error {
   case invalidParts(Path)
 }

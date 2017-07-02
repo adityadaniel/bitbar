@@ -23,8 +23,7 @@ final class Rotator: Timeable {
     guard text.isPresent else { throw RotatorError.emptySet }
     guard delegate != nil else { return stop() }
     self.text = text
-    if text.count == 1 { timer.fire(then: .stop) }
-    else { timer.fire(then: .start) }
+    if text.count == 1 { timer.fire(then: .stop) } else { timer.fire(then: .start) }
   }
 
   public func stop() {

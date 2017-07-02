@@ -10,19 +10,26 @@ final class Stream: Base, Pluginable, Scriptable {
   private var script: Script!
   private let path: Path
   private let env: Env
+  private let args: [String]
   internal weak var delegate: Manageable?
 
   init(path: Path, args: [String], env: Env, delegate: Manageable?) {
     self.delegate = delegate
+    self.args = args
     self.path = path
     self.env = env
     super.init()
-    self.script = newScript(args)
+    self.script = newScript()
   }
 
-  private func newScript(_ args: [String]) -> Script {
-    // TODO: Add env
-    return Script(path: path.url.path, args: args, delegate: self, autostart: true)
+  private func newScript(_ args: [String]? = nil) -> Script {
+    return Script(
+      path: path.url.path,
+      args: args ?? self.args,
+      env: env,
+      delegate: self,
+      autostart: true
+    )
   }
 
   func invoke(_ args: [String]) {
@@ -30,15 +37,16 @@ final class Stream: Base, Pluginable, Scriptable {
   }
 
   func start() {
-    script.start()
+    script = newScript()
   }
 
   func stop() {
     script.stop()
   }
 
-  func refresh() {
-    script.restart()
+  func restart() {
+    stop()
+    start()
   }
 
   func scriptDidReceive(success result: Script.Success) {
@@ -66,7 +74,7 @@ final class Stream: Base, Pluginable, Scriptable {
     case let .succeeded(stdout):
       delegate?.plugin(didReceiveOutput: stdout)
     case let .failed(stderr):
-      log.error("Received a piece of failure: \(stderr.inspected)")
+      delegate?.plugin(didReceiveError: stderr)
     }
   }
 }

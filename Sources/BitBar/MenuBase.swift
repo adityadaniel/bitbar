@@ -2,15 +2,13 @@ import AppKit
 import Async
 import SwiftyBeaver
 
-class MenuBase: NSMenu, NSMenuDelegate, GUI, Parent {
+class MenuBase: NSMenu, NSMenuDelegate, GUI {
   internal let log = SwiftyBeaver.self
-  internal weak var root: Parent?
   internal let queue = MenuBase.newQueue(label: "MenuBase")
 
-  init(root: Parent? = nil) {
+  init() {
     super.init(title: "")
     self.delegate = self
-    self.root = root
   }
 
   required init(coder decoder: NSCoder) {
@@ -18,20 +16,22 @@ class MenuBase: NSMenu, NSMenuDelegate, GUI, Parent {
   }
 
   public func menuWillOpen(_ menu: NSMenu) {
-    perform { [weak self] in
-      for item in (self?.items ?? []) {
-        if let menu = item as? MenuItem {
-          menu.onWillBecomeVisible()
-        }
+    for item in items {
+      if let menu = item as? MenuItem {
+        menu.onWillBecomeVisible()
+      }
+    }
+  }
+
+  public func menuDidClose(_ menu: NSMenu) {
+    for item in items {
+      if let menu = item as? MenuItem {
+        menu.onWillBecomeInvisible()
       }
     }
   }
 
   public func add(submenu: NSMenuItem, at index: Int) {
-    if let menu = submenu as? MenuItem {
-      menu.root = self
-    }
-
     perform { [weak self] in
       self?.insertItem(submenu, at: index)
     }

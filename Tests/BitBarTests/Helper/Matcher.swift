@@ -1,7 +1,7 @@
 import Quick
 import Ansi
 import Script
-import Files
+import Plugin
 import Cent
 import Parser
 import Nimble
@@ -10,25 +10,6 @@ import Async
 
 var noShortcut: TestValue { return .noShortcut }
 var noSubMenus: TestValue { return .noSubMenus }
-
-func item(block: @escaping (Menuable) -> Void) {
-  let mock = MockParent()
-  let plugin = PluginFile(
-    file: try! Files.File(path: aFile),
-    delegate: mock
-  )
-
-  waitUntil(timeout: 10) { done in
-    Async.background {
-      repeat {
-        Thread.sleep(forTimeInterval: 0.3)
-      }  while !plugin.hasLoaded
-    }.main {
-      block(plugin)
-      done()
-    }
-  }
-}
 
 func a(_ aMenu: Menuable, at indexes: [Int] = [], block: @escaping (Menuable) -> Void) {
   do {

@@ -3,32 +3,41 @@ import PathKit
 import SwiftyBeaver
 import Script
 
+typealias IntervalPlugin = Interval
 class Interval: Base, Pluginable, Scriptable, Timeable {
   private var script: Script!
+  private var args: [String]
   private var timer: StopWatch!
   private let path: Path
+  private let env: Env
   internal weak var delegate: Manageable?
 
   init(path: Path, frequency: Int, args: [String], env: Env, delegate: Manageable?) {
     self.delegate = delegate
+    self.args = args
     self.path = path
-    // TODO: Add env
+    self.env = env
     super.init()
     self.timer = StopWatch(every: frequency, delegate: self)
-    self.script = newScript(args)
+    self.script = newScript()
   }
 
-  private func newScript(_ args: [String]) -> Script {
-    // TODO: Add env
-    return Script(path: path.url.path, args: args, delegate: self)
+  private func newScript(_ args: [String]? = nil) -> Script {
+    return Script(
+      path: path.url.path,
+      args: args ?? self.args,
+      env: env,
+      delegate: self,
+      autostart: true
+    )
   }
 
   /**
     Run @path once every @interval seconds
   */
   func start() {
+    script = newScript()
     timer.start()
-    script.start()
   }
 
   /**
@@ -42,7 +51,7 @@ class Interval: Base, Pluginable, Scriptable, Timeable {
   /**
     Restart the script
   */
-  func refresh() {
+  func restart() {
     stop()
     start()
   }
@@ -74,11 +83,14 @@ class Interval: Base, Pluginable, Scriptable, Timeable {
   }
 
   func invoke(_ args: [String]) {
-    script = newScript(args)
+    self.args = args
+    timer.stop()
+    script = newScript()
+    timer.start()
   }
 
   func scriptDidReceive(piece: Script.Piece) {
-    // log.verbose("ExecutablePlugin received piece of output (ignoring)")
+    log.verbose("ExecutablePlugin received piece of output (ignoring)")
   }
 
   internal func timer(didTick: StopWatch) {

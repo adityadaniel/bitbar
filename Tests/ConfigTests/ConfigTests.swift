@@ -5,7 +5,7 @@ import Toml
 
 class ConfigTests: QuickSpec {
   override func spec() {
-    var config: ConfigFile = try! ConfigFile.using(template: .test)
+    var config: Config = try! Config.using(template: .test)
 
     describe("config") {
       afterEach {
@@ -13,7 +13,7 @@ class ConfigTests: QuickSpec {
       }
 
       let load = { (plugin: String) -> Plugin in
-        config = try! ConfigFile.using(template: .test)
+        config = try! Config.using(template: .test)
         return config.findPlugin(byName: plugin)
       }
 
@@ -63,7 +63,7 @@ class ConfigTests: QuickSpec {
 
       describe("empty config file") {
         beforeEach {
-          config = try! ConfigFile.using(template: .blank)
+          config = try! Config.using(template: .blank)
         }
 
         describe("global") {
@@ -82,7 +82,7 @@ class ConfigTests: QuickSpec {
       describe("invalid config file") {
 
         it("throws an error when reading") {
-          expect { try ConfigFile.using(template: .invalid) }
+          expect { try Config.using(template: .invalid) }
             .to(throwError(errorType: TomlError.self))
         }
 
@@ -101,7 +101,7 @@ class ConfigTests: QuickSpec {
 
       describe("useDefault") {
         beforeEach {
-          config = try! ConfigFile.using(template: .test)
+          config = try! Config.using(template: .test)
           config.useDefault()
         }
 

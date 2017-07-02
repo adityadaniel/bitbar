@@ -2,26 +2,32 @@ import AppKit
 import Cocoa
 import BonMot
 import Hue
+import Parser
+import Plugin
 import OcticonsSwift
 import SwiftyBeaver
 
-class Tray: Parent, GUI {
+class Tray: GUI, Trayable {
+  convenience required init(title: String, isVisible: Bool) {
+    self.init(title: title, isVisible: isVisible, id: "-")
+  }
+
   internal let queue = Tray.newQueue(label: "Tray")
   public let log = SwiftyBeaver.self
-  public weak var root: Parent?
   private var item: MenuBar?
 
-  init(title: String, isVisible displayed: Bool = false, id: String? = nil, parent: Parent? = nil) {
+  init(title: String, isVisible displayed: Bool = false, id: String) {
+    // TODO: Remove
     if App.isInTestMode() {
       item = TestBar()
-      root = parent
+//      root = parent
     } else {
-      perform {
-        self.item = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
-        self.item?.attributedTitle = self.style(title)
-        self.item?.tag = id
-        self.root = parent
-        if !displayed { self.hide() }
+      perform { [weak self] in
+        self?.item = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
+        self?.item?.attributedTitle = self?.style(title)
+        self?.item?.tag = id
+        self?.menu = Title(prefs: [], delegate: nil)
+        if !displayed { self?.hide() }
       }
     }
   }
@@ -80,6 +86,10 @@ class Tray: Parent, GUI {
     } else { hideErrorIcons() }
   }
 
+  public func set(errors: [MenuError]) {
+    set(errors: errors.map(String.init(describing:)))
+  }
+
   public func set(title: Immutable) {
     hideErrorIcons()
     attributedTitle = style(title)
@@ -109,6 +119,8 @@ class Tray: Parent, GUI {
         iconScale: 1.0,
         size: size
       )
+
+      this.attributedTitle = nil
     }
   }
 
@@ -121,6 +133,23 @@ class Tray: Parent, GUI {
     guard let menu = menu else { return }
     guard let aMenu = menu as? Title else { return }
     aMenu.set(menus: menus)
+  }
+
+  func set(errors: [String]) {
+    showErrorIcons()
+    set(menus: errors.map { MenuItem(error: $0) })
+  }
+
+  func set(title: Text) {
+    attributedTitle = title.colorize(as: .bar)
+  }
+
+  func set(error: String) {
+    set(errors: [error])
+  }
+
+  func set(_ tails: [Parser.Menu.Tail]) {
+    set(menus: tails.map { $0.menuItem })
   }
 
   private var image: NSImage? {

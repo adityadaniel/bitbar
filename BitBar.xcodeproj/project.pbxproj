@@ -10,8 +10,6 @@
 		1C6CC7F84678B23C5B7645CC /* Pods_BitBarTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7CEC6503954E28C90459B14 /* Pods_BitBarTests.framework */; };
 		20013B291EEF2AE0005AB58B /* GUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20013B281EEF2AE0005AB58B /* GUI.swift */; };
 		20013B2B1EEF2AF5005AB58B /* GUIExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20013B2A1EEF2AF5005AB58B /* GUIExt.swift */; };
-		2010454E1EE9D64D0020599C /* ExecutablePluginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2010453B1EE9D64D0020599C /* ExecutablePluginTests.swift */; };
-		2010454F1EE9D64D0020599C /* FileNameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2010453C1EE9D64D0020599C /* FileNameTests.swift */; };
 		201045501EE9D64D0020599C /* ClickEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2010453E1EE9D64D0020599C /* ClickEvent.swift */; };
 		201045511EE9D64D0020599C /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201045401EE9D64D0020599C /* Menu.swift */; };
 		201045521EE9D64D0020599C /* NSMutableAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201045411EE9D64D0020599C /* NSMutableAttributedString.swift */; };
@@ -38,11 +36,17 @@
 		204027DF1F0163CA006AA98A /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204027D91F0163C7006AA98A /* Config.swift */; };
 		204027E01F0163CA006AA98A /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204027DA1F0163C7006AA98A /* Error.swift */; };
 		204027E11F0163CA006AA98A /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204027DB1F0163C7006AA98A /* Plugin.swift */; };
+		204050F71F08BC5500B2A064 /* ReSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204050F61F08BC5500B2A064 /* ReSwift.swift */; };
 		20444A731EEA1B0E0097651A /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20444A721EEA1B0E0097651A /* Errors.swift */; };
 		2049CC241EEE15A9005638E9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2064E20C1EE95E9A0032ADC0 /* Images.xcassets */; };
 		2049CC261EEE15B1005638E9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2064E20C1EE95E9A0032ADC0 /* Images.xcassets */; };
 		205430F31F014AB500154EE4 /* Config.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 205430EC1F014AB500154EE4 /* Config.framework */; };
 		205430F41F014AB500154EE4 /* Config.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 205430EC1F014AB500154EE4 /* Config.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2056A87D1F08251200B3568D /* plugin.interval.sh in Resources */ = {isa = PBXBuildFile; fileRef = 2056A87B1F0824EC00B3568D /* plugin.interval.sh */; };
+		2056A87E1F08251400B3568D /* plugin.interval.sh in Resources */ = {isa = PBXBuildFile; fileRef = 2056A87B1F0824EC00B3568D /* plugin.interval.sh */; };
+		2056A87F1F08251400B3568D /* plugin.interval.sh in Resources */ = {isa = PBXBuildFile; fileRef = 2056A87B1F0824EC00B3568D /* plugin.interval.sh */; };
+		2056A8801F08251400B3568D /* plugin.interval.sh in Resources */ = {isa = PBXBuildFile; fileRef = 2056A87B1F0824EC00B3568D /* plugin.interval.sh */; };
+		2056A8831F08252600B3568D /* IntervalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2056A8811F08252100B3568D /* IntervalTests.swift */; };
 		205F9E601F01795C00233292 /* CLI in CopyFiles */ = {isa = PBXBuildFile; fileRef = 205F9E5F1F01795C00233292 /* CLI */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		20611AF91F05671B00DA3D9F /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20611AF71F05670600DA3D9F /* Path.swift */; };
 		20611AFA1F056A0800DA3D9F /* all.20m.sh in Resources */ = {isa = PBXBuildFile; fileRef = 201045621EE9DC5E0020599C /* all.20m.sh */; };
@@ -52,10 +56,6 @@
 		206CF0791F05745700976146 /* RotatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206CF0771F05744600976146 /* RotatorTests.swift */; };
 		206DA2CC1F04CF5C00FA4B8D /* Plugin.plist in Resources */ = {isa = PBXBuildFile; fileRef = 206DA2CA1F04CF5C00FA4B8D /* Plugin.plist */; };
 		206DA2CD1F04CF5C00FA4B8D /* PluginTests.plist in Resources */ = {isa = PBXBuildFile; fileRef = 206DA2CB1F04CF5C00FA4B8D /* PluginTests.plist */; };
-		206DA2D31F04D5D700FA4B8D /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206DA2CF1F04D5D700FA4B8D /* Plugin.swift */; };
-		206DA2D41F04D5D700FA4B8D /* PluginFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206DA2D01F04D5D700FA4B8D /* PluginFile.swift */; };
-		206DA2D51F04D5D700FA4B8D /* PluginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206DA2D11F04D5D700FA4B8D /* PluginManager.swift */; };
-		206DA2D61F04D5D700FA4B8D /* StreamablePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206DA2D21F04D5D700FA4B8D /* StreamablePlugin.swift */; };
 		206E83661F052AFD0011693C /* ExecTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206DA2AF1F04CF1B00FA4B8D /* ExecTests.swift */; };
 		206E83671F052AFD0011693C /* ManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206DA2B01F04CF1B00FA4B8D /* ManagerTests.swift */; };
 		206E83681F052AFD0011693C /* PluginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206DA2B11F04CF1B00FA4B8D /* PluginTests.swift */; };
@@ -63,11 +63,25 @@
 		2073788F1F04CCE4006FC64B /* Plugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2073787A1F04CCE3006FC64B /* Plugin.framework */; };
 		207378901F04CCE4006FC64B /* Plugin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2073787A1F04CCE3006FC64B /* Plugin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2075FE021EF1A56C00EFF7C9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2064E20C1EE95E9A0032ADC0 /* Images.xcassets */; };
-		2076CE231F04BE9F00B0E4AC /* JSONResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2076CE221F04BE9F00B0E4AC /* JSONResponse.swift */; };
+		2077937F1F07F86800097BE7 /* plugin.stream.sh in Resources */ = {isa = PBXBuildFile; fileRef = 2077937D1F07F80000097BE7 /* plugin.stream.sh */; };
+		207793801F07F88A00097BE7 /* plugin.stream.sh in Resources */ = {isa = PBXBuildFile; fileRef = 2077937D1F07F80000097BE7 /* plugin.stream.sh */; };
+		207793811F07F90800097BE7 /* plugin.stream.sh in Resources */ = {isa = PBXBuildFile; fileRef = 2077937D1F07F80000097BE7 /* plugin.stream.sh */; };
+		207793821F07F95C00097BE7 /* plugin.stream.sh in Resources */ = {isa = PBXBuildFile; fileRef = 2077937D1F07F80000097BE7 /* plugin.stream.sh */; };
 		207F8DF91EE9B4C600CA5D4E /* App.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2064E20E1EE95E9A0032ADC0 /* App.xib */; };
 		20832A111EE974F5006440EC /* octicons.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2064E2171EE95E9A0032ADC0 /* octicons.ttf */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		20832A121EE9751A006440EC /* bitbar-2048.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2064E20F1EE95E9A0032ADC0 /* bitbar-2048.png */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		20832A131EE97528006440EC /* App.xib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2064E20E1EE95E9A0032ADC0 /* App.xib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		2094EC3D1F0868FC00E9E943 /* rotate.interval.sh in Resources */ = {isa = PBXBuildFile; fileRef = 2094EC3B1F08688800E9E943 /* rotate.interval.sh */; };
+		2094EC3E1F0868FC00E9E943 /* rotate.interval.sh in Resources */ = {isa = PBXBuildFile; fileRef = 2094EC3B1F08688800E9E943 /* rotate.interval.sh */; };
+		2094EC3F1F0868FD00E9E943 /* rotate.interval.sh in Resources */ = {isa = PBXBuildFile; fileRef = 2094EC3B1F08688800E9E943 /* rotate.interval.sh */; };
+		2094EC401F0868FE00E9E943 /* rotate.interval.sh in Resources */ = {isa = PBXBuildFile; fileRef = 2094EC3B1F08688800E9E943 /* rotate.interval.sh */; };
+		2094EC411F08691800E9E943 /* rotate.interval.sh in Resources */ = {isa = PBXBuildFile; fileRef = 2094EC3B1F08688800E9E943 /* rotate.interval.sh */; };
+		2094EC441F0875CA00E9E943 /* error.sh in Resources */ = {isa = PBXBuildFile; fileRef = 2094EC421F0875A100E9E943 /* error.sh */; };
+		2094EC451F0875CA00E9E943 /* error.sh in Resources */ = {isa = PBXBuildFile; fileRef = 2094EC421F0875A100E9E943 /* error.sh */; };
+		2094EC461F0875CB00E9E943 /* error.sh in Resources */ = {isa = PBXBuildFile; fileRef = 2094EC421F0875A100E9E943 /* error.sh */; };
+		2094EC471F0875CB00E9E943 /* error.sh in Resources */ = {isa = PBXBuildFile; fileRef = 2094EC421F0875A100E9E943 /* error.sh */; };
+		2094EC481F0875CC00E9E943 /* error.sh in Resources */ = {isa = PBXBuildFile; fileRef = 2094EC421F0875A100E9E943 /* error.sh */; };
+		2094EC491F088F0900E9E943 /* UnitItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FAFF5C1F05A8D2007786A8 /* UnitItemTests.swift */; };
 		20A0212C1F0553E1007DCA27 /* Config.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 205430EC1F014AB500154EE4 /* Config.framework */; };
 		20A0212F1F0553F4007DCA27 /* Plugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2073787A1F04CCE3006FC64B /* Plugin.framework */; };
 		20A021311F0555FA007DCA27 /* Async.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20A021301F0555FA007DCA27 /* Async.framework */; };
@@ -155,11 +169,14 @@
 		20C3E1421EE9E07F00ABA14D /* stream-nothing.sh in Resources */ = {isa = PBXBuildFile; fileRef = 20F870CC1EE9DE16003C4A5A /* stream-nothing.sh */; };
 		20C3E1431EE9E08600ABA14D /* args.sh in Resources */ = {isa = PBXBuildFile; fileRef = 20F870BD1EE9DE16003C4A5A /* args.sh */; };
 		20C3E1441EE9E08A00ABA14D /* basic.sh in Resources */ = {isa = PBXBuildFile; fileRef = 20F870BE1EE9DE16003C4A5A /* basic.sh */; };
+		20C8EB971F0809B4001772BD /* error-stream.sh in Resources */ = {isa = PBXBuildFile; fileRef = 20C8EB951F0809AF001772BD /* error-stream.sh */; };
+		20C8EB981F0809B4001772BD /* error-stream.sh in Resources */ = {isa = PBXBuildFile; fileRef = 20C8EB951F0809AF001772BD /* error-stream.sh */; };
+		20C8EB991F0809B4001772BD /* error-stream.sh in Resources */ = {isa = PBXBuildFile; fileRef = 20C8EB951F0809AF001772BD /* error-stream.sh */; };
+		20C8EB9A1F0809B5001772BD /* error-stream.sh in Resources */ = {isa = PBXBuildFile; fileRef = 20C8EB951F0809AF001772BD /* error-stream.sh */; };
 		20CC20251EF6C2FA00AFA867 /* BitBar.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2064E2121EE95E9A0032ADC0 /* BitBar.plist */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		20CC20271EF6CAB300AFA867 /* Pref.CLIPort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CC20261EF6CAB300AFA867 /* Pref.CLIPort.swift */; };
 		20CC20291EF6CC2900AFA867 /* Pref.AppVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CC20281EF6CC2900AFA867 /* Pref.AppVersion.swift */; };
 		20E0A6DC1EE9603F00564B1B /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A69A1EE9603F00564B1B /* Array.swift */; };
-		20E0A6DD1EE9603F00564B1B /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A69B1EE9603F00564B1B /* Data.swift */; };
 		20E0A6DE1EE9603F00564B1B /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A69C1EE9603F00564B1B /* DefaultsKeys.swift */; };
 		20E0A6DF1EE9603F00564B1B /* Droplet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A69D1EE9603F00564B1B /* Droplet.swift */; };
 		20E0A6E01EE9603F00564B1B /* Image.Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A69E1EE9603F00564B1B /* Image.Sort.swift */; };
@@ -174,8 +191,6 @@
 		20E0A6E91EE9603F00564B1B /* Parser.Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A6A71EE9603F00564B1B /* Parser.Color.swift */; };
 		20E0A6EA1EE9603F00564B1B /* Parser.Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A6A81EE9603F00564B1B /* Parser.Image.swift */; };
 		20E0A6EB1EE9603F00564B1B /* Parser.Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A6A91EE9603F00564B1B /* Parser.Text.swift */; };
-		20E0A6EC1EE9603F00564B1B /* String.Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A6AA1EE9603F00564B1B /* String.Error.swift */; };
-		20E0A6ED1EE9603F00564B1B /* String.LocalizedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A6AB1EE9603F00564B1B /* String.LocalizedError.swift */; };
 		20E0A6EE1EE9603F00564B1B /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A6AC1EE9603F00564B1B /* StringExt.swift */; };
 		20E0A6EF1EE9603F00564B1B /* WebSockets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A6AD1EE9603F00564B1B /* WebSockets.swift */; };
 		20E0A6F01EE9603F00564B1B /* OpenPluginHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A6AF1EE9603F00564B1B /* OpenPluginHandler.swift */; };
@@ -199,7 +214,6 @@
 		20E0A7071EE9603F00564B1B /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A6CA1EE9603F00564B1B /* App.swift */; };
 		20E0A7081EE9603F00564B1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A6CB1EE9603F00564B1B /* AppDelegate.swift */; };
 		20E0A7091EE9603F00564B1B /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A6CC1EE9603F00564B1B /* Color.swift */; };
-		20E0A70A1EE9603F00564B1B /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A6CD1EE9603F00564B1B /* File.swift */; };
 		20E0A70B1EE9603F00564B1B /* FontType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A6CE1EE9603F00564B1B /* FontType.swift */; };
 		20E0A70C1EE9603F00564B1B /* ImageResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A6CF1EE9603F00564B1B /* ImageResult.swift */; };
 		20E0A70D1EE9603F00564B1B /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A6D01EE9603F00564B1B /* Menu.swift */; };
@@ -210,7 +224,6 @@
 		20E0A7121EE9603F00564B1B /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A6D51EE9603F00564B1B /* Operators.swift */; };
 		20E0A7131EE9603F00564B1B /* Parent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A6D61EE9603F00564B1B /* Parent.swift */; };
 		20E0A7141EE9603F00564B1B /* PathSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A6D71EE9603F00564B1B /* PathSelector.swift */; };
-		20E0A7151EE9603F00564B1B /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A6D81EE9603F00564B1B /* Storage.swift */; };
 		20E0A7161EE9603F00564B1B /* TestBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A6D91EE9603F00564B1B /* TestBar.swift */; };
 		20E0A7171EE9603F00564B1B /* Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A6DA1EE9603F00564B1B /* Title.swift */; };
 		20E0A7181EE9603F00564B1B /* Tray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0A6DB1EE9603F00564B1B /* Tray.swift */; };
@@ -237,7 +250,6 @@
 		20E9AF591EFCDA3000EF0F52 /* NSAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E9AF581EFCDA3000EF0F52 /* NSAlert.swift */; };
 		20E9AF5C1EFCDA7A00EF0F52 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E9AF5A1EFCDA7A00EF0F52 /* Global.swift */; };
 		20E9AF5D1EFCDA7A00EF0F52 /* MoveExecutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E9AF5B1EFCDA7A00EF0F52 /* MoveExecutable.swift */; };
-		20FAFF5D1F05A8D2007786A8 /* UnitItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FAFF5C1F05A8D2007786A8 /* UnitItemTests.swift */; };
 		2F8D04300C10883F4A7FBC2C /* Pods_ConfigTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0A00E14427F7E1CB65CE5BD /* Pods_ConfigTests.framework */; };
 		825C5F5B25EF066351D348D6 /* Pods_Plugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F354091A301BBBDB680E0E /* Pods_Plugin.framework */; };
 		97787FCA92E99415C3799FBD /* Pods_PluginTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E25EAA7E82410C0CF66F9644 /* Pods_PluginTests.framework */; };
@@ -356,8 +368,6 @@
 		20013B281EEF2AE0005AB58B /* GUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GUI.swift; sourceTree = "<group>"; };
 		20013B2A1EEF2AF5005AB58B /* GUIExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GUIExt.swift; sourceTree = "<group>"; };
 		2007B4451EE9CC2F00E68358 /* BitBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BitBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2010453B1EE9D64D0020599C /* ExecutablePluginTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutablePluginTests.swift; sourceTree = "<group>"; };
-		2010453C1EE9D64D0020599C /* FileNameTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileNameTests.swift; sourceTree = "<group>"; };
 		2010453E1EE9D64D0020599C /* ClickEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClickEvent.swift; sourceTree = "<group>"; };
 		201045401EE9D64D0020599C /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		201045411EE9D64D0020599C /* NSMutableAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMutableAttributedString.swift; sourceTree = "<group>"; };
@@ -395,11 +405,14 @@
 		204027D91F0163C7006AA98A /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Config.swift; path = Sources/Config/Config.swift; sourceTree = "<group>"; };
 		204027DA1F0163C7006AA98A /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Error.swift; path = Sources/Config/Error.swift; sourceTree = "<group>"; };
 		204027DB1F0163C7006AA98A /* Plugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Plugin.swift; path = Sources/Config/Plugin.swift; sourceTree = "<group>"; };
+		204050F61F08BC5500B2A064 /* ReSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReSwift.swift; path = Sources/BitBar/ReSwift.swift; sourceTree = "<group>"; };
 		20444A721EEA1B0E0097651A /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		2050AA4A1EFCC38F000C29BF /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = .build/BitBar/Build/Products/Debug/SwiftyJSON.framework; sourceTree = "<group>"; };
 		2050AA4C1EFCC3A9000C29BF /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = .build/BitBar/Build/Products/Debug/Starscream.framework; sourceTree = "<group>"; };
 		2050AA4E1EFCC3BA000C29BF /* Just.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Just.framework; path = .build/BitBar/Build/Products/Debug/Just.framework; sourceTree = "<group>"; };
 		205430EC1F014AB500154EE4 /* Config.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Config.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2056A87B1F0824EC00B3568D /* plugin.interval.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = plugin.interval.sh; path = Resources/Scripts/plugin.interval.sh; sourceTree = "<group>"; };
+		2056A8811F08252100B3568D /* IntervalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntervalTests.swift; path = Tests/PluginTests/IntervalTests.swift; sourceTree = SOURCE_ROOT; };
 		205F9E5F1F01795C00233292 /* CLI */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = CLI; path = .build/CLI; sourceTree = "<group>"; };
 		20611AF71F05670600DA3D9F /* Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Path.swift; path = Tests/PluginTests/Extension/Path.swift; sourceTree = SOURCE_ROOT; };
 		2064E20C1EE95E9A0032ADC0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/Images.xcassets; sourceTree = "<group>"; };
@@ -421,16 +434,14 @@
 		206DA2B21F04CF1B00FA4B8D /* StreamTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StreamTests.swift; path = Tests/PluginTests/StreamTests.swift; sourceTree = SOURCE_ROOT; };
 		206DA2CA1F04CF5C00FA4B8D /* Plugin.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Plugin.plist; path = Resources/Plugin.plist; sourceTree = "<group>"; };
 		206DA2CB1F04CF5C00FA4B8D /* PluginTests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PluginTests.plist; path = Resources/PluginTests.plist; sourceTree = "<group>"; };
-		206DA2CF1F04D5D700FA4B8D /* Plugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Plugin.swift; path = Sources/BitBar/Plugin/Plugin.swift; sourceTree = "<group>"; };
-		206DA2D01F04D5D700FA4B8D /* PluginFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PluginFile.swift; path = Sources/BitBar/Plugin/PluginFile.swift; sourceTree = "<group>"; };
-		206DA2D11F04D5D700FA4B8D /* PluginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PluginManager.swift; path = Sources/BitBar/Plugin/PluginManager.swift; sourceTree = "<group>"; };
-		206DA2D21F04D5D700FA4B8D /* StreamablePlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StreamablePlugin.swift; path = Sources/BitBar/Plugin/StreamablePlugin.swift; sourceTree = "<group>"; };
 		206F79B41F05281200D035DF /* Bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
 		206F79B81F05287300D035DF /* Bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
 		206F7B1F1F052A1300D035DF /* PluginTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PluginTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		206F7B201F052A1300D035DF /* ConfigTests copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ConfigTests copy-Info.plist"; path = "/Users/oleander/Documents/Projekt/bitbar/ConfigTests copy-Info.plist"; sourceTree = "<absolute>"; };
 		2073787A1F04CCE3006FC64B /* Plugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Plugin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2076CE221F04BE9F00B0E4AC /* JSONResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONResponse.swift; path = PluginFile/JSONResponse.swift; sourceTree = "<group>"; };
+		2077937D1F07F80000097BE7 /* plugin.stream.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = plugin.stream.sh; path = Resources/Scripts/plugin.stream.sh; sourceTree = "<group>"; };
+		2094EC3B1F08688800E9E943 /* rotate.interval.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = rotate.interval.sh; path = Resources/Scripts/rotate.interval.sh; sourceTree = "<group>"; };
+		2094EC421F0875A100E9E943 /* error.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = error.sh; path = Resources/Scripts/error.sh; sourceTree = "<group>"; };
 		2099BD011EFCA82B0088C668 /* SwiftCLI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftCLI.framework; path = Packages/build/Debug/SwiftCLI.framework; sourceTree = "<group>"; };
 		2099BD031EFCA82F0088C668 /* Rainbow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Rainbow.framework; path = Packages/build/Debug/Rainbow.framework; sourceTree = "<group>"; };
 		2099BD091EFCA8620088C668 /* SwiftCLI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftCLI.framework; path = .build/BitBar/Build/Products/Debug/SwiftCLI.framework; sourceTree = "<group>"; };
@@ -492,11 +503,11 @@
 		20B8E8A71F04B69F003089E5 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Config.swift; path = Tests/ConfigTests/Extensions/Config.swift; sourceTree = SOURCE_ROOT; };
 		20B8E8A81F04B69F003089E5 /* Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Path.swift; path = Tests/ConfigTests/Extensions/Path.swift; sourceTree = SOURCE_ROOT; };
 		20C8EA081EFCA5B5005246EF /* Rainbow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Rainbow.framework; path = "../../../Library/Developer/Xcode/DerivedData/BitBar-cyfxzclgllwnpwbaxhgqezyvhnfv/Build/Products/Debug/Rainbow.framework"; sourceTree = "<group>"; };
+		20C8EB951F0809AF001772BD /* error-stream.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "error-stream.sh"; path = "Resources/Scripts/error-stream.sh"; sourceTree = "<group>"; };
 		20CC20261EF6CAB300AFA867 /* Pref.CLIPort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pref.CLIPort.swift; sourceTree = "<group>"; };
 		20CC20281EF6CC2900AFA867 /* Pref.AppVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pref.AppVersion.swift; sourceTree = "<group>"; };
 		20DB74D01F0548A400572305 /* Toml.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Toml.framework; path = .build/BitBar/Build/Products/Debug/Toml/Toml.framework; sourceTree = "<group>"; };
 		20E0A69A1EE9603F00564B1B /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
-		20E0A69B1EE9603F00564B1B /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		20E0A69C1EE9603F00564B1B /* DefaultsKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
 		20E0A69D1EE9603F00564B1B /* Droplet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Droplet.swift; sourceTree = "<group>"; };
 		20E0A69E1EE9603F00564B1B /* Image.Sort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.Sort.swift; sourceTree = "<group>"; };
@@ -511,8 +522,6 @@
 		20E0A6A71EE9603F00564B1B /* Parser.Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.Color.swift; sourceTree = "<group>"; };
 		20E0A6A81EE9603F00564B1B /* Parser.Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.Image.swift; sourceTree = "<group>"; };
 		20E0A6A91EE9603F00564B1B /* Parser.Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.Text.swift; sourceTree = "<group>"; };
-		20E0A6AA1EE9603F00564B1B /* String.Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.Error.swift; sourceTree = "<group>"; };
-		20E0A6AB1EE9603F00564B1B /* String.LocalizedError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.LocalizedError.swift; sourceTree = "<group>"; };
 		20E0A6AC1EE9603F00564B1B /* StringExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExt.swift; sourceTree = "<group>"; };
 		20E0A6AD1EE9603F00564B1B /* WebSockets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSockets.swift; sourceTree = "<group>"; };
 		20E0A6AF1EE9603F00564B1B /* OpenPluginHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenPluginHandler.swift; sourceTree = "<group>"; };
@@ -536,7 +545,6 @@
 		20E0A6CA1EE9603F00564B1B /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = App.swift; path = Sources/BitBar/App.swift; sourceTree = "<group>"; };
 		20E0A6CB1EE9603F00564B1B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Sources/BitBar/AppDelegate.swift; sourceTree = "<group>"; };
 		20E0A6CC1EE9603F00564B1B /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Color.swift; path = Sources/BitBar/Color.swift; sourceTree = "<group>"; };
-		20E0A6CD1EE9603F00564B1B /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = File.swift; path = Sources/BitBar/File.swift; sourceTree = "<group>"; };
 		20E0A6CE1EE9603F00564B1B /* FontType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontType.swift; path = Sources/BitBar/FontType.swift; sourceTree = "<group>"; };
 		20E0A6CF1EE9603F00564B1B /* ImageResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageResult.swift; path = Sources/BitBar/ImageResult.swift; sourceTree = "<group>"; };
 		20E0A6D01EE9603F00564B1B /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Menu.swift; path = Sources/BitBar/Menu.swift; sourceTree = "<group>"; };
@@ -547,7 +555,6 @@
 		20E0A6D51EE9603F00564B1B /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = Sources/BitBar/Operators.swift; sourceTree = "<group>"; };
 		20E0A6D61EE9603F00564B1B /* Parent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Parent.swift; path = Sources/BitBar/Parent.swift; sourceTree = "<group>"; };
 		20E0A6D71EE9603F00564B1B /* PathSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PathSelector.swift; path = Sources/BitBar/PathSelector.swift; sourceTree = "<group>"; };
-		20E0A6D81EE9603F00564B1B /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Storage.swift; path = Sources/BitBar/Storage.swift; sourceTree = "<group>"; };
 		20E0A6D91EE9603F00564B1B /* TestBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestBar.swift; path = Sources/BitBar/TestBar.swift; sourceTree = "<group>"; };
 		20E0A6DA1EE9603F00564B1B /* Title.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Title.swift; path = Sources/BitBar/Title.swift; sourceTree = "<group>"; };
 		20E0A6DB1EE9603F00564B1B /* Tray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tray.swift; path = Sources/BitBar/Tray.swift; sourceTree = "<group>"; };
@@ -742,8 +749,6 @@
 			isa = PBXGroup;
 			children = (
 				2010453D1EE9D64D0020599C /* Helper */,
-				2010453B1EE9D64D0020599C /* ExecutablePluginTests.swift */,
-				2010453C1EE9D64D0020599C /* FileNameTests.swift */,
 				2010454C1EE9D64D0020599C /* MetadataTests.swift */,
 				2010454D1EE9D64D0020599C /* PreferenceMenuTests.swift */,
 			);
@@ -782,6 +787,11 @@
 		201045601EE9DC4B0020599C /* Scripts */ = {
 			isa = PBXGroup;
 			children = (
+				2094EC421F0875A100E9E943 /* error.sh */,
+				2094EC3B1F08688800E9E943 /* rotate.interval.sh */,
+				2056A87B1F0824EC00B3568D /* plugin.interval.sh */,
+				20C8EB951F0809AF001772BD /* error-stream.sh */,
+				2077937D1F07F80000097BE7 /* plugin.stream.sh */,
 				20F870BC1EE9DE16003C4A5A /* ansi.10m.sh */,
 				20F870BD1EE9DE16003C4A5A /* args.sh */,
 				20F870BE1EE9DE16003C4A5A /* basic.sh */,
@@ -843,7 +853,6 @@
 		202A9C231EEA12D800538035 /* BitBar */ = {
 			isa = PBXGroup;
 			children = (
-				206DA2CE1F04D5C500FA4B8D /* Plugin */,
 				20E0A6991EE9603F00564B1B /* Extension */,
 				20E0A6AE1EE9603F00564B1B /* Handler */,
 				20E0A6B71EE9603F00564B1B /* Pref */,
@@ -853,7 +862,6 @@
 				20E0A6CA1EE9603F00564B1B /* App.swift */,
 				20E0A6CB1EE9603F00564B1B /* AppDelegate.swift */,
 				20E0A6CC1EE9603F00564B1B /* Color.swift */,
-				20E0A6CD1EE9603F00564B1B /* File.swift */,
 				20E0A6CE1EE9603F00564B1B /* FontType.swift */,
 				20E0A6CF1EE9603F00564B1B /* ImageResult.swift */,
 				20E9AF5B1EFCDA7A00EF0F52 /* MoveExecutable.swift */,
@@ -866,10 +874,10 @@
 				20E0A6D51EE9603F00564B1B /* Operators.swift */,
 				20E0A6D61EE9603F00564B1B /* Parent.swift */,
 				20E0A6D71EE9603F00564B1B /* PathSelector.swift */,
-				20E0A6D81EE9603F00564B1B /* Storage.swift */,
 				20E0A6D91EE9603F00564B1B /* TestBar.swift */,
 				20E0A6DA1EE9603F00564B1B /* Title.swift */,
 				20E0A6DB1EE9603F00564B1B /* Tray.swift */,
+				204050F61F08BC5500B2A064 /* ReSwift.swift */,
 			);
 			name = BitBar;
 			sourceTree = "<group>";
@@ -963,26 +971,16 @@
 		206DA2AE1F04CE8300FA4B8D /* PluginTests */ = {
 			isa = PBXGroup;
 			children = (
-				20FAFF5C1F05A8D2007786A8 /* UnitItemTests.swift */,
 				20611AF61F0566F200DA3D9F /* Extensions */,
 				206DA2AF1F04CF1B00FA4B8D /* ExecTests.swift */,
 				206DA2B01F04CF1B00FA4B8D /* ManagerTests.swift */,
+				2056A8811F08252100B3568D /* IntervalTests.swift */,
 				206CF0771F05744600976146 /* RotatorTests.swift */,
+				20FAFF5C1F05A8D2007786A8 /* UnitItemTests.swift */,
 				206DA2B11F04CF1B00FA4B8D /* PluginTests.swift */,
 				206DA2B21F04CF1B00FA4B8D /* StreamTests.swift */,
 			);
 			name = PluginTests;
-			sourceTree = "<group>";
-		};
-		206DA2CE1F04D5C500FA4B8D /* Plugin */ = {
-			isa = PBXGroup;
-			children = (
-				206DA2CF1F04D5D700FA4B8D /* Plugin.swift */,
-				206DA2D01F04D5D700FA4B8D /* PluginFile.swift */,
-				206DA2D11F04D5D700FA4B8D /* PluginManager.swift */,
-				206DA2D21F04D5D700FA4B8D /* StreamablePlugin.swift */,
-			);
-			name = Plugin;
 			sourceTree = "<group>";
 		};
 		20A7E5B41F03261600606FEC /* Extension */ = {
@@ -1035,14 +1033,6 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
-		20B8E8B01F04BDAE003089E5 /* PluginFile */ = {
-			isa = PBXGroup;
-			children = (
-				2076CE221F04BE9F00B0E4AC /* JSONResponse.swift */,
-			);
-			name = PluginFile;
-			sourceTree = "<group>";
-		};
 		20E0A6981EE9602500564B1B /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -1060,7 +1050,6 @@
 				20E9AF581EFCDA3000EF0F52 /* NSAlert.swift */,
 				20444A721EEA1B0E0097651A /* Errors.swift */,
 				20E0A69A1EE9603F00564B1B /* Array.swift */,
-				20E0A69B1EE9603F00564B1B /* Data.swift */,
 				20E0A69C1EE9603F00564B1B /* DefaultsKeys.swift */,
 				20E0A69D1EE9603F00564B1B /* Droplet.swift */,
 				20E0A69E1EE9603F00564B1B /* Image.Sort.swift */,
@@ -1075,12 +1064,9 @@
 				20E0A6A71EE9603F00564B1B /* Parser.Color.swift */,
 				20E0A6A81EE9603F00564B1B /* Parser.Image.swift */,
 				20E0A6A91EE9603F00564B1B /* Parser.Text.swift */,
-				20E0A6AA1EE9603F00564B1B /* String.Error.swift */,
-				20E0A6AB1EE9603F00564B1B /* String.LocalizedError.swift */,
 				20E0A6AC1EE9603F00564B1B /* StringExt.swift */,
 				20E0A6AD1EE9603F00564B1B /* WebSockets.swift */,
 				20013B2A1EEF2AF5005AB58B /* GUIExt.swift */,
-				20B8E8B01F04BDAE003089E5 /* PluginFile */,
 			);
 			name = Extension;
 			path = Sources/BitBar/Extension;
@@ -1449,10 +1435,10 @@
 					};
 					206F7B0D1F052A1300D035DF = {
 						DevelopmentTeam = K6FNT9HXR3;
+						ProvisioningStyle = Automatic;
 					};
 					207378791F04CCE3006FC64B = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = K6FNT9HXR3;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1492,10 +1478,15 @@
 				20C3E1411EE9E07900ABA14D /* stream-sleep.sh in Resources */,
 				20C3E1431EE9E08600ABA14D /* args.sh in Resources */,
 				20C3E1421EE9E07F00ABA14D /* stream-nothing.sh in Resources */,
+				2056A87F1F08251400B3568D /* plugin.interval.sh in Resources */,
 				201045691EE9DC5E0020599C /* fail.10m.sh in Resources */,
 				201045661EE9DC5E0020599C /* all.10m.sh in Resources */,
+				207793811F07F90800097BE7 /* plugin.stream.sh in Resources */,
 				2010456A1EE9DC5E0020599C /* image.10m.sh in Resources */,
 				2049CC261EEE15B1005638E9 /* Images.xcassets in Resources */,
+				2094EC451F0875CA00E9E943 /* error.sh in Resources */,
+				20C8EB991F0809B4001772BD /* error-stream.sh in Resources */,
+				2094EC3E1F0868FC00E9E943 /* rotate.interval.sh in Resources */,
 				201045681EE9DC5E0020599C /* example.10m.sh in Resources */,
 				2010456C1EE9DCBF0020599C /* metadata.sh in Resources */,
 			);
@@ -1525,6 +1516,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20C8EB981F0809B4001772BD /* error-stream.sh in Resources */,
+				2094EC3F1F0868FD00E9E943 /* rotate.interval.sh in Resources */,
+				2056A87E1F08251400B3568D /* plugin.interval.sh in Resources */,
+				2094EC461F0875CB00E9E943 /* error.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1533,12 +1528,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				20B8E74B1F04B043003089E5 /* bitbarrc.example.toml in Resources */,
+				2056A87D1F08251200B3568D /* plugin.interval.sh in Resources */,
+				2094EC401F0868FE00E9E943 /* rotate.interval.sh in Resources */,
 				20A7E5B11F031E4600606FEC /* bitbarrc.blank.toml in Resources */,
+				207793821F07F95C00097BE7 /* plugin.stream.sh in Resources */,
 				206CF0761F056DDB00976146 /* all.20m.sh in Resources */,
 				206CF0751F056DDB00976146 /* all.10m.sh in Resources */,
 				20B8E74A1F04B041003089E5 /* bitbarrc.invalid.toml in Resources */,
 				20A7E5B01F031E4600606FEC /* bitbarrc.base.toml in Resources */,
+				20C8EB971F0809B4001772BD /* error-stream.sh in Resources */,
 				20B8E7491F04B03D003089E5 /* bitbarrc.test.toml in Resources */,
+				2094EC481F0875CC00E9E943 /* error.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1546,8 +1546,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2077937F1F07F86800097BE7 /* plugin.stream.sh in Resources */,
+				2094EC3D1F0868FC00E9E943 /* rotate.interval.sh in Resources */,
+				2094EC441F0875CA00E9E943 /* error.sh in Resources */,
+				2056A8801F08251400B3568D /* plugin.interval.sh in Resources */,
 				20611AFB1F056A0C00DA3D9F /* all.10m.sh in Resources */,
 				20611AFA1F056A0800DA3D9F /* all.20m.sh in Resources */,
+				20C8EB9A1F0809B5001772BD /* error-stream.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1555,6 +1560,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				207793801F07F88A00097BE7 /* plugin.stream.sh in Resources */,
+				2094EC411F08691800E9E943 /* rotate.interval.sh in Resources */,
+				2094EC471F0875CB00E9E943 /* error.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1642,10 +1650,10 @@
 				"${BUILT_PRODUCTS_DIR}/DateToolsSwift/DateToolsSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Dollar/Dollar.framework",
 				"${BUILT_PRODUCTS_DIR}/Emojize/Emojize.framework",
-				"${BUILT_PRODUCTS_DIR}/Files/Files.framework",
 				"${BUILT_PRODUCTS_DIR}/Hue/Hue.framework",
 				"${BUILT_PRODUCTS_DIR}/JASON/JASON.framework",
 				"${BUILT_PRODUCTS_DIR}/OcticonsSwift/OcticonsSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/ReSwift/ReSwift.framework",
 				"${PODS_ROOT}/Sparkle/Sparkle.framework",
 				"${PODS_ROOT}/Sparkle/Sparkle.framework.dSYM",
 				"${BUILT_PRODUCTS_DIR}/SwiftyBeaver/SwiftyBeaver.framework",
@@ -1668,10 +1676,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateToolsSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dollar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Emojize.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Files.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hue.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JASON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OcticonsSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
 				"${DWARF_DSYM_FOLDER_PATH}/Sparkle.framework.dSYM",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyBeaver.framework",
@@ -1924,12 +1932,10 @@
 				2010455A1EE9D64D0020599C /* NoMatch.swift in Sources */,
 				2010455E1EE9D64D0020599C /* PreferenceMenuTests.swift in Sources */,
 				201045541EE9D64D0020599C /* Title.swift in Sources */,
-				2010454E1EE9D64D0020599C /* ExecutablePluginTests.swift in Sources */,
 				201045571EE9D64D0020599C /* Menuable.swift in Sources */,
 				201045521EE9D64D0020599C /* NSMutableAttributedString.swift in Sources */,
 				201045591EE9D64D0020599C /* MockParent.swift in Sources */,
 				2010455C1EE9D64D0020599C /* TestValue.swift in Sources */,
-				2010454F1EE9D64D0020599C /* FileNameTests.swift in Sources */,
 				2010455D1EE9D64D0020599C /* MetadataTests.swift in Sources */,
 				2010455B1EE9D64D0020599C /* State.swift in Sources */,
 				201045551EE9D64D0020599C /* Helper.swift in Sources */,
@@ -1945,7 +1951,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				206DA2D61F04D5D700FA4B8D /* StreamablePlugin.swift in Sources */,
 				20E0A6FC1EE9603F00564B1B /* Pref.OpenPluginFolder.swift in Sources */,
 				20E0A7051EE9603F00564B1B /* SocketLog.swift in Sources */,
 				20E0A6E31EE9603F00564B1B /* Notification.Name.swift in Sources */,
@@ -1961,23 +1966,17 @@
 				20E0A70F1EE9603F00564B1B /* MenuEvent.swift in Sources */,
 				20E0A6E71EE9603F00564B1B /* NSStatusItem.swift in Sources */,
 				20E0A6FA1EE9603F00564B1B /* Pref.GetPlugins.swift in Sources */,
+				204050F71F08BC5500B2A064 /* ReSwift.swift in Sources */,
 				20E0A6E01EE9603F00564B1B /* Image.Sort.swift in Sources */,
-				20E0A6EC1EE9603F00564B1B /* String.Error.swift in Sources */,
 				20E0A70D1EE9603F00564B1B /* Menu.swift in Sources */,
-				2076CE231F04BE9F00B0E4AC /* JSONResponse.swift in Sources */,
 				20E0A7071EE9603F00564B1B /* App.swift in Sources */,
-				206DA2D51F04D5D700FA4B8D /* PluginManager.swift in Sources */,
 				20E0A6EF1EE9603F00564B1B /* WebSockets.swift in Sources */,
 				20E0A6E11EE9603F00564B1B /* Menu.Tail.swift in Sources */,
-				206DA2D31F04D5D700FA4B8D /* Plugin.swift in Sources */,
 				20E0A70B1EE9603F00564B1B /* FontType.swift in Sources */,
 				20E0A6DC1EE9603F00564B1B /* Array.swift in Sources */,
 				20E0A6FB1EE9603F00564B1B /* Pref.OpenAtLogin.swift in Sources */,
 				20E0A6E51EE9603F00564B1B /* NSImage.swift in Sources */,
-				20FAFF5D1F05A8D2007786A8 /* UnitItemTests.swift in Sources */,
-				20E0A7151EE9603F00564B1B /* Storage.swift in Sources */,
 				20E0A6F71EE9603F00564B1B /* Pref.ChangePluginFolder.swift in Sources */,
-				20E0A70A1EE9603F00564B1B /* File.swift in Sources */,
 				20E0A6E41EE9603F00564B1B /* NSAttributedString.swift in Sources */,
 				20E9AF5D1EFCDA7A00EF0F52 /* MoveExecutable.swift in Sources */,
 				20CC20291EF6CC2900AFA867 /* Pref.AppVersion.swift in Sources */,
@@ -1993,7 +1992,6 @@
 				20E0A6DF1EE9603F00564B1B /* Droplet.swift in Sources */,
 				20E0A6F91EE9603F00564B1B /* Pref.FirstRun.swift in Sources */,
 				20444A731EEA1B0E0097651A /* Errors.swift in Sources */,
-				20E0A6DD1EE9603F00564B1B /* Data.swift in Sources */,
 				20E0A7131EE9603F00564B1B /* Parent.swift in Sources */,
 				20E0A6F81EE9603F00564B1B /* Pref.CheckForUpdates.swift in Sources */,
 				20E0A6FE1EE9603F00564B1B /* Pref.Quit.swift in Sources */,
@@ -2004,9 +2002,7 @@
 				20E9AF591EFCDA3000EF0F52 /* NSAlert.swift in Sources */,
 				20E0A7031EE9603F00564B1B /* MenuBar.swift in Sources */,
 				20013B291EEF2AE0005AB58B /* GUI.swift in Sources */,
-				20E0A6ED1EE9603F00564B1B /* String.LocalizedError.swift in Sources */,
 				20E9AF571EFCDA2700EF0F52 /* Pref.InstallCommandLineInterface.swift in Sources */,
-				206DA2D41F04D5D700FA4B8D /* PluginFile.swift in Sources */,
 				20E0A6E61EE9603F00564B1B /* NSMenuItem.swift in Sources */,
 				20E0A6F11EE9603F00564B1B /* RefreshPluginHandler.swift in Sources */,
 				20E0A7011EE9603F00564B1B /* Pref.UpdatedTimeAgo.swift in Sources */,
@@ -2064,6 +2060,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2094EC491F088F0900E9E943 /* UnitItemTests.swift in Sources */,
+				2056A8831F08252600B3568D /* IntervalTests.swift in Sources */,
 				206E83661F052AFD0011693C /* ExecTests.swift in Sources */,
 				206CF0791F05745700976146 /* RotatorTests.swift in Sources */,
 				206E83691F052AFD0011693C /* StreamTests.swift in Sources */,
@@ -2136,14 +2134,16 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+					"\"${PODS_ROOT}/Sparkle\"",
+				);
 				INFOPLIST_FILE = Resources/BitBarTests.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.getbitbar.BitBarTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BitBar.app/Contents/MacOS/BitBar";
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/.build/CHTTP $(PROJECT_DIR)/.build/ctls";
@@ -2159,6 +2159,11 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+					"\"${PODS_ROOT}/Sparkle\"",
+				);
 				INFOPLIST_FILE = Resources/BitBarTests.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.getbitbar.BitBarTests;
@@ -2271,15 +2276,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = K6FNT9HXR3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/build/BitBar/Build/Products/Debug",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Packages/build/Debug",
-					"$(PROJECT_DIR)/.build/BitBar/Build/Products/Debug",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2317,7 +2318,6 @@
 					"$(PROJECT_DIR)/build/BitBar/Build/Products/Debug",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Packages/build/Debug",
-					"$(PROJECT_DIR)/.build/BitBar/Build/Products/Debug",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2385,9 +2385,7 @@
 			baseConfigurationReference = B375D0489AFFF4C7FD3EDDB2 /* Pods-ConfigTests.debug.xcconfig */;
 			buildSettings = {
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = K6FNT9HXR3;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Resources/ConfigTests.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../../../Frameworks";
@@ -2421,11 +2419,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FC6488AE5EBBB897CA0B1AFD /* Pods-Config.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = K6FNT9HXR3;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2476,9 +2472,7 @@
 			baseConfigurationReference = 819E38E42CB7A61630A62CDE /* Pods-PluginTests.debug.xcconfig */;
 			buildSettings = {
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = K6FNT9HXR3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
@@ -2503,7 +2497,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../../Frameworks @executable_path/../Frameworks @loader_path/../Frameworks @loader_path/../../../Frameworks @loader_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.getbitbar.ConfigTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -2516,7 +2509,7 @@
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = K6FNT9HXR3;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "ConfigTests copy-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../../Frameworks @executable_path/../Frameworks @loader_path/../Frameworks @loader_path/../../../Frameworks @loader_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.getbitbar.ConfigTests;
@@ -2530,11 +2523,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 38D2A92F8ABF1C83FC04B274 /* Pods-Plugin.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = K6FNT9HXR3;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2550,6 +2541,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.getbitbar.Plugin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -2580,6 +2572,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.getbitbar.Plugin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";

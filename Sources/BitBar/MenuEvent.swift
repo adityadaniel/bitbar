@@ -1,6 +1,7 @@
 import Parser
+import ReSwift
 
-enum MenuEvent: Comparable {
+enum MenuEvent: Comparable, ReSwift.Action {
   case refreshAll
   case quitApplication
   case openPluginFolder
@@ -15,7 +16,7 @@ enum MenuEvent: Comparable {
   case doNotOpenOnLogin
   case installCommandLineInterface
   case openUrlInBrowser(String)
-  case openScriptInTerminal(Action.Script)
+  case openScriptInTerminal(Parser.Action.Script)
   case openPathInTerminal(String)
   case didClickMenuItem
 

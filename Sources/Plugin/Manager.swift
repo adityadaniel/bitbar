@@ -2,22 +2,34 @@ import Config
 import Parser
 import PathKit
 
-final class Manager: Base {
-  private var tray: Tray = Tray(title: "BitBar", isVisible: false)
-  private let config: ConfigFile
-  private var path: Path
-  private var plugins = [Plugin]() {
-    didSet { synchronize() }
-  }
+public protocol Trayable: class {
+  init(title: String, isVisible: Bool)
+  func set(_ tails: [Parser.Menu.Tail])
+  func set(error: String)
+  func set(errors: [String])
+  func set(title: String)
+  func set(title: Parser.Text)
+  func set(errors: [MenuError])
+  func show()
+  func hide()
+}
 
+public final class Manager: Base {
+  internal var tray: Trayable
+  private let config: Config
+  private var path: Path
+  private var plugins = [PluginFile]()
   public var names: [String] { return plugins.map { $0.name } }
+  private let trayable: Trayable.Type
 
   /**
     Read plugins from @path
   */
-  init(_ config: ConfigFile) {
+  public init(_ config: Config = Config(), trayer: Trayable.Type = Tray.self) {
     self.config = config
     self.path = config.path
+    self.trayable = trayer
+    self.tray = trayable.init(title: "BitBar", isVisible: false)
     super.init()
   }
 
@@ -36,7 +48,8 @@ final class Manager: Base {
     let plugin = Plugin(
       path: path,
       config: config,
-      handler: handler
+      handler: handler,
+      trayer: trayable
     )
     handler.delegate = plugin
     plugins.append(
@@ -77,6 +90,14 @@ final class Manager: Base {
         log.error("Could not add \(path) to list of plugins: \(error)")
       }
     }
+
+    if plugins.isEmpty {
+      log.info("Updating \(plugins.count) plugins")
+      tray.show()
+    } else {
+      log.info("No plugins found in manager")
+      tray.hide()
+    }
   }
 
   private func set(error: String) {
@@ -92,15 +113,5 @@ final class Manager: Base {
     }
 
     return []
-  }
-
-  private func synchronize() {
-    if plugins.isPresent {
-      log.info("No plugins found in manager")
-      tray.hide()
-    } else {
-      log.info("Updating \(plugins.count) plugins")
-      tray.show()
-    }
   }
 }
