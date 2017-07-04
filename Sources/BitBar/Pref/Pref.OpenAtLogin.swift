@@ -1,16 +1,17 @@
+import ReSwift
+
 extension Pref {
   class OpenAtLogin: MenuItem {
-    required convenience init(openAtLogin: Bool) {
-      self.init(title: "Open at Login", isChecked: openAtLogin, isClickable: true)
+    required convenience init(openAtLogin ok: Bool) {
+      self.init(title: "Open at Login", isChecked: ok, isClickable: true)
+    }
+
+    override func newState(state: AppState) {
+      isChecked = state.openOnLogin
     }
 
     override func onDidClick() {
-      isChecked = !isChecked
-      if isChecked {
-        broadcast(.openOnLogin)
-      } else {
-        broadcast(.doNotOpenOnLogin)
-      }
+      mainStore.dispatch(.openOnLogin(!isChecked))
     }
   }
 }

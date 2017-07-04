@@ -3,12 +3,13 @@
 
 import Quick
 import Nimble
+import BonMot
 @testable import BitBar
 
 let quotes =  ["\"", "'"]
 let slash = "\\"
 let timeout = 10.0
-let bundle = Bundle(for: ExecutablePluginTests.self)
+let bundle = Bundle(for: MetadataTests.self)
 
 func toFile(_ path: String) -> String {
   let res = path.components(separatedBy: ".")

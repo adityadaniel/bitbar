@@ -3,11 +3,10 @@ import BonMot
 import Async
 import SwiftyBeaver
 import OcticonsSwift
+import ReSwift
 
-class MenuItem: NSMenuItem, Parent, GUI {
-  weak var root: Parent?
+class MenuItem: NSMenuItem, GUI, StoreSubscriber {
   internal let queue = MenuItem.newQueue(label: "MenuItem")
-  private var isError = false
   public var isManualClickable: Bool?
   public let log = SwiftyBeaver.self
 
@@ -33,7 +32,7 @@ class MenuItem: NSMenuItem, Parent, GUI {
     set(title: immutable)
 
     if !submenus.isEmpty {
-      submenu = MenuBase(root: self)
+      submenu = MenuBase()
     }
 
     for sub in submenus {
@@ -49,13 +48,14 @@ class MenuItem: NSMenuItem, Parent, GUI {
         self?.keyEquivalentModifierMask = .option
       }
     }
+
+    mainStore.subscribe(self)
   }
 
-  convenience init(errors: [String], submenus: [NSMenuItem] = []) {
-    self.init(
-      error: "\(errors.count) errors",
-      submenus: errors.map { Menu(title: $0, submenus: []) }
-    )
+  func onWillBecomeVisible() {
+  }
+
+  func onWillBecomeInvisible() {
   }
 
   convenience init(error: String, submenus: [NSMenuItem] = []) {
@@ -118,13 +118,9 @@ class MenuItem: NSMenuItem, Parent, GUI {
     set(title: title.immutable)
   }
 
-  @nonobjc public func set(error: Immutable, cascade: Bool = true) {
+  @nonobjc public func set(error: Immutable) {
     set(title: error)
-    showErrorIcons()
-
-    if cascade {
-      broadcast(.didSetError)
-    }
+    mainStore.dispatch(.didSetError(self))
   }
 
   @nonobjc public func set(title: Immutable) {
@@ -134,10 +130,22 @@ class MenuItem: NSMenuItem, Parent, GUI {
   }
 
   @nonobjc public func set(error: Bool) {
-    if error { showErrorIcons() } else { hideErrorIcons() }
+    if error {
+      showErrorIcons()
+    } else {
+      hideErrorIcons()
+    }
+
+    if let aParent = parent, let bParent = aParent as? MenuItem {
+      bParent.set(error: error)
+    }
   }
 
   public func onDidClick() {
+    /* NOP */
+  }
+
+  func newState(state: AppState) {
     /* NOP */
   }
 
@@ -153,13 +161,11 @@ class MenuItem: NSMenuItem, Parent, GUI {
   @objc public func __onDidClick() {
     log.verbose("Clicked on item in dropdown menu")
     perform { [weak self] in
-      self?.broadcast(.didClickMenuItem)
       self?.onDidClick()
     }
   }
 
   override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-    if isError { return false }
     if let state = isManualClickable {
       return state
     }
@@ -186,19 +192,8 @@ class MenuItem: NSMenuItem, Parent, GUI {
     ])
   }
 
-  public func on(_ event: MenuEvent) {
-    switch event {
-    /* set(error: ...) was used */
-    case .didSetError:
-      set(error: true)
-    default:
-      break
-    }
-  }
-
   private func showErrorIcons() {
     perform { [weak self] in
-      self?.isError = true
       let fontSize = Int(FontType.item.size)
       let size = CGSize(width: fontSize, height: fontSize)
 
@@ -213,7 +208,6 @@ class MenuItem: NSMenuItem, Parent, GUI {
   }
 
   private func hideErrorIcons() {
-    isError = false
     icon = nil
     updateSubmenu()
   }
@@ -236,18 +230,16 @@ class MenuItem: NSMenuItem, Parent, GUI {
   }
 
   private func add(submenu item: NSMenuItem) {
-    if let menu = item as? MenuItem {
-      menu.root = self
-    }
-
-    perform { [weak self] in
-      self?.submenu?.addItem(item)
-    }
+    submenu?.addItem(item)
   }
 
   private func updateSubmenu() {
     perform { [weak self] in
       self?.submenu?.update()
     }
+  }
+
+  deinit {
+    mainStore.unsubscribe(self)
   }
 }

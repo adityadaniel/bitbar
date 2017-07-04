@@ -28,10 +28,6 @@ extension String {
     return "\"" + replace("\n", "↵") + "\""
   }
 
-  func toData() -> Data {
-    return data(using: .utf8)!
-  }
-
   func mutable() -> Mutable {
     return Mutable(string: self)
   }

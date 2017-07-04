@@ -1,9 +1,10 @@
 import FootlessParser
 import Foundation
+import PathKit
 import Dollar
-import Files
 
 enum Metadata: CustomStringConvertible {
+  private typealias P<T> = Parser<Character, T>
   private static let start = "<bitbar."
   private static let trash = til(start, allowEmpty: true, consume: false)
 
@@ -41,7 +42,6 @@ enum Metadata: CustomStringConvertible {
     case "droptypes":
       self = .dropTypes(value.split(delimiter: ",").map { $0.trimmed() })
     case "demo":
-      // TODO: Handle arbitrary whitespace
       self = .demoArgs(value.split(delimiter: " ").map { $0.trimmed() })
     case "abouturl":
       if let url = URL(string: value) {
@@ -84,17 +84,12 @@ enum Metadata: CustomStringConvertible {
     case success([Metadata])
   }
 
-  static var parser: P<[Metadata]> {
+  private static var parser: P<[Metadata]> {
     return oneOrMore(trash *> item <* trash) <|> (zeroOrMore(any()) *> pure([]))
   }
 
   static func from(path: String) throws -> [Metadata] {
-    let file = try Files.File(path: path)
-    let data = try file.read()
-    guard let content = String(data: data, encoding: .utf8) else {
-      throw "Cannot convert content from file \(path) to readable data"
-    }
-    return try FootlessParser.parse(parser, content)
+    return try FootlessParser.parse(parser, try Path(path).read())
   }
 
   // TODO: Dont use this method in MetadataTests

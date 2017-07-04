@@ -5,7 +5,7 @@ extension Pref {
     }
 
     override func onDidClick() {
-      broadcast(.runInTerminal)
+      mainStore.dispatch(.runInTerminal(self))
     }
   }
 }

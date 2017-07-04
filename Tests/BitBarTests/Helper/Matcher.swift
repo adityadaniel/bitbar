@@ -1,7 +1,7 @@
 import Quick
 import Ansi
 import Script
-import Files
+import Plugin
 import Cent
 import Parser
 import Nimble
@@ -10,25 +10,6 @@ import Async
 
 var noShortcut: TestValue { return .noShortcut }
 var noSubMenus: TestValue { return .noSubMenus }
-
-func item(block: @escaping (Menuable) -> Void) {
-  let mock = MockParent()
-  let plugin = PluginFile(
-    file: try! Files.File(path: aFile),
-    delegate: mock
-  )
-
-  waitUntil(timeout: 10) { done in
-    Async.background {
-      repeat {
-        Thread.sleep(forTimeInterval: 0.3)
-      }  while !plugin.hasLoaded
-    }.main {
-      block(plugin)
-      done()
-    }
-  }
-}
 
 func a(_ aMenu: Menuable, at indexes: [Int] = [], block: @escaping (Menuable) -> Void) {
   do {
@@ -231,12 +212,9 @@ func expect(_ menu: Menuable, when: ClickEvent) -> Expectation<Menuable> {
   }
 }
 
-func have(events: [MenuEvent]) -> Predicate<Menuable> {
-  return verify("have events \(events)") { menu in
-    if !menu.isEnabled && !events.isEmpty {
-      return .fail("an unclickable menu")
-    }
-    return .bool(events.sorted() == menu.events.sorted(), menu.events)
+func have(events this: [MenuEvent]) -> Predicate<Menuable> {
+  return verify("have events \(events)") { _ in
+    return .bool(events == this, this)
   }
 }
 
@@ -254,7 +232,8 @@ func receive(_ events: [MenuEvent], from indexes: [Int]) -> Predicate<Menuable> 
       child.onDidClick()
       clicked = true
     }
-    return .bool(events.sorted() == parent.events.sorted(), parent.events)
+
+    return .bool(events == parent.events, parent.events)
   }
 }
 

@@ -1,13 +1,14 @@
 import Foundation
 import Cocoa
 import SwiftyBeaver
+import Plugin
 
 class RefreshPluginHandler {
-  private weak var manager: PluginManager?
+  private weak var manager: Manager?
   private let queries: [String: String]
   private let log = SwiftyBeaver.self
 
-  init(_ queries: [String: String], manager: PluginManager) {
+  init(_ queries: [String: String], manager: Manager) {
     self.queries = queries
     self.manager = manager
   }
@@ -21,7 +22,7 @@ class RefreshPluginHandler {
       return log.error("Plugin manager has been deallocated")
     }
 
-    for plugin in manager.plugins(byName: name) {
+    for plugin in manager.search(byName: name) {
       plugin.refresh()
     }
   }

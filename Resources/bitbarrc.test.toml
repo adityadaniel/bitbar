@@ -1,0 +1,82 @@
+[global]
+# Refresh all menu bar items when waking up from sleep
+refresh-on-wake = true
+
+# Start BitBar on boot
+start-on-boot = true
+
+cycle-interval = "10s"
+ignore-files = [".*", ".git"]
+terminal-app = "iTerm"
+
+cli-port = 1234
+cli-enabled = true
+
+env = { env3 = "global" }
+args = ["global1", "global2"]
+
+[[plugin]]
+
+name = "uptime.plugin.sh"
+enabled = true
+font-family = "Mono"
+args = ["arg1", "arg2", "arg3"]
+env = { env1 = "value1", env2 = "value2" }
+font-size = 10
+
+[[plugin]]
+name = "env.plugin.sh"
+env = { env1 = "value1", env2 = "value2" }
+
+[[plugin]]
+
+name = "cycleInterval.plugin.sh"
+cycle-interval = "10m"
+
+[[plugin]]
+
+name = "cycleInterval.fallback.sh"
+
+[[plugin]]
+
+name = "no-font.sh"
+
+[[plugin]]
+
+name = "ci-sec.plugin.sh"
+cycle-interval = "10s"
+
+[[plugin]]
+
+name = "ci-min.plugin.sh"
+cycle-interval = "10m"
+
+[[plugin]]
+
+name = "ci-hours.plugin.sh"
+cycle-interval = "10h"
+
+[[plugin]]
+
+name = "ci-days.plugin.sh"
+cycle-interval = "10d"
+
+[[plugin]]
+
+name = "ci-invalid.plugin.sh"
+cycle-interval = "invalid"
+
+[[plugin]]
+
+name = "disabled.plugin.sh"
+enabled = false
+
+[[plugin]]
+
+name = "default.plugin.sh"
+
+[[plugin]]
+
+name = "enabled.plugin.sh"
+enabled = true
+

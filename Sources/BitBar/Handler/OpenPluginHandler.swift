@@ -3,16 +3,14 @@ import Alamofire
 import SwiftyBeaver
 import Cocoa
 
-class OpenPluginHandler: Parent, GUI {
+class OpenPluginHandler: GUI {
   internal let queue = OpenPluginHandler.newQueue(label: "OpenPluginHandler")
-  internal weak var root: Parent?
   private let fileManager = FileManager.default
   private let queries: [String: String]
   internal let log = SwiftyBeaver.self
 
-  init(_ queries: [String: String], parent: Parent) {
+  init(_ queries: [String: String]) {
     self.queries = queries
-    self.root = parent
   }
 
   public func execute() {
@@ -87,7 +85,7 @@ class OpenPluginHandler: Parent, GUI {
         return self.log.error("\(file.absoluteString): \(error.localizedDescription)")
       }
 
-      self.broadcast(.refreshAll)
+      mainStore.dispatch(.refreshAll)
     }
   }
 }

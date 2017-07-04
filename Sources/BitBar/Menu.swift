@@ -65,7 +65,7 @@ class Menu: MenuItem, Scriptable {
     case .separator:
       preconditionFailure("[Bug] Tails as separators isn't supported")
     case let .error(messages):
-      self.init(errors: messages.map { String(describing: $0) })
+      self.init(error: messages.map { String(describing: $0) }.joined(separator: "\n"))
     }
   }
 
@@ -74,17 +74,19 @@ class Menu: MenuItem, Scriptable {
     switch paction {
     case .nop: return
     case let .href(url, events):
-      broadcast(.openUrlInBrowser(url))
+      mainStore.dispatch(.openUrlInBrowser(url))
       if events.has(.refresh) {
-        broadcast(.refreshPlugin)
+        mainStore.dispatch(.refreshPlugin(self))
       }
     case let .script(script) where script.openInTerminal:
-     broadcast(.openScriptInTerminal(script))
-      if script.refreshAfterExec { broadcast(.refreshPlugin) }
+    mainStore.dispatch(.openScriptInTerminal(script))
+    if script.refreshAfterExec {
+      mainStore.dispatch(.refreshPlugin(self))
+    }
     case let .script(script):
       self.script = Script(path: script.path, args: script.args, delegate: self, autostart: true)
     case .refresh:
-      broadcast(.refreshPlugin)
+      mainStore.dispatch(.refreshPlugin(self))
     }
   }
 
@@ -92,7 +94,7 @@ class Menu: MenuItem, Scriptable {
   func scriptDidReceive(success: Script.Success) {
     switch paction {
     case let .script(script) where script.refreshAfterExec:
-      broadcast(.refreshPlugin)
+      mainStore.dispatch(.refreshPlugin(self))
     default:
       break
     }

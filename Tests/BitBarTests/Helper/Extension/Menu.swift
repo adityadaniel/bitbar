@@ -3,7 +3,6 @@ import Parser
 @testable import BitBar
 
 extension MenuItem: Menuable {
-  var items: [NSMenuItem] { return submenu?.items ?? [] }
   var banner: Mutable {
     if let attr = attributedTitle {
       return Mutable(attributedString: attr)

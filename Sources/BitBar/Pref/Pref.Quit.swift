@@ -5,7 +5,7 @@ extension Pref {
     }
 
     override func onDidClick() {
-      broadcast(.quitApplication)
+      mainStore.dispatch(.quitApplication)
     }
   }
 }

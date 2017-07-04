@@ -18,7 +18,6 @@ protocol Menuable: class {
   var items: [NSMenuItem] { get }
   var act: Action { get }
   func onWillBecomeVisible()
-  weak var root: Parent? { get set }
   func get(at: [Int], rem: [Int]) throws -> Menuable
   func onDidClick()
 }
@@ -70,6 +69,5 @@ extension Menuable {
   func set(parent: MockParent) {
     menuRefs[parent] = self
     eventRefs[id] = []
-    root = parent
   }
 }

@@ -24,7 +24,7 @@ lane :test do; scan; end
 
 desc "Build and zip application"
 lane :package do
-  enable_manual_provisioning
+  # enable_manual_provisioning
   build
   sh "hdiutil create -volname BitBar -srcfolder ../Dist/BitBar.app -ov -format UDZO ../Dist/BitBar.dmg"
 end

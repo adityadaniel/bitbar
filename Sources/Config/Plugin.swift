@@ -1,42 +1,58 @@
 import Toml
+import FootlessParser
 
+public typealias PluginConfig = Plugin
 public struct Plugin {
   private let global: Toml
-  private let plugin: Toml
+  private let plugin: Toml?
 
-  public init(global: Toml, plugin: Toml) {
+  public init(global: Toml, plugin: Toml? = nil) {
     self.global = global
     self.plugin = plugin
   }
 
-  public var name: String {
-    return get(key: "name", otherwise: "no-name")
+  public var name: String? {
+    return get(.name)
   }
 
-  public var cycleInterval: String {
-    return get(key: "cycle-interval", otherwise: "50s")
+  public var cycleInterval: Double {
+    return get(.cycleInterval, 10.0)
   }
 
-  public var refreshOnWakeup: Bool {
-    return get(key: "refresh-on-wakeup", otherwise: true)
-  }
-
-  public var startOnBoot: Bool {
-    return get(key: "start-on-boot", otherwise: false)
+  public var isEnabled: Bool {
+    return get(.enabled, true)
   }
 
   public var fontFamily: String? {
-    return get(key: "font-family", otherwise: nil)
+    return get(.fontFamily)
   }
 
-  private func get<T>(key: String, otherwise: T) -> T {
-    do {
-      if let value: T = try plugin.value(key) { return value }
-      if let value: T = try global.value(key) { return value }
-    } catch {
-      return otherwise
-    }
+  public var fontSize: Int? {
+    return get(.fontSize)
+  }
 
-    return otherwise
+  public var args: [String] {
+    return get(.args, [])
+  }
+
+  public var env: [String: String] {
+    switch (plugin?.get(.env), global.get(.env)) {
+    case let (.some(pEnv), .some(gEnv)):
+      return gEnv + pEnv
+    case let (.none, .some(gEnv)):
+      return gEnv
+    case let (.some(pEnv), .none):
+      return pEnv
+    default:
+      return [:]
+    }
+  }
+
+  private func get<In, Out>(_ param: Param<In, Out>, _ otherwise: Out) -> Out {
+    return get(param) ?? otherwise
+  }
+
+  private func get<In, Out>(_ param: Param<In, Out>) -> Out? {
+    return plugin?.get(param) ?? global.get(param)
   }
 }

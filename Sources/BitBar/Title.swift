@@ -1,6 +1,7 @@
 import Parser
 import BonMot
 import Async
+import Plugin
 
 final class Title: MenuBase {
   private let ago = Pref.UpdatedTimeAgo()
@@ -8,11 +9,10 @@ final class Title: MenuBase {
   private var numberOfPrefs = 0
   internal var hasLoaded: Bool = false
 
-  init(prefs: [NSMenuItem], delegate root: Parent? = nil) {
-    super.init(root: root)
+  init(prefs: [NSMenuItem]) {
+    super.init()
     self.numberOfPrefs = 4
     self.delegate = self
-
     add(submenu: NSMenuItem.separator(), at: 0)
     add(submenu: ago, at: 1)
     add(submenu: runInTerminal, at: 2)

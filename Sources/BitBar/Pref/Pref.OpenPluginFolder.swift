@@ -5,7 +5,7 @@ extension Pref {
     }
 
     override func onDidClick() {
-      broadcast(.openPluginFolder)
+      mainStore.dispatch(.openPluginFolder)
     }
   }
 }

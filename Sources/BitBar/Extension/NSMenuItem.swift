@@ -12,6 +12,4 @@ extension NSMenuItem {
 
     return menu.title.trimmed() == "-"
   }
-
-  func onWillBecomeVisible() {}
 }

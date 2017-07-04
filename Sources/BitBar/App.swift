@@ -2,6 +2,9 @@ import ServiceManagement
 import Async
 import AppKit
 import SwiftyUserDefaults
+import Config
+import Parser
+import Script
 
 #if DEBUG
   var Defaults = UserDefaults(suiteName: "\(App.id).Debug")!
@@ -68,6 +71,22 @@ class App {
     open(url: URL(string: url)!)
   }
 
+  static func open(script: String, args: [String] = []) {
+    App.openScript(inTerminal: script, args: args) { maybe in
+      if let error = maybe {
+        log.error("Could not open \(script) in terminal: \(error)")
+      }
+    }
+  }
+
+  static func open(script: Action.Script) {
+    open(script: script.path, args: script.args)
+  }
+
+  static func open(script: Script) {
+    open(script: script.path, args: script.args)
+  }
+
   /**
     Open @path in Finder
   */
@@ -125,24 +144,25 @@ class App {
   }
 
   static var port: Int {
-    let defaultPort = 9120
-    let dict = plist
-
-    if isInTestMode(), let port = dict["TestPort"] as? Int {
-      return port
-    }
-
-    #if DEBUG
-      if let port = dict["DevPort"] as? Int {
-        return port
-      }
-    #else
-      if let port = dict["ProdPort"] as? Int {
-        return port
-      }
-    #endif
-
-    return defaultPort
+    return config.cliPort
+    // let defaultPort = 9120
+    // let dict = plist
+    //
+    // if isInTestMode(), let port = dict["TestPort"] as? Int {
+    //   return port
+    // }
+    //
+    // #if DEBUG
+    //   if let port = dict["DevPort"] as? Int {
+    //     return port
+    //   }
+    // #else
+    //   if let port = dict["ProdPort"] as? Int {
+    //     return port
+    //   }
+    // #endif
+    //
+    // return defaultPort
   }
 
   static var version: String {
@@ -191,4 +211,5 @@ class App {
 
   private static let currentBundle = Bundle.main
   private static let helperId = "com.getbitbar.Startup"
+  static let config = Config()
 }
